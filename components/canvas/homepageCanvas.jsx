@@ -230,7 +230,7 @@ export default function homepageCanvas() {
           enablePan={false}
           maxPolarAngle={Math.PI / 2.2}
           minPolarAngle={Math.PI / 2.2}
-          autoRotate
+          // autoRotate
         />
         <Forest />
         <River />

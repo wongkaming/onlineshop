@@ -37,7 +37,7 @@ const OneItem = ({ data, price, like }) => {
   }, []);
 
   return (
-    <div className="border border-white bg-white pb-5 min-h-[280px] min-w-[200px] flex flex-col">
+    <div className="border border-white bg-white pb-5 w-[242px] h-[443px]">
       <a target="_blank" href={`goods/${data.category}/${data._id}`}>
         <Image
           src={data.galleryWrap[0]}

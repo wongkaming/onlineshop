@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,  Component } from "react";
 import { ItemList, ConfigButton } from "@/components/";
 import { CategoryList } from "@/constants";
 import transition from "../transition";
@@ -26,78 +26,84 @@ const AllItem = ({ category }) => {
   return <ItemList data={data} />;
 };
 
-let arr = [];
+class Menu extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      visible: true,
+      visibleMenuId: ["tag0"],
+      tags: []
+    };
+
+  }
+
+  handleOpenMenu = (id) => {
+    if (this.state.visibleMenuId.includes(id)) {
+      const updatedVisibleMenuId = this.state.visibleMenuId.filter((menuId) => menuId !== id);
+      this.setState({ visibleMenuId: updatedVisibleMenuId });
+    } else {
+      this.setState({ visibleMenuId: [...this.state.visibleMenuId, id] });
+    }
+  }
+
+  render() {
+    const { CategoryList, handleTopsChange } = this.props;
+
+    const tags = CategoryList.map((e, index) => (
+      <div className="flex flex-col px-10 border-b border-gray-600" >
+        <ConfigButton subtitle={e.subtitle} id={"tag"+index} onClick={() => this.handleOpenMenu("tag"+index)} />
+        <div className="flex justify-start flex-col w-full items-start">
+          <ul className={this.state.visibleMenuId.includes("tag"+index) ? 'visible' : 'hidden'}>
+            {e.title.map((d, index) => (
+              <li className="checkbox space-x-6" key={index}>
+                <input
+                  id={"checkbox" + index}
+                  type="checkbox"
+                  key={index}
+                  name={d.toLowerCase()}
+                  onClick={handleTopsChange}
+                />
+                <label
+                  htmlFor={"checkbox" + index}
+                  className="text-base leading-4"
+                >
+                  {d}
+                </label>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ));
+
+    return (
+      <div>
+        {tags}
+      </div>
+    );
+  }
+}
 
 const CategoryMenu = () => {
-  let [rotate, setRotate] = useState("rotate-0");
-  let [rotate2, setRotate2] = useState("rotate-0");
-  let [hidden, setHidden] = useState(" pb-6");
-  let [hidden2, setHidden2] = useState(" pb-6");
-
-  const showMenu1 = () => {
-    if (rotate == "rotate-0") {
-      setRotate("rotate-180");
-      setHidden("hidden  pb-6");
-    } else if (rotate == "rotate-180") {
-      setRotate("rotate-0");
-      setHidden(" pb-6");
-    }
-  };
-  const showMenu2 = () => {
-    if (rotate2 == "rotate-0") {
-      setRotate2("rotate-180");
-      setHidden2("hidden  pb-6");
-    } else if (rotate2 == "rotate-180") {
-      setRotate2("rotate-0");
-      setHidden2(" pb-6");
-    }
-  };
-
-  const [category, setCategory] = useState(arr);
+  const [category, setCategory] = useState([]);
 
   const handleTopsChange = (event) => {
-    if (event.target.checked) {
-      arr.push(event.target.name);
-      setCategory(arr.toString());
-    } else {
-      const index = arr.indexOf(event.target.name);
-      if (index > -1) {
-        arr.splice(index, 1);
+    const targetName = event.target.name;
+    setCategory((prevCategory) => {
+      if (event.target.checked) {
+        return [...prevCategory, targetName];
+      } else {
+        return prevCategory.filter((item) => item !== targetName);
       }
-      setCategory(arr.toString());
-    }
+    });
   };
 
   return (
-    <section className="flex justify-normal py-6 px-24">
+    <section className="flex justify-center py-6 px-24">
       <div className="xl:rounded-r transform xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-full w-full sm:w-64 flex-col">
         <h1 className="flex px-10 font-bold">Filter By</h1>
-        {CategoryList.map((e) => (
-          <div className="flex flex-col px-10 border-b border-gray-600">
-            <ConfigButton subtitle={e.subtitle} />
-            <div className="flex justify-start flex-col w-full items-start ">
-              <ul className={hidden}>
-                {e.title.map((d, index) => (
-                  <li className="checkbox space-x-6 " key={index}>
-                    <input
-                      id={"checkbox" + index}
-                      type="checkbox"
-                      key={index}
-                      name={d.toLowerCase()}
-                      onChange={handleTopsChange}
-                    />
-                    <label
-                      htmlFor={"checkbox" + index}
-                      className="text-base leading-4"
-                    >
-                      {d}
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
+        <Menu CategoryList={CategoryList} handleTopsChange={handleTopsChange} />
       </div>
       <AllItem category={category} />
     </section>
