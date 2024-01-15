@@ -20,7 +20,7 @@ const ItemList = ({ data }) => {
   let curr;
 
   return (
-    <div className="pl-24 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+    <div className="pl-24 grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 auto-rows-auto">
       {data &&
         data.map((d, index) => {
           if (change == true) {

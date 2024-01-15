@@ -5,7 +5,6 @@ import { CurrencyContext } from "@/context/currencyContext";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import AuthService from "../hook/item";
-import { LightContext } from "@/context/lightContext";
 import EmblaCarousel from "./EmblaCarousel";
 
 const ItemDetailCanvas = dynamic(() => import("./canvas/itemdetail"), {

@@ -1,18 +1,9 @@
 "use client";
-import React, {
-  Suspense,
-  useState,
-  useEffect,
-  useRef,
-  useContext,
-  lazy,
-} from "react";
+import React, { Suspense, useState, useContext } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls, Html, Environment, Preload } from "@react-three/drei";
 import { CiCircleInfo } from "react-icons/ci";
-import { motion } from "framer-motion-3d";
-import { useMotionValue, useSpring } from "framer-motion";
 import CanvasLoader from "../canvasloader";
 import LightProvider, { LightContext } from "@/context/lightContext";
 import Hdr from "./hdr.json";
