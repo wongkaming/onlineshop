@@ -37,44 +37,48 @@ const OneItem = ({ data, price, like }) => {
   }, []);
 
   return (
-    <div className="border border-white bg-white pb-5 ">
-      <a target="_blank" href={`goods/${data.category}/${data._id}`}>
-        <Image
-          src={data.galleryWrap[0]}
-          alt=""
-          width={240}
-          height={360}
-          unoptimized={true}
-        />
-      </a>
-      <h3 className="mt-1 p-2 text-[14px] max-w-[240px] truncate">
-        {data.title}
-      </h3>
-      <div className="flex justify-between pl-2 pr-4">
-        <p className=" text-[16px] font-bold">{price}</p>
+    <div>
+      <div className="border border-white">
+        <a target="_blank" href={`goods/${data.category}/${data._id}`}>
+          <Image
+            src={data.galleryWrap[0]}
+            alt=""
+            width={240}
+            height={360}
+            unoptimized={true}
+          />
+        </a>
+      </div>
+      <div className="bg-white pb-5 border border-white">
+        <h3 className="mt-1 p-2 text-[14px] max-w-[240px] truncate">
+          {data.title}
+        </h3>
+        <div className="flex justify-between pl-2 pr-4">
+          <p className=" text-[16px] font-bold">{price}</p>
 
-        {liked == false && (
-          <a id={data._id} onClick={toggleFavorite}>
-            <GoHeart
-              style={{
-                width: "1.5em",
-                height: "1.5em",
-                color: "black",
-              }}
-            />
-          </a>
-        )}
-        {liked == true && (
-          <a id={data._id} onClick={toggleUnlike}>
-            <GoHeartFill
-              style={{
-                width: "1.5em",
-                height: "1.5em",
-                color: "black",
-              }}
-            />
-          </a>
-        )}
+          {liked == false && (
+            <a id={data._id} onClick={toggleFavorite}>
+              <GoHeart
+                style={{
+                  width: "1.5em",
+                  height: "1.5em",
+                  color: "black",
+                }}
+              />
+            </a>
+          )}
+          {liked == true && (
+            <a id={data._id} onClick={toggleUnlike}>
+              <GoHeartFill
+                style={{
+                  width: "1.5em",
+                  height: "1.5em",
+                  color: "black",
+                }}
+              />
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );

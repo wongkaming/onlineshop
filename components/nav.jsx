@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from 'next/image';
 import AuthService from "../hook/auth";
 import SearchBar from "../components/searchbar";
 import styles from "./layout.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import menu from "../public/menu.svg";
-import close from "../public/close.svg";
+import { menu, close } from "@/public";
 import { navLinks } from "../constants/index";
 
 const Shop = () => {
@@ -78,7 +78,7 @@ const layout = ({ children, returnBack }) => {
             </p>
           </Link>
 
-          <ul className="list-none hidden sm:flex flex-row gap-10 items-center ps-52">
+          <ul className="list-none hidden lg:flex flex-row gap-10 items-center ps-52">
             <li className="hover:text-[#b5cce8] cursor-pointer">
               <Shop />
             </li>
@@ -89,7 +89,7 @@ const layout = ({ children, returnBack }) => {
             ))}
           </ul>
 
-          <ul className="list-none hidden sm:flex flex-row gap-10 items-center">
+          <ul className="list-none hidden lg:flex flex-row gap-10 items-center">
             <li>
               <SearchBar />
             </li>
@@ -120,11 +120,17 @@ const layout = ({ children, returnBack }) => {
             </li>
           </ul>
 
-          <div className="sm:hidden flex flex-1 justify-end items-center">
-            <img
+          <div className="lg:hidden flex flex-1 justify-end items-center">
+            <ul className="px-10">
+              <li className="text-black">
+                <SearchBar />
+              </li>
+            </ul>
+
+            <Image
               src={toggle ? close : menu}
               alt="menu"
-              className="w-[28px] h-[28px] object-contain"
+              className="w-[18px] h-[18px] object-contain"
               onClick={() => setToggle(!toggle)}
             />
 

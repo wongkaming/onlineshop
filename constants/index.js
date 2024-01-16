@@ -1,3 +1,5 @@
+import { Festive } from "next/font/google";
+
  
 export const navLinks = [
 {
@@ -23,7 +25,10 @@ export const CategoryList = [
         subtitle: "Tags",
         title: ['Bestsellers', 'Sales', 'New']
     },
-
+    {
+        subtitle: "Styles",
+        title: ['Cool', 'Cute', 'Dreamy', 'Elegant', 'Festive', 'Romantic', 'Free', 'Grunge', 'Minimalist', 'Nostalgic', 'Sexy']
+    },
 ];
 
 

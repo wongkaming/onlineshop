@@ -1,8 +1,10 @@
 "use client";
 import React, { useEffect, useState, Component } from "react";
+import Image from 'next/image';
 import { ItemList, ConfigButton } from "@/components/";
 import { CategoryList } from "@/constants";
 import transition from "../transition";
+import { menu } from "@/public";
 
 const AllItem = ({ category }) => {
   const [data, setData] = useState(null);
@@ -32,7 +34,7 @@ class Menu extends React.Component {
 
     this.state = {
       visible: true,
-      visibleMenuId: ["tag0"],
+      visibleMenuId: ["tag0","tag1","tag2"],
       tags: [],
     };
   }
@@ -52,19 +54,20 @@ class Menu extends React.Component {
     const { CategoryList, handleTopsChange } = this.props;
 
     const tags = CategoryList.map((e, index) => (
-      <div className="flex flex-col px-10 border-b border-gray-600">
+      <div className="flex flex-col px-10 border-b border-gray-600" key={index}>
         <ConfigButton
           subtitle={e.subtitle}
-          id={"tag" + index}
+          key={"tag" + index}
           onClick={() => this.handleOpenMenu("tag" + index)}
         />
-        <div className="flex justify-start flex-col w-full items-start">
+        <div className="flex justify-start flex-col w-full items-start" key={index}>
           <ul
             className={`pb-6 ${
               this.state.visibleMenuId.includes("tag" + index)
                 ? "visible"
                 : "hidden"
             }`}
+            key={index}
           >
             {e.title.map((d, index) => (
               <li className="checkbox space-x-6" key={index}>
@@ -94,6 +97,7 @@ class Menu extends React.Component {
 
 const CategoryMenu = () => {
   const [category, setCategory] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   const handleTopsChange = (event) => {
     const targetName = event.target.name;
@@ -109,13 +113,23 @@ const CategoryMenu = () => {
   return (
     <section className="flex flex-col items-center py-6 md:px-24 min-h-screen">
       <div className="flex justify-center w-full">
-        <div className="xl:rounded-r transform xl:translate-x-0 ease-in-out transition duration-500 justify-start items-start hidden md:flex md:w-64 flex-col">
-          <h1 className="flex px-10 font-bold">Filter By</h1>
+        <div className="hidden lg:flex flex-col justify-start items-start">
+          <h1 className="px-10 font-bold">Filter By</h1>
           <Menu
             CategoryList={CategoryList}
             handleTopsChange={handleTopsChange}
           />
         </div>
+
+        <div className="lg:hidden">
+          <Image
+            src={toggle ? close : menu}
+            alt="menu"
+            className="w-[28px] h-[28px] object-contain"
+            onClick={() => setToggle(!toggle)}
+          />
+        </div>
+
         <AllItem category={category} />
       </div>
     </section>
