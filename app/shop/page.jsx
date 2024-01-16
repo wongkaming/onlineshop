@@ -1,32 +1,11 @@
 "use client";
 import React, { useEffect, useState, Component } from "react";
-import Image from 'next/image';
+import axios from "axios";
+import Image from "next/image";
 import { ItemList, ConfigButton } from "@/components/";
 import { CategoryList } from "@/constants";
 import transition from "../transition";
 import { menu } from "@/public";
-
-const AllItem = ({ category }) => {
-  const [data, setData] = useState(null);
-  const encodedSearchQuery = encodeURI(category);
-
-  useEffect(() => {
-    fetch(
-      `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}`,
-      { method: "get" },
-      { cache: "no-store" }
-    )
-      .then(async function (req) {
-        let data2 = await req.json();
-        setData(data2);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [category]);
-
-  return <ItemList data={data} />;
-};
 
 class Menu extends React.Component {
   constructor(props) {
@@ -34,7 +13,7 @@ class Menu extends React.Component {
 
     this.state = {
       visible: true,
-      visibleMenuId: ["tag0","tag1","tag2"],
+      visibleMenuId: ["tag0", "tag1", "tag2"],
       tags: [],
     };
   }
@@ -60,7 +39,10 @@ class Menu extends React.Component {
           key={"tag" + index}
           onClick={() => this.handleOpenMenu("tag" + index)}
         />
-        <div className="flex justify-start flex-col w-full items-start" key={index}>
+        <div
+          className="flex justify-start flex-col w-full items-start"
+          key={index}
+        >
           <ul
             className={`pb-6 ${
               this.state.visibleMenuId.includes("tag" + index)
@@ -110,6 +92,36 @@ const CategoryMenu = () => {
     });
   };
 
+  const [data, setData] = useState(null);
+  const encodedSearchQuery = encodeURI(category);
+  let [page, setPage] = useState(1);
+
+  useEffect(() => {
+    fetch(
+      `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}?page=1&perPage=10`,
+      { method: "get" },
+      { cache: "no-store" }
+    )
+      .then(async function (req) {
+        let data2 = await req.json();
+        setData(data2);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [category]);
+
+  const morePicture = async () => {
+    setPage(page + 1);
+    let newURL = `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}?page=${
+      page + 1
+    }&perPage=10`;
+
+    let result = await axios.get(newURL);
+    console.log(result.data);
+    setData(data.concat(result.data));
+  };
+
   return (
     <section className="flex flex-col items-center py-6 md:px-24 min-h-screen">
       <div className="flex justify-center w-full">
@@ -130,7 +142,10 @@ const CategoryMenu = () => {
           />
         </div>
 
-        <AllItem category={category} />
+        <div>
+          <ItemList data={data} />
+          <button onClick={morePicture}>Load more...</button>
+        </div>
       </div>
     </section>
   );
