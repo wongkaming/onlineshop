@@ -73,7 +73,11 @@ class Menu extends React.Component {
       </div>
     ));
 
-    return <div className="overflow-auto" style={{ maxHeight: overflowHeight2 }}>{tags}</div>;
+    return (
+      <div className="overflow-auto" style={{ maxHeight: overflowHeight2 }}>
+        {tags}
+      </div>
+    );
   }
 }
 
@@ -113,16 +117,15 @@ const CategoryMenu = () => {
       });
   }, [category]);
 
-
   useEffect(() => {
     const windowHeight = window.innerHeight;
-    setOverflowHeight(`${windowHeight - 105}px`)
-    setOverflowHeight2(`${windowHeight - 200}px`)
+    setOverflowHeight(`${windowHeight - 40}px`);
+    setOverflowHeight2(`${windowHeight - 200}px`);
 
     const handleResize = () => {
       const windowHeight = window.innerHeight;
-      setOverflowHeight(`${windowHeight - 105}px`);
-      setOverflowHeight2(`${windowHeight - 200}px`)
+      setOverflowHeight(`${windowHeight - 40}px`);
+      setOverflowHeight2(`${windowHeight - 200}px`);
     };
 
     window.addEventListener("resize", handleResize);
@@ -132,7 +135,6 @@ const CategoryMenu = () => {
     };
   }, []);
 
-  
   const morePicture = async () => {
     setPage(page + 1);
     let newURL = `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}?page=${
@@ -145,17 +147,18 @@ const CategoryMenu = () => {
   };
 
   return (
-    <section className="box-border flex flex-col items-center md:px-24 max-h-screen">
-      <div className="flex justify-center w-full">
-        <div className="pb-6">
-        <div className="hidden lg:flex flex-col justify-start items-start border border-white backdrop-blur-md bg-white/50">
-          <h1 className="px-10 font-bold">Filter By</h1>
-          <Menu
-            CategoryList={CategoryList}
-            handleTopsChange={handleTopsChange}
-            overflowHeight2={overflowHeight2}
-          />
-        </div></div>
+    <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-10 left-0 right-0">
+      <div className="flex justify-start w-full ">
+        <div className="py-10 pl-10">
+          <div className="hidden lg:flex flex-col justify-start items-start border border-white backdrop-blur-md bg-white/50">
+            <h1 className="px-10 pt-4 font-bold">Filter By</h1>
+            <Menu
+              CategoryList={CategoryList}
+              handleTopsChange={handleTopsChange}
+              overflowHeight2={overflowHeight2}
+            />
+          </div>
+        </div>
 
         <div className="lg:hidden">
           <Image
@@ -166,7 +169,10 @@ const CategoryMenu = () => {
           />
         </div>
 
-        <div className="lg:px-[5%] overflow-auto" style={{ maxHeight: overflowHeight }}>
+        <div
+          className="lg:pl-[5%] overflow-auto pt-10"
+          style={{ maxHeight: overflowHeight }}
+        >
           <ItemList data={data} />
           <button onClick={morePicture}>Load more...</button>
         </div>

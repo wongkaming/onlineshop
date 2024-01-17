@@ -17,7 +17,7 @@ const Currency = ({ onDataSelected }) => {
   };
 
   return (
-    <>
+    <div className="absolute top-12 z-20">
       <select onChange={handleSelectChange}>
         <option value={hkd} id="HKD" className="zh-HK">
           HKD
@@ -29,7 +29,7 @@ const Currency = ({ onDataSelected }) => {
           USD
         </option>
       </select>
-    </>
+    </div>
   );
 };
 

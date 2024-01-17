@@ -7,7 +7,7 @@ const Light = ({ lightSelected }) => {
   };
 
   return (
-    <div>
+    <div className="absolute top-20 z-20">
       <label htmlFor="hdr">Choose a light:</label>
 
       <select id="hdr" onChange={handleSelectLight}>
