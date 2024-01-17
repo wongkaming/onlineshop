@@ -79,9 +79,9 @@ const layout = ({ children, returnBack }) => {
           </Link>
 
           <ul className="list-none hidden lg:flex flex-row gap-10 items-center ps-52">
-            <li className="hover:text-[#b5cce8] cursor-pointer">
+            {/* <li className="hover:text-[#b5cce8] cursor-pointer">
               <Shop />
-            </li>
+            </li> */}
             {navLinks.map((nav) => (
               <li key={nav.id} className="hover:text-[#b5cce8] cursor-pointer">
                 <Link href={`${nav.id}`}>{nav.title}</Link>
@@ -140,9 +140,7 @@ const layout = ({ children, returnBack }) => {
               } p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
             >
               <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
-                <li className="font-poppins cursor-pointer text-info">
-                  <a href="/">brandLogo</a>
-                </li>
+
                 {navLinks.map((nav) => (
                   <li
                     key={nav.id}

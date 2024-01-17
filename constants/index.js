@@ -2,18 +2,22 @@ import { Festive } from "next/font/google";
 
  
 export const navLinks = [
-{
-    id: "/event",
-    title: "Event",
-},
-{
-    id: "/newin",
-    title: "New in",
-},
-{
-    id: "/accessories",
-    title: "Accessories",
-},
+    {
+        id: "/shop",
+        title: "Shop",
+    },
+    {
+        id: "/event",
+        title: "Event",
+    },
+    {
+        id: "/newin",
+        title: "New in",
+    },
+    {
+        id: "/accessories",
+        title: "Accessories",
+    },
 ];
   
 export const CategoryList = [

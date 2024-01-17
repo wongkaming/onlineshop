@@ -13,7 +13,7 @@ class Menu extends React.Component {
 
     this.state = {
       visible: true,
-      visibleMenuId: ["tag0", "tag1", "tag2"],
+      visibleMenuId: ["tag0"],
       tags: [],
     };
   }
@@ -30,7 +30,7 @@ class Menu extends React.Component {
   };
 
   render() {
-    const { CategoryList, handleTopsChange } = this.props;
+    const { CategoryList, handleTopsChange, overflowHeight2 } = this.props;
 
     const tags = CategoryList.map((e, index) => (
       <div className="flex flex-col px-10 border-b border-gray-600" key={index}>
@@ -73,13 +73,15 @@ class Menu extends React.Component {
       </div>
     ));
 
-    return <div>{tags}</div>;
+    return <div className="overflow-auto" style={{ maxHeight: overflowHeight2 }}>{tags}</div>;
   }
 }
 
 const CategoryMenu = () => {
   const [category, setCategory] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [overflowHeight, setOverflowHeight] = useState("auto");
+  const [overflowHeight2, setOverflowHeight2] = useState("auto");
 
   const handleTopsChange = (event) => {
     const targetName = event.target.name;
@@ -111,6 +113,26 @@ const CategoryMenu = () => {
       });
   }, [category]);
 
+
+  useEffect(() => {
+    const windowHeight = window.innerHeight;
+    setOverflowHeight(`${windowHeight - 105}px`)
+    setOverflowHeight2(`${windowHeight - 200}px`)
+
+    const handleResize = () => {
+      const windowHeight = window.innerHeight;
+      setOverflowHeight(`${windowHeight - 105}px`);
+      setOverflowHeight2(`${windowHeight - 200}px`)
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  
   const morePicture = async () => {
     setPage(page + 1);
     let newURL = `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}?page=${
@@ -123,15 +145,17 @@ const CategoryMenu = () => {
   };
 
   return (
-    <section className="flex flex-col items-center py-6 md:px-24 min-h-screen">
+    <section className="box-border flex flex-col items-center md:px-24 max-h-screen">
       <div className="flex justify-center w-full">
-        <div className="hidden lg:flex flex-col justify-start items-start">
+        <div className="pb-6">
+        <div className="hidden lg:flex flex-col justify-start items-start border border-white backdrop-blur-md bg-white/50">
           <h1 className="px-10 font-bold">Filter By</h1>
           <Menu
             CategoryList={CategoryList}
             handleTopsChange={handleTopsChange}
+            overflowHeight2={overflowHeight2}
           />
-        </div>
+        </div></div>
 
         <div className="lg:hidden">
           <Image
@@ -142,7 +166,7 @@ const CategoryMenu = () => {
           />
         </div>
 
-        <div>
+        <div className="lg:px-[5%] overflow-auto" style={{ maxHeight: overflowHeight }}>
           <ItemList data={data} />
           <button onClick={morePicture}>Load more...</button>
         </div>
