@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import WishlistItem from "../hook/item";
-import ClothesBookmarkList from "../components/datalist";
+import { DataList } from "@/components/";
 
 const Wishlist = ({ currentUser, setCurrentUser }) => {
   const handleTakeToLogin = () => {
@@ -60,7 +60,7 @@ const Wishlist = ({ currentUser, setCurrentUser }) => {
       )}
       {currentUser && wishlistData && wishlistData.length != 0 && (
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <ClothesBookmarkList data={wishlistData} currentUser={currentUser} />
+          <DataList data={wishlistData} currentUser={currentUser} />
         </div>
       )}
     </div>

@@ -96,12 +96,13 @@ const CategoryMenu = () => {
         return prevCategory.filter((item) => item !== targetName);
       }
     });
+    setPage(1);
   };
 
   const [data, setData] = useState(null);
   const encodedSearchQuery = encodeURI(category);
   let [page, setPage] = useState(1);
-
+  
   useEffect(() => {
     fetch(
       `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}?page=1&perPage=10`,
@@ -142,13 +143,16 @@ const CategoryMenu = () => {
     }&perPage=10`;
 
     let result = await axios.get(newURL);
-    console.log(result.data);
-    setData(data.concat(result.data));
+    if (result.data.length !== 0) {
+      setData(data.concat(result.data));
+    } else {
+      console.log("no data!");
+    }
   };
 
   return (
     <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-10 left-0 right-0">
-      <div className="flex justify-start w-full ">
+      <div className="flex justify-evenly w-full ">
         <div className="py-10 pl-10">
           <div className="hidden lg:flex flex-col justify-start items-start border border-white backdrop-blur-md bg-white/50">
             <h1 className="px-10 pt-4 font-bold">Filter By</h1>
@@ -170,11 +174,11 @@ const CategoryMenu = () => {
         </div>
 
         <div
-          className="lg:pl-[5%] overflow-auto pt-10"
+          className="px-[5%] overflow-auto pt-10 grow"
           style={{ maxHeight: overflowHeight }}
         >
           <ItemList data={data} />
-          <button onClick={morePicture}>Load more...</button>
+          <button onClick={morePicture}>Waiting on scroll events...</button>
         </div>
       </div>
     </section>

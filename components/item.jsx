@@ -43,14 +43,14 @@ const OneItem = ({ data, price, like }) => {
           <Image
             src={data.galleryWrap[0]}
             alt=""
-            width={240}
-            height={360}
+            width={400}
+            height={600}
             unoptimized={true}
           />
         </a>
       </div>
       <div className="bg-white pb-5 border border-white">
-        <h3 className="mt-1 p-2 text-[14px] max-w-[240px] truncate">
+        <h3 className="mt-1 p-2 text-[14px] max-w-[400px] truncate">
           {data.title}
         </h3>
         <div className="flex justify-between pl-2 pr-4">

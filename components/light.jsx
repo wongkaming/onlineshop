@@ -7,13 +7,13 @@ const Light = ({ lightSelected }) => {
   };
 
   return (
-    <div className="absolute top-20 z-20">
-      <label htmlFor="hdr">Choose a light:</label>
+    <div className="fixed top-14 left-0 z-20">
+      <label htmlFor="hdr">Light:</label>
 
       <select id="hdr" onChange={handleSelectLight}>
         <option value="sunshine">sunshine</option>
-        <option value="studio">studio</option>
         <option value="sunrise">sunrise</option>
+        <option value="night">night</option>
       </select>
     </div>
   );

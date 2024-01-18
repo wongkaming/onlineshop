@@ -8,6 +8,7 @@ import React, {
   Suspense,
 } from "react";
 import * as THREE from "three";
+import { Clock } from "three";
 import {
   Canvas,
   extend,
@@ -191,8 +192,15 @@ function Effect() {
 
 function Rig() {
   const { camera } = useThree();
+  const clock = new Clock();
+
   return useFrame(() => {
+    const t = clock.getElapsedTime();
+    camera.position.x = Math.sin(t * 0.2)*0.5+2.0; // X 轴方向移动
+    camera.position.y = Math.cos(t * 0.2)*0.2+1.5; // Y 轴方向移动
+    camera.position.z = 10; // 固定 Z 轴位置
     camera.lookAt(0, 1.06, 0);
+
   });
 }
 
