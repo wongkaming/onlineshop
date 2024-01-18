@@ -37,19 +37,18 @@ const OneItem = ({ data, price, like }) => {
   }, []);
 
   return (
-    <div>
-      <div className="border border-white">
-        <a target="_blank" href={`goods/${data.category}/${data._id}`}>
-          <Image
-            src={data.galleryWrap[0]}
-            alt=""
-            width={400}
-            height={600}
-            unoptimized={true}
-          />
-        </a>
-      </div>
-      <div className="bg-white pb-5 border border-white">
+    <div className="shadow-md shadow-[#d5e8ff] rounded-md">
+      <a target="_blank" href={`goods/${data.category}/${data._id}`}>
+        <Image
+          src={data.galleryWrap[0]}
+          alt=""
+          width={400}
+          height={600}
+          unoptimized={true}
+          className="border border-white rounded-t-md"
+        />
+      </a>
+      <div className="backdrop-blur-md bg-white/80 hover:bg-white pb-5 border border-white rounded-b-md">
         <h3 className="mt-1 p-2 text-[14px] max-w-[400px] truncate">
           {data.title}
         </h3>

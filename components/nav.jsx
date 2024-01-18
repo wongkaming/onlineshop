@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from 'next/image';
+import Image from "next/image";
 import AuthService from "../hook/auth";
 import SearchBar from "../components/searchbar";
 import styles from "./layout.module.css";
@@ -60,8 +60,8 @@ const layout = ({ children, returnBack }) => {
   return (
     <div>
       <nav
-        className={`w-full flex items-center fixed top-0 py-3 z-20 text-[16px] font-medium hover:bg-black hover:text-white transition duration-300 ease-out hover:ease-in ${
-          scrolled ? "bg-black text-white" : "bg-white"
+        className={`w-full flex items-center fixed top-0 py-3 z-20 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-out hover:ease-in shadow-md shadow-[#d5e8ff]/50 ${
+          scrolled ? "bg-white" : "bg-white/90"
         }`}
       >
         <div className="w-full flex justify-between items-center max-w-8xl mx-auto px-9">
@@ -140,7 +140,6 @@ const layout = ({ children, returnBack }) => {
               } p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
             >
               <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
-
                 {navLinks.map((nav) => (
                   <li
                     key={nav.id}

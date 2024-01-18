@@ -33,7 +33,7 @@ class Menu extends React.Component {
     const { CategoryList, handleTopsChange, overflowHeight2 } = this.props;
 
     const tags = CategoryList.map((e, index) => (
-      <div className="flex flex-col px-10 border-b border-gray-600" key={index}>
+      <div className="flex flex-col px-10 border-b border-white" key={index}>
         <ConfigButton
           subtitle={e.subtitle}
           key={"tag" + index}
@@ -102,7 +102,7 @@ const CategoryMenu = () => {
   const [data, setData] = useState(null);
   const encodedSearchQuery = encodeURI(category);
   let [page, setPage] = useState(1);
-  
+
   useEffect(() => {
     fetch(
       `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}?page=1&perPage=10`,
@@ -153,8 +153,8 @@ const CategoryMenu = () => {
   return (
     <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-10 left-0 right-0">
       <div className="flex justify-evenly w-full ">
-        <div className="py-10 pl-10">
-          <div className="hidden lg:flex flex-col justify-start items-start border border-white backdrop-blur-md bg-white/50">
+        <div className="py-14 pl-10">
+          <div className="hidden lg:flex flex-col justify-start items-start border border-white rounded-md backdrop-blur-md bg-white/50 shadow-md shadow-[#b5cce8]">
             <h1 className="px-10 pt-4 font-bold">Filter By</h1>
             <Menu
               CategoryList={CategoryList}
@@ -174,7 +174,7 @@ const CategoryMenu = () => {
         </div>
 
         <div
-          className="px-[5%] overflow-auto pt-10 grow"
+          className="px-[5%] overflow-auto pt-14 grow"
           style={{ maxHeight: overflowHeight }}
         >
           <ItemList data={data} />
