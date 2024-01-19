@@ -30,21 +30,17 @@ class Menu extends React.Component {
   };
 
   render() {
-    const { CategoryList, handleTopsChange, overflowHeight2 } = this.props;
+    const { CategoryList, handleTopsChange } = this.props;
 
     const tags = CategoryList.map((e, index) => (
-      <div className="flex flex-col px-10 border-b border-white" key={index}>
+      <div className="flex flex-col border-b border-white" key={index}>
         <ConfigButton
           subtitle={e.subtitle}
           key={"tag" + index}
           onClick={() => this.handleOpenMenu("tag" + index)}
         />
-        <div
-          className="flex justify-start flex-col w-full items-start"
-          key={index}
-        >
           <ul
-            className={`pb-6 ${
+            className={`pb-6 flex flex-col w-full items-start ${
               this.state.visibleMenuId.includes("tag" + index)
                 ? "visible"
                 : "hidden"
@@ -52,16 +48,16 @@ class Menu extends React.Component {
             key={index}
           >
             {e.title.map((d, index) => (
-              <li className="checkbox space-x-6" key={index}>
+              <li className="checkbox space-x-6 px-10 hover:bg-white transition duration-300 ease-in-out" key={index}>
                 <input
-                  id={"checkbox" + index}
+                  id={d.replaceAll(' ', '')}
                   type="checkbox"
                   key={index}
                   name={d.toLowerCase()}
                   onClick={handleTopsChange}
                 />
                 <label
-                  htmlFor={"checkbox" + index}
+                  htmlFor={d.replaceAll(' ', '')}
                   className="text-base leading-4"
                 >
                   {d}
@@ -69,12 +65,11 @@ class Menu extends React.Component {
               </li>
             ))}
           </ul>
-        </div>
       </div>
     ));
 
     return (
-      <div className="overflow-auto" style={{ maxHeight: overflowHeight2 }}>
+      <div className="overflow-auto" style={{ maxHeight: `calc(100vh - 200px)` }}>
         {tags}
       </div>
     );
@@ -84,8 +79,6 @@ class Menu extends React.Component {
 const CategoryMenu = () => {
   const [category, setCategory] = useState([]);
   const [toggle, setToggle] = useState(false);
-  const [overflowHeight, setOverflowHeight] = useState("auto");
-  const [overflowHeight2, setOverflowHeight2] = useState("auto");
 
   const handleTopsChange = (event) => {
     const targetName = event.target.name;
@@ -118,24 +111,6 @@ const CategoryMenu = () => {
       });
   }, [category]);
 
-  useEffect(() => {
-    const windowHeight = window.innerHeight;
-    setOverflowHeight(`${windowHeight - 40}px`);
-    setOverflowHeight2(`${windowHeight - 200}px`);
-
-    const handleResize = () => {
-      const windowHeight = window.innerHeight;
-      setOverflowHeight(`${windowHeight - 40}px`);
-      setOverflowHeight2(`${windowHeight - 200}px`);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   const morePicture = async () => {
     setPage(page + 1);
     let newURL = `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}?page=${
@@ -154,12 +129,11 @@ const CategoryMenu = () => {
     <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-10 left-0 right-0">
       <div className="flex justify-evenly w-full ">
         <div className="py-14 pl-10">
-          <div className="hidden lg:flex flex-col justify-start items-start border border-white rounded-md backdrop-blur-md bg-white/50 shadow-md shadow-[#b5cce8]">
+          <div className="hidden lg:flex flex-col justify-start items-start bubble">
             <h1 className="px-10 pt-4 font-bold">Filter By</h1>
             <Menu
               CategoryList={CategoryList}
               handleTopsChange={handleTopsChange}
-              overflowHeight2={overflowHeight2}
             />
           </div>
         </div>
@@ -175,7 +149,7 @@ const CategoryMenu = () => {
 
         <div
           className="px-[5%] overflow-auto pt-14 grow"
-          style={{ maxHeight: overflowHeight }}
+          style={{ maxHeight: `calc(100vh - 40px)` }}
         >
           <ItemList data={data} />
           <button onClick={morePicture}>Waiting on scroll events...</button>

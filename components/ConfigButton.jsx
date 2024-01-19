@@ -6,7 +6,7 @@ class ConfigButton extends Component {
     return (
       <button
         onClick={this.props.onClick}
-        className="focus:outline-none focus:text-white text-left text-black flex justify-between items-center w-full py-5 space-x-14"
+        className="focus:outline-none focus:text-white text-left text-black flex justify-between items-center w-full py-5 px-10 space-x-14"
       >
         <p className="text-sm leading-5 font-bold uppercase">{subtitle}</p>
         <svg

@@ -48,7 +48,7 @@ const OneItem = ({ data, price, like }) => {
           className="border border-white rounded-t-md"
         />
       </a>
-      <div className="backdrop-blur-md bg-white/80 hover:bg-white pb-5 border border-white rounded-b-md">
+      <div className="backdrop-blur-md bg-white/80 hover:bg-white transition duration-300 ease-in-out pb-5 border border-white rounded-b-md">
         <h3 className="mt-1 p-2 text-[14px] max-w-[400px] truncate">
           {data.title}
         </h3>

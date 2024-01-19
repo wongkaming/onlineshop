@@ -20,7 +20,7 @@ const DataList = ({ data, currentUser }) => {
   let curr;
 
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-5">
+    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 xl:grid-cols-5">
       {data &&
         data.map((d, index) => {
           if (change == true) {

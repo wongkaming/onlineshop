@@ -7,9 +7,8 @@ const Light = ({ lightSelected }) => {
   };
 
   return (
-    <div className="fixed top-14 left-0 z-20">
-      <label htmlFor="hdr">Light:</label>
-
+    <div className="fixed top-14 left-14 z-20">
+      {/* <label htmlFor="hdr">Light:</label> */}
       <select id="hdr" onChange={handleSelectLight}>
         <option value="sunshine">sunshine</option>
         <option value="sunrise">sunrise</option>

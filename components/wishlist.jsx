@@ -36,34 +36,36 @@ const Wishlist = ({ currentUser, setCurrentUser }) => {
   }, [currentUser]); //意思是根据 currentUser 的变化来触发 useEffect; 当 currentUser 发生变化时，useEffect 才会重新运行
 
   return (
-    <div style={{ padding: "3rem" }}>
-      {!currentUser && (
-        <div>
-          <p>您必須先登入才能看到課程。</p>
-          <button
-            className="btn btn-primary btn-lg"
-            onClick={handleTakeToLogin}
-          >
-            回到登入頁面
-          </button>
-        </div>
-      )}
-      {currentUser && currentUser.user.role == "admin" && (
-        <div>
-          <h1>歡迎來到Admin頁面。</h1>
-        </div>
-      )}
-      {currentUser && currentUser.user.role == "user" && (
-        <div>
-          <h1>歡迎來到User頁面。</h1>
-        </div>
-      )}
-      {currentUser && wishlistData && wishlistData.length != 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <DataList data={wishlistData} currentUser={currentUser} />
-        </div>
-      )}
-    </div>
+    <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-10 left-0 right-0">
+      <div className="flex justify-evenly w-full">
+        {!currentUser && (
+          <div>
+            <p>您必須先登入才能看到課程。</p>
+            <button
+              className="btn btn-primary btn-lg"
+              onClick={handleTakeToLogin}
+            >
+              回到登入頁面
+            </button>
+          </div>
+        )}
+        {currentUser && currentUser.user.role == "admin" && (
+          <div>
+            <h1>歡迎來到Admin頁面。</h1>
+          </div>
+        )}
+        {currentUser && currentUser.user.role == "user" && (
+          <div>
+            <h1>歡迎來到User頁面。</h1>
+          </div>
+        )}
+        {currentUser && wishlistData && wishlistData.length != 0 && (
+          <div className="px-[5%] overflow-auto pt-14 grow">
+            <DataList data={wishlistData} currentUser={currentUser} />
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 

@@ -118,10 +118,9 @@ const ItemPage = ({ data, like }) => {
           <ItemDetailCanvas url={data.model3d} />
         </div>
 
-        <div className="top-0 right-0 absolute transform xl:translate-x-0 ease-in-out transition duration-500 flex items-start h-full w-full md:w-3/5 flex-col backdrop-blur-sm bg-opacity-40 bg-white">
-          <div className="container pt-24">
-            <div className="px-12">
-              <ul>
+        <div className="overflow-auto top-0 md:top-20 md:right-10 absolute flex flex-col items-start h-full md:h-[85%] w-full md:w-3/5 bubble">
+            <div className="pt-24 md:pt-10 px-12">
+              <ul className="flex flex-col">
                 <li className="flex justify-between">
                   <p className="text-[24px] text-[#5a6674]">{data.title}</p>
                   {liked == false && (
@@ -131,7 +130,6 @@ const ItemPage = ({ data, like }) => {
                           width: "2em",
                           height: "2em",
                           color: "black",
-                          display: "block",
                         }}
                       />
                     </a>
@@ -143,7 +141,6 @@ const ItemPage = ({ data, like }) => {
                           width: "2em",
                           height: "2em",
                           color: "black",
-                          display: "block",
                         }}
                       />
                     </a>
@@ -276,7 +273,6 @@ const ItemPage = ({ data, like }) => {
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 };

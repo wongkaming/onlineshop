@@ -66,6 +66,15 @@
 
 }
 
+.bubble {
+  border-radius: 0.375rem;
+  border-width: 1px;
+  border-color: rgb(255 255 255);
+  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 6px -1px #b5cce8, 0 2px 4px -2px #b5cce8;
+}
+
 /* width */
 ::-webkit-scrollbar {
 width: 0px;

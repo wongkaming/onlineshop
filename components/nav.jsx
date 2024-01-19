@@ -60,7 +60,7 @@ const layout = ({ children, returnBack }) => {
   return (
     <div>
       <nav
-        className={`w-full flex items-center fixed top-0 py-3 z-20 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-out hover:ease-in shadow-md shadow-[#d5e8ff]/50 ${
+        className={`w-full flex items-center fixed top-0 py-3 z-20 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50 ${
           scrolled ? "bg-white" : "bg-white/90"
         }`}
       >
@@ -78,7 +78,7 @@ const layout = ({ children, returnBack }) => {
             </p>
           </Link>
 
-          <ul className="list-none hidden lg:flex flex-row gap-10 items-center ps-52">
+          <ul className="list-none hidden xl:flex flex-row gap-10 items-center ps-52">
             {/* <li className="hover:text-[#b5cce8] cursor-pointer">
               <Shop />
             </li> */}
@@ -89,7 +89,7 @@ const layout = ({ children, returnBack }) => {
             ))}
           </ul>
 
-          <ul className="list-none hidden lg:flex flex-row gap-10 items-center">
+          <ul className="list-none hidden xl:flex flex-row gap-10 items-center">
             <li>
               <SearchBar />
             </li>
@@ -120,7 +120,7 @@ const layout = ({ children, returnBack }) => {
             </li>
           </ul>
 
-          <div className="lg:hidden flex flex-1 justify-end items-center">
+          <div className="xl:hidden flex flex-1 justify-end items-center">
             <ul className="px-10">
               <li className="text-black">
                 <SearchBar />
