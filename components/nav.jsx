@@ -9,6 +9,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { menu, close } from "@/public";
 import { navLinks } from "../constants/index";
+import { CiHeart, CiShoppingCart } from "react-icons/ci";
+import { IoPersonOutline } from "react-icons/io5";
 
 const Shop = () => {
   const [showDropdown, setShowDropdown] = useState(true);
@@ -60,7 +62,7 @@ const layout = ({ children, returnBack }) => {
   return (
     <div>
       <nav
-        className={`w-full flex items-center fixed top-0 py-3 z-20 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50 ${
+        className={`w-full flex items-center fixed top-0 py-2 z-20 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50 ${
           scrolled ? "bg-white" : "bg-white/90"
         }`}
       >
@@ -78,7 +80,7 @@ const layout = ({ children, returnBack }) => {
             </p>
           </Link>
 
-          <ul className="list-none hidden xl:flex flex-row gap-10 items-center ps-52">
+          <ul className="list-none hidden lg:flex flex-row gap-10 items-center ps-52">
             {/* <li className="hover:text-[#b5cce8] cursor-pointer">
               <Shop />
             </li> */}
@@ -89,7 +91,7 @@ const layout = ({ children, returnBack }) => {
             ))}
           </ul>
 
-          <ul className="list-none hidden xl:flex flex-row gap-10 items-center">
+          <ul className="list-none hidden lg:flex flex-row gap-5 items-center">
             <li>
               <SearchBar />
             </li>
@@ -101,12 +103,16 @@ const layout = ({ children, returnBack }) => {
             )}
             {currentUser && (
               <li>
-                <Link href="/profile">Profile</Link>
+                <Link href="/profile">
+                  <IoPersonOutline className="w-[20px] h-[20px]" />
+                </Link>
               </li>
             )}
             {currentUser && currentUser.user.role == "user" && (
               <li>
-                <Link href="/favour">Favour</Link>
+                <Link href="/favour">
+                  <CiHeart className="w-[24px] h-[24px]" />
+                </Link>
               </li>
             )}
             {currentUser && currentUser.user.role == "admin" && (
@@ -116,71 +122,112 @@ const layout = ({ children, returnBack }) => {
             )}
 
             <li>
-              <Link href="/cart">Cart</Link>
+              <CiShoppingCart
+                className="w-[24px] h-[24px]"
+                onClick={() => setToggle(!toggle)}
+              />
             </li>
           </ul>
 
-          <div className="xl:hidden flex flex-1 justify-end items-center">
-            <ul className="px-10">
+          <div
+            className={`${
+              !toggle
+                ? "hidden"
+                : "lg:bg-black/50 absolute h-[100vh] top-0 bottom-0 left-0 right-0 z-20"
+            } `}
+          >
+            <div
+              className={`${
+                !toggle ? "hidden w-[0px]" : "lg:flex justify-end w-[400px]"
+              } p-6 absolute hidden top-0 right-0 h-[100vh] z-20 bg-white transition-transform duration-300 ease-in-out`}
+            >
+              <ul className="list-none flex items-end flex-1 flex-col gap-4">
+                <li>
+                  <Image
+                    src={close}
+                    alt="menu"
+                    className="w-[16px] h-[16px] object-contain"
+                    onClick={() => setToggle(!toggle)}
+                  />
+                </li>
+                <li>nothing here!</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="lg:hidden flex flex-1 justify-end items-center">
+            <ul className="pl-10 pr-5">
               <li className="text-black">
                 <SearchBar />
               </li>
             </ul>
 
-            <Image
-              src={toggle ? close : menu}
-              alt="menu"
-              className="w-[18px] h-[18px] object-contain"
+            <CiShoppingCart
+              className="w-[24px] h-[24px] object-contain"
               onClick={() => setToggle(!toggle)}
             />
 
             <div
               className={`${
-                !toggle ? "hidden" : "flex"
-              } p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+                !toggle ? "hidden" : "flex justify-end"
+              } p-6 absolute top-12 right-0 mx-4 my-2 min-w-[200px] min-h-[250px] z-20 rounded-lg bg-white`}
             >
-              <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
-                {navLinks.map((nav) => (
-                  <li
-                    key={nav.id}
-                    className={`font-poppins cursor-pointer ${
-                      active === nav.title ? "text-white" : "text-secondary"
-                    }`}
-                    onClick={() => {
-                      setToggle(!toggle);
-                      setActive(nav.title);
-                    }}
-                  >
-                    <Link href={`${nav.id}`}>{nav.title}</Link>
-                  </li>
-                ))}
-                {!currentUser && (
-                  <li className={`font-poppins cursor-pointer`}>
-                    <Link href="/login">Login</Link>
-                  </li>
-                )}
-                {currentUser && (
-                  <li className={`font-poppins cursor-pointer`}>
-                    <Link href="/profile">Profile</Link>
-                  </li>
-                )}
-                {currentUser && currentUser.user.role == "user" && (
-                  <li className={`font-poppins cursor-pointer`}>
-                    <Link href="/favour">Favour</Link>
-                  </li>
-                )}
-                {currentUser && currentUser.user.role == "admin" && (
-                  <li className={`font-poppins cursor-pointer`}>
-                    <Link href="/data">Data</Link>
-                  </li>
-                )}
-                <li className={`font-poppins cursor-pointer`}>
-                  <Link href="/cart">Cart</Link>
+              <ul className="list-none flex items-end flex-1 flex-col gap-4">
+                <li>
+                  <Image
+                    src={close}
+                    alt="menu"
+                    className="w-[16px] h-[16px] object-contain"
+                    onClick={() => setToggle(!toggle)}
+                  />
                 </li>
+                <li>nothing here!</li>
               </ul>
             </div>
           </div>
         </div>
+      </nav>
+      <nav className="lg:hidden flex justify-center items-center fixed bottom-0 left-0 right-0 z-20 h-[50px] bg-white">
+        <ul className="list-none flex flex-row gap-4">
+          {navLinks.map((nav) => (
+            <li
+              key={nav.id}
+              className={`font-poppins cursor-pointer ${
+                active === nav.title ? "text-white" : "text-secondary"
+              }`}
+              onClick={() => {
+                setToggle(!toggle);
+                setActive(nav.title);
+              }}
+            >
+              <Link href={`${nav.id}`}>{nav.title}</Link>
+            </li>
+          ))}
+          {!currentUser && (
+            <li>
+              <Link href="/login">Login</Link>
+            </li>
+          )}
+          {currentUser && currentUser.user.role == "user" && (
+            <li>
+              <Link href="/favour">
+                <CiHeart className="w-[24px] h-[24px]" />
+              </Link>
+            </li>
+          )}
+          {currentUser && (
+            <li>
+              <Link href="/profile">
+                <IoPersonOutline className="w-[20px] h-[20px]" />
+              </Link>
+            </li>
+          )}
+          {currentUser && currentUser.user.role == "admin" && (
+            <li>
+              <Link href="/data">Data</Link>
+            </li>
+          )}
+        </ul>
       </nav>
       <main className="my-14">{children}</main>
       {returnBack && (

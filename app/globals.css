@@ -75,6 +75,11 @@
   box-shadow: 0 4px 6px -1px #b5cce8, 0 2px 4px -2px #b5cce8;
 }
 
+.pinkblue {
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
 /* width */
 ::-webkit-scrollbar {
 width: 0px;

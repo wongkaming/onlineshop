@@ -39,37 +39,43 @@ class Menu extends React.Component {
           key={"tag" + index}
           onClick={() => this.handleOpenMenu("tag" + index)}
         />
-          <ul
-            className={`pb-6 flex flex-col w-full items-start ${
-              this.state.visibleMenuId.includes("tag" + index)
-                ? "visible"
-                : "hidden"
-            }`}
-            key={index}
-          >
-            {e.title.map((d, index) => (
-              <li className="checkbox space-x-6 px-10 hover:bg-white transition duration-300 ease-in-out" key={index}>
-                <input
-                  id={d.replaceAll(' ', '')}
-                  type="checkbox"
-                  key={index}
-                  name={d.toLowerCase()}
-                  onClick={handleTopsChange}
-                />
-                <label
-                  htmlFor={d.replaceAll(' ', '')}
-                  className="text-base leading-4"
-                >
-                  {d}
-                </label>
-              </li>
-            ))}
-          </ul>
+        <ul
+          className={`pb-6 flex flex-col w-full items-start ${
+            this.state.visibleMenuId.includes("tag" + index)
+              ? "visible"
+              : "hidden"
+          }`}
+          key={index}
+        >
+          {e.title.map((d, index) => (
+            <li
+              className="checkbox space-x-6 px-10 hover:bg-white transition duration-300 ease-in-out"
+              key={index}
+            >
+              <input
+                id={d.replaceAll(" ", "")}
+                type="checkbox"
+                key={index}
+                name={d.toLowerCase()}
+                onClick={handleTopsChange}
+              />
+              <label
+                htmlFor={d.replaceAll(" ", "")}
+                className="text-base leading-4"
+              >
+                {d}
+              </label>
+            </li>
+          ))}
+        </ul>
       </div>
     ));
 
     return (
-      <div className="overflow-auto" style={{ maxHeight: `calc(100vh - 200px)` }}>
+      <div
+        className="overflow-auto"
+        style={{ maxHeight: `calc(100vh - 200px)` }}
+      >
         {tags}
       </div>
     );
@@ -126,9 +132,9 @@ const CategoryMenu = () => {
   };
 
   return (
-    <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-10 left-0 right-0">
+    <section className="flex items-center md:px-24 max-h-screen absolute top-8 left-0 right-0">
       <div className="flex justify-evenly w-full ">
-        <div className="py-14 pl-10">
+        <div className="py-14 ">
           <div className="hidden lg:flex flex-col justify-start items-start bubble">
             <h1 className="px-10 pt-4 font-bold">Filter By</h1>
             <Menu
@@ -138,18 +144,24 @@ const CategoryMenu = () => {
           </div>
         </div>
 
-        <div className="lg:hidden">
+        <div className="lg:hidden fixed bottom-16 right-5 z-20">
           <Image
-            src={toggle ? close : menu}
+            src={menu}
             alt="menu"
             className="w-[28px] h-[28px] object-contain"
             onClick={() => setToggle(!toggle)}
           />
         </div>
 
+        {toggle && (
+          <div className="bg-black/50 fixed bottom-0 left-0 right-0 top-0 z-20">
+            <div className="fixed bottom-0 left-0 right-0 top-40 rounded-t-lg bg-white"></div>
+          </div>
+        )}
+
         <div
           className="px-[5%] overflow-auto pt-14 grow"
-          style={{ maxHeight: `calc(100vh - 40px)` }}
+          style={{ maxHeight: `calc(100vh - 32px)` }}
         >
           <ItemList data={data} />
           <button onClick={morePicture}>Waiting on scroll events...</button>

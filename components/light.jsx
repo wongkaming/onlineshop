@@ -7,12 +7,16 @@ const Light = ({ lightSelected }) => {
   };
 
   return (
-    <div className="fixed top-14 left-14 z-20">
+    <div className="fixed top-12 left-14 z-10">
       {/* <label htmlFor="hdr">Light:</label> */}
-      <select id="hdr" onChange={handleSelectLight}>
-        <option value="sunshine">sunshine</option>
-        <option value="sunrise">sunrise</option>
-        <option value="night">night</option>
+      <select
+        id="hdr"
+        onChange={handleSelectLight}
+        className="bg-black/30 text-white"
+      >
+        <option value="sunshine">☀︎</option>
+        <option value="sunrise">🌤</option>
+        <option value="night">☪</option>
       </select>
     </div>
   );

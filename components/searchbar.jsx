@@ -32,7 +32,7 @@ const SearchInput = () => {
           value={searchQuery || ""}
           onChange={(event) => setSearchQuery(event.target.value)}
           placeholder="Search"
-          className={`${styles.formControl} px-2`}
+          className={`${styles.formControl} px-2 font-medium`}
         />
         <button className="absolute inset-y-0 right-0 flex items-center pr-1">
           <CiSearch

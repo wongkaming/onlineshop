@@ -63,13 +63,13 @@ const itemdetail = ({ url }) => {
   const { value2 } = useContext(LightContext);
 
   return (
-    <div className="h-[40em]">
+    <div className="flex-col hidden md:flex md:w-2/5 h-full">
       <span id="info">{value2} is selected.</span>
       <Canvas
         frameloop="demand"
         shadows
         dpr={[1, 2]}
-        camera={{ position: [2.5, 0, -0.2], fov: 25 }}
+        camera={{ position: [3, 0, -0.2], fov: 25 }}
         gl={{ preserveDrawingBuffer: false }}
       >
         <Suspense fallback={<CanvasLoader />}>

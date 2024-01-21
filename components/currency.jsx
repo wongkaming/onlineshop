@@ -17,8 +17,8 @@ const Currency = ({ onDataSelected }) => {
   };
 
   return (
-    <div className="fixed top-14 left-0 z-20">
-      <select onChange={handleSelectChange}>
+    <div className="fixed top-12 left-0 z-10">
+      <select onChange={handleSelectChange} className="bg-black/30 text-white">
         <option value={hkd} id="HKD" className="zh-HK">
           HKD
         </option>

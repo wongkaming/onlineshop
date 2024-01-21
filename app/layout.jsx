@@ -7,9 +7,9 @@ import { HomepageCanvas } from "@/components/canvas";
 import CurrencyProvider from "@/context/currencyContext";
 import LightProvider from "@/context/lightContext";
 import { AnimatePresence } from "framer-motion";
-import { Courier_Prime } from "next/font/google";
+import { Forum } from "next/font/google";
 
-const font = Courier_Prime({ weight: "400", preload: false });
+const font = Forum({ weight: "400", preload: false });
 
 export default function RootLayout({ children }) {
   const [changeLight, setChangeLight] = useState("sunshine");

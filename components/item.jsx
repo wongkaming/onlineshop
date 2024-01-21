@@ -36,15 +36,19 @@ const OneItem = ({ data, price, like }) => {
       });
   }, []);
 
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className="shadow-md shadow-[#d5e8ff] rounded-md">
       <a target="_blank" href={`goods/${data.category}/${data._id}`}>
         <Image
-          src={data.galleryWrap[0]}
+          src={isHovered ? data.galleryWrap[1] : data.galleryWrap[0]}
           alt=""
           width={400}
           height={600}
           unoptimized={true}
+          // onMouseEnter={() => setIsHovered(true)}
+          // onMouseLeave={() => setIsHovered(false)}
           className="border border-white rounded-t-md"
         />
       </a>
