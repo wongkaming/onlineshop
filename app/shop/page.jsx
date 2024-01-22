@@ -6,6 +6,7 @@ import { ItemList, ConfigButton } from "@/components/";
 import { CategoryList } from "@/constants";
 import transition from "../transition";
 import { menu, close } from "@/public";
+import { CiViewList } from "react-icons/ci";
 
 class Menu extends React.Component {
   constructor(props) {
@@ -23,9 +24,13 @@ class Menu extends React.Component {
       const updatedVisibleMenuId = this.state.visibleMenuId.filter(
         (menuId) => menuId !== id
       );
-      this.setState({ visibleMenuId: updatedVisibleMenuId });
+      this.setState({
+        visibleMenuId: updatedVisibleMenuId,
+      });
     } else {
-      this.setState({ visibleMenuId: [...this.state.visibleMenuId, id] });
+      this.setState({
+        visibleMenuId: [...this.state.visibleMenuId, id],
+      });
     }
   };
 
@@ -36,6 +41,7 @@ class Menu extends React.Component {
       <div className="flex flex-col border-b border-white" key={index}>
         <ConfigButton
           subtitle={e.subtitle}
+          style={`rotate-180`}
           key={"tag" + index}
           onClick={() => this.handleOpenMenu("tag" + index)}
         />
@@ -145,21 +151,35 @@ const CategoryMenu = () => {
         </div>
 
         <div className="lg:hidden fixed bottom-16 right-5 z-20">
-          <Image
-            src={menu}
-            alt="menu"
-            className="w-[28px] h-[28px] object-contain"
+          <CiViewList
+            className={`${
+              toggle ? "w-[40px] h-[40px]" : "w-[44px] h-[44px]"
+            } pinkblue p-2 rounded-full shadow-lg transition-all duration-100`}
             onClick={() => setToggle(!toggle)}
           />
         </div>
 
-        <div className={`fixed bottom-0 left-0 right-0 top-0 z-20 ${toggle ? 'bg-black/50' : 'bg-transparent hidden'}`}>
-          <div className={`absolute h-[400px] bottom-0 left-0 right-0 rounded-t-lg bg-white transition-transform ease-in-out duration-300 ${toggle ? '-translate-y-0' : 'translate-y-full'}`}>
+        <div
+          className={`${
+            toggle
+              ? "bg-black/50 fixed bottom-0 left-0 right-0 top-0 z-20"
+              : "bg-transparent"
+          }`}
+        >
+          <div
+            className={`fixed overflow-auto h-[400px] bottom-0 left-0 right-0 box-border p-5 rounded-t-lg bg-white transition-transform duration-500 z-20 ${
+              toggle ? "translate-y-0" : "translate-y-full"
+            }`}
+          >
             <Image
               src={close}
               alt="menu"
-              className="w-[16px] h-[16px] object-contain"
+              className="fixed right-10 w-[16px] h-[16px] object-contain"
               onClick={() => setToggle(!toggle)}
+            />
+            <Menu
+              CategoryList={CategoryList}
+              handleTopsChange={handleTopsChange}
             />
           </div>
         </div>

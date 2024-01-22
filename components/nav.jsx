@@ -9,7 +9,13 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { menu, close } from "@/public";
 import { navLinks } from "../constants/index";
-import { CiHeart, CiShoppingCart, CiShop, CiBoxList, CiUser } from "react-icons/ci";
+import {
+  CiHeart,
+  CiShoppingCart,
+  CiShop,
+  CiBoxList,
+  CiUser,
+} from "react-icons/ci";
 
 const Shop = () => {
   const [showDropdown, setShowDropdown] = useState(true);
@@ -103,7 +109,7 @@ const layout = ({ children, returnBack }) => {
             {currentUser && (
               <li>
                 <Link href="/profile">
-                  <CiUser className="w-[20px] h-[20px]" />
+                  <CiUser className="w-[23px] h-[23px]" />
                 </Link>
               </li>
             )}
@@ -235,7 +241,7 @@ const layout = ({ children, returnBack }) => {
         </ul>
       </nav>
       <main className="my-14">{children}</main>
-      
+
       {returnBack && (
         <Link className={styles.home} href="/">
           home
