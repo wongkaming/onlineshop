@@ -1,8 +1,8 @@
 "use client";
 import "./globals.css";
 import Head from "next/head";
-import React, { useState } from "react";
-import { Nav, Light } from "@/components";
+import React, { useState, useEffect } from "react";
+import { Nav, Light, Currency } from "@/components";
 import { HomepageCanvas } from "@/components/canvas";
 import CurrencyProvider from "@/context/currencyContext";
 import LightProvider from "@/context/lightContext";
@@ -16,6 +16,35 @@ export default function RootLayout({ children }) {
   const handleDataSelected = (selectedValue) => {
     setChangeLight(selectedValue.value);
   };
+
+  const [rates, setRates] = useState(null);
+  const [rates2, setRates2] = useState(null);
+  const [change, setChange] = useState(false);
+
+  const [currency, setCurrency] = useState("HKD");
+  const [unit, setUnit] = useState("zh-HK");
+
+  useEffect(() => {
+    const myFunction = async () => {
+      let api = await fetch("https://api.exchangerate-api.com/v4/latest/USD");
+      let currencydata = await api.json();
+      setRates(currencydata.rates.HKD);
+      setRates2(currencydata.rates.HKD);
+    };
+    myFunction();
+  }, []);
+
+  const handleDataSelected2 = (selectedValue) => {
+    // 在这里处理接收到的数据
+    //console.log("Selected value:", selectedValue);
+    setRates2(selectedValue.value);
+    setCurrency(selectedValue.selectedOptions[0].id);
+    setUnit(selectedValue.selectedOptions[0].className);
+    setChange(true);
+  };
+
+  const [isHovered, setIsHovered] = useState(false);
+  
   return (
     <html lang="en" className={font.className}>
       <Head>
@@ -27,9 +56,21 @@ export default function RootLayout({ children }) {
       <body className="text-[#24282e]">
         <Nav />
         <AnimatePresence mode="wait">
+          <div></div>
           <LightProvider value2={changeLight}>
-            <Light lightSelected={handleDataSelected} />
-            <CurrencyProvider>{children}</CurrencyProvider>
+            <CurrencyProvider rates={rates} rates2={rates2} change={change} currency={currency} unit={unit}>
+            <div
+              className={`flex bg-[#24282e] p-2 absolute top-14  z-10 rounded-r-full transition-transform ease-in-out duration-500 ${
+                isHovered ? 'translate-x-0' : '-translate-x-32'
+              }`}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <Currency onDataSelected={handleDataSelected2} />
+              <Light lightSelected={handleDataSelected} />
+            </div>
+              {children}
+            </CurrencyProvider>
             <HomepageCanvas />
           </LightProvider>
         </AnimatePresence>

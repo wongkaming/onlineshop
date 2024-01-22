@@ -9,8 +9,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { menu, close } from "@/public";
 import { navLinks } from "../constants/index";
-import { CiHeart, CiShoppingCart } from "react-icons/ci";
-import { IoPersonOutline } from "react-icons/io5";
+import { CiHeart, CiShoppingCart, CiShop, CiBoxList, CiUser } from "react-icons/ci";
 
 const Shop = () => {
   const [showDropdown, setShowDropdown] = useState(true);
@@ -104,7 +103,7 @@ const layout = ({ children, returnBack }) => {
             {currentUser && (
               <li>
                 <Link href="/profile">
-                  <IoPersonOutline className="w-[20px] h-[20px]" />
+                  <CiUser className="w-[20px] h-[20px]" />
                 </Link>
               </li>
             )}
@@ -188,48 +187,55 @@ const layout = ({ children, returnBack }) => {
         </div>
       </nav>
       <nav className="lg:hidden flex justify-center items-center fixed bottom-0 left-0 right-0 z-20 h-[50px] bg-white">
-        <ul className="list-none flex flex-row gap-4">
-          {navLinks.map((nav) => (
-            <li
-              key={nav.id}
-              className={`font-poppins cursor-pointer ${
-                active === nav.title ? "text-white" : "text-secondary"
-              }`}
-              onClick={() => {
-                setToggle(!toggle);
-                setActive(nav.title);
-              }}
-            >
-              <Link href={`${nav.id}`}>{nav.title}</Link>
-            </li>
-          ))}
-          {!currentUser && (
-            <li>
-              <Link href="/login">Login</Link>
-            </li>
-          )}
+        <ul className="list-none flex flex-row w-full justify-around">
+          <li>
+            <Link href="/" className="flex flex-col items-center">
+              <CiShop className="w-[20px] h-[20px]" />
+              <p className="text-[12px]">Home</p>
+            </Link>
+          </li>
+          <li>
+            <Link href="/shop" className="flex flex-col items-center">
+              <CiBoxList className="w-[20px] h-[20px]" />
+              <p className="text-[12px]">Category</p>
+            </Link>
+          </li>
           {currentUser && currentUser.user.role == "user" && (
             <li>
-              <Link href="/favour">
-                <CiHeart className="w-[24px] h-[24px]" />
+              <Link href="/favour" className="flex flex-col items-center">
+                <CiHeart className="w-[21px] h-[21px]" />
+                <p className="text-[12px]">Wishlist</p>
+              </Link>
+            </li>
+          )}
+          {!currentUser && (
+            <li>
+              <Link href="/login" className="flex flex-col items-center">
+                <CiUser className="w-[20px] h-[20px]" />
+                <p className="text-[12px]">Me</p>
               </Link>
             </li>
           )}
           {currentUser && (
             <li>
-              <Link href="/profile">
-                <IoPersonOutline className="w-[20px] h-[20px]" />
+              <Link href="/profile" className="flex flex-col items-center">
+                <CiUser className="w-[20px] h-[20px]" />
+                <p className="text-[12px]">Me</p>
               </Link>
             </li>
           )}
           {currentUser && currentUser.user.role == "admin" && (
             <li>
-              <Link href="/data">Data</Link>
+              <Link href="/data" className="flex flex-col items-center">
+                <CiHeart className="w-[21px] h-[21px]" />
+                <p className="text-[12px]">Data</p>
+              </Link>
             </li>
           )}
         </ul>
       </nav>
       <main className="my-14">{children}</main>
+      
       {returnBack && (
         <Link className={styles.home} href="/">
           home

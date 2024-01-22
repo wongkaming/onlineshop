@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ItemList, ConfigButton } from "@/components/";
 import { CategoryList } from "@/constants";
 import transition from "../transition";
-import { menu } from "@/public";
+import { menu, close } from "@/public";
 
 class Menu extends React.Component {
   constructor(props) {
@@ -153,14 +153,19 @@ const CategoryMenu = () => {
           />
         </div>
 
-        {toggle && (
-          <div className="bg-black/50 fixed bottom-0 left-0 right-0 top-0 z-20">
-            <div className="fixed bottom-0 left-0 right-0 top-40 rounded-t-lg bg-white"></div>
+        <div className={`fixed bottom-0 left-0 right-0 top-0 z-20 ${toggle ? 'bg-black/50' : 'bg-transparent hidden'}`}>
+          <div className={`absolute h-[400px] bottom-0 left-0 right-0 rounded-t-lg bg-white transition-transform ease-in-out duration-300 ${toggle ? '-translate-y-0' : 'translate-y-full'}`}>
+            <Image
+              src={close}
+              alt="menu"
+              className="w-[16px] h-[16px] object-contain"
+              onClick={() => setToggle(!toggle)}
+            />
           </div>
-        )}
+        </div>
 
         <div
-          className="px-[5%] overflow-auto pt-14 grow"
+          className="px-[5%] overflow-auto pt-14 grow lg:pb-10 pb-14"
           style={{ maxHeight: `calc(100vh - 32px)` }}
         >
           <ItemList data={data} />
