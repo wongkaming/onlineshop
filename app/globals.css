@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .container {
-    height: calc(100vh); /* 设置容器的固定高度 */
+    height: calc(100vh - 200px); /* 设置容器的固定高度 */
     overflow-y: auto;
 }
 

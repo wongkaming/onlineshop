@@ -115,7 +115,7 @@ const layout = ({ children, returnBack }) => {
             )}
             {currentUser && currentUser.user.role == "user" && (
               <li>
-                <Link href="/favour">
+                <Link href="/wishlist">
                   <CiHeart className="w-[24px] h-[24px]" />
                 </Link>
               </li>
@@ -192,7 +192,7 @@ const layout = ({ children, returnBack }) => {
           </div>
         </div>
       </nav>
-      <nav className="lg:hidden flex justify-center items-center fixed bottom-0 left-0 right-0 z-20 h-[50px] bg-white">
+      <nav className="lg:hidden flex justify-center items-center fixed bottom-0 left-0 right-0 z-20 h-[50px] bg-white shadow-md">
         <ul className="list-none flex flex-row w-full justify-around">
           <li>
             <Link href="/" className="flex flex-col items-center">
@@ -208,7 +208,7 @@ const layout = ({ children, returnBack }) => {
           </li>
           {currentUser && currentUser.user.role == "user" && (
             <li>
-              <Link href="/favour" className="flex flex-col items-center">
+              <Link href="/wishlist" className="flex flex-col items-center">
                 <CiHeart className="w-[21px] h-[21px]" />
                 <p className="text-[12px]">Wishlist</p>
               </Link>

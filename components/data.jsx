@@ -52,10 +52,9 @@ const Data = ({ data, price, currentUser, like }) => {
                 <a id={data.item._id} onClick={toggleFavorite}>
                   <GoHeart
                     style={{
-                      width: "2em",
-                      height: "2em",
+                      width: "1.5em",
+                      height: "1.5em",
                       color: "black",
-                      display: "block",
                     }}
                   />
                 </a>
@@ -64,10 +63,9 @@ const Data = ({ data, price, currentUser, like }) => {
                 <a id={data.item._id} onClick={toggleUnlike}>
                   <GoHeartFill
                     style={{
-                      width: "2em",
-                      height: "2em",
+                      width: "1.5em",
+                      height: "1.5em",
                       color: "black",
-                      display: "block",
                     }}
                   />
                 </a>

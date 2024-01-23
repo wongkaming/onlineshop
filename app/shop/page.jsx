@@ -65,12 +65,7 @@ class Menu extends React.Component {
                 name={d.toLowerCase()}
                 onClick={handleTopsChange}
               />
-              <label
-                htmlFor={d.replaceAll(" ", "")}
-                className="text-base leading-4"
-              >
-                {d}
-              </label>
+              <p className="text-base leading-4">{d}</p>
             </li>
           ))}
         </ul>
@@ -82,6 +77,7 @@ class Menu extends React.Component {
         className="overflow-auto"
         style={{ maxHeight: `calc(100vh - 200px)` }}
       >
+        <h1 className="px-10 pt-4 font-bold">Filter By</h1>
         {tags}
       </div>
     );
@@ -142,45 +138,48 @@ const CategoryMenu = () => {
       <div className="flex justify-evenly w-full ">
         <div className="py-14 ">
           <div className="hidden lg:flex flex-col justify-start items-start bubble">
-            <h1 className="px-10 pt-4 font-bold">Filter By</h1>
             <Menu
               CategoryList={CategoryList}
               handleTopsChange={handleTopsChange}
             />
           </div>
-        </div>
 
-        <div className="lg:hidden fixed bottom-16 right-5 z-20">
-          <CiViewList
-            className={`${
-              toggle ? "w-[40px] h-[40px]" : "w-[44px] h-[44px]"
-            } pinkblue p-2 rounded-full shadow-lg transition-all duration-100`}
-            onClick={() => setToggle(!toggle)}
-          />
-        </div>
-
-        <div
-          className={`${
-            toggle
-              ? "bg-black/50 fixed bottom-0 left-0 right-0 top-0 z-20"
-              : "bg-transparent"
-          }`}
-        >
-          <div
-            className={`fixed overflow-auto h-[400px] bottom-0 left-0 right-0 box-border p-5 rounded-t-lg bg-white transition-transform duration-500 z-20 ${
-              toggle ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
-            <Image
-              src={close}
-              alt="menu"
-              className="fixed right-10 w-[16px] h-[16px] object-contain"
+          <div className="lg:hidden fixed bottom-16 right-5 z-20">
+            <CiViewList
+              className={`${
+                toggle ? "w-[40px] h-[40px]" : "w-[44px] h-[44px]"
+              } pinkblue p-2 rounded-full shadow-lg transition-all duration-100`}
               onClick={() => setToggle(!toggle)}
             />
-            <Menu
-              CategoryList={CategoryList}
-              handleTopsChange={handleTopsChange}
-            />
+          </div>
+          
+          <div
+            className={`lg:hidden ${ 
+              toggle
+                ? "bg-black/50 fixed bottom-0 left-0 right-0 top-0 z-20"
+                : "bg-transparent"
+            }`}
+          >
+            <div
+              className={`lg:hidden fixed overflow-auto h-[400px] bottom-0 left-0 right-0 box-border p-5 rounded-t-lg bg-white transition-transform duration-500 z-20 ${
+                toggle ? "translate-y-0" : "translate-y-full"
+              }`}
+            >
+              <div className="flex flex-col">
+                <div className="flex w-full justify-end">
+                  <Image
+                    src={close}
+                    alt="menu"
+                    className="w-[16px] h-[16px] object-contain m-1"
+                    onClick={() => setToggle(!toggle)}
+                  />
+                </div>
+                <Menu
+                  CategoryList={CategoryList}
+                  handleTopsChange={handleTopsChange}
+                />
+              </div>
+            </div>
           </div>
         </div>
 

@@ -56,7 +56,6 @@ export default function RootLayout({ children }) {
       <body className="text-[#24282e]">
         <Nav />
         <AnimatePresence mode="wait">
-          <div></div>
           <LightProvider value2={changeLight}>
             <CurrencyProvider rates={rates} rates2={rates2} change={change} currency={currency} unit={unit}>
             <div
