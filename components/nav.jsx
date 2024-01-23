@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AuthService from "../hook/auth";
-import SearchBar from "../components/searchbar";
+import { SearchBar, Wishlist } from "@/components";
 import styles from "./layout.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -15,7 +15,9 @@ import {
   CiShop,
   CiBoxList,
   CiUser,
+  CiEdit,
 } from "react-icons/ci";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const Shop = () => {
   const [showDropdown, setShowDropdown] = useState(true);
@@ -45,6 +47,8 @@ const layout = ({ children, returnBack }) => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [goBack, setgoBack] = useState(false);
+
   useEffect(() => {
     setCurrentUser(AuthService.getCurrentUser());
   }, []);
@@ -166,33 +170,39 @@ const layout = ({ children, returnBack }) => {
                 <SearchBar />
               </li>
             </ul>
-
-            <CiShoppingCart
+            <CiHeart
               className="w-[24px] h-[24px] object-contain"
-              onClick={() => setToggle(!toggle)}
+              onClick={() => {
+                setgoBack(!goBack);
+              }}
             />
-
-            <div
-              className={`${
-                !toggle ? "hidden" : "flex justify-end"
-              } p-6 absolute top-12 right-0 mx-4 my-2 min-w-[200px] min-h-[250px] z-20 rounded-lg bg-white`}
-            >
-              <ul className="list-none flex items-end flex-1 flex-col gap-4">
-                <li>
-                  <Image
-                    src={close}
-                    alt="menu"
-                    className="w-[16px] h-[16px] object-contain"
-                    onClick={() => setToggle(!toggle)}
-                  />
-                </li>
-                <li>nothing here!</li>
-              </ul>
-            </div>
           </div>
         </div>
       </nav>
-      <nav className="lg:hidden flex justify-center items-center fixed bottom-0 left-0 right-0 z-20 h-[50px] bg-white shadow-md">
+      <div
+        className={`lg:hidden bg-white/60 backdrop-blur-lg fixed bottom-0 left-0 right-0 top-0 z-30 ${
+          goBack ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex flex-col lg:hidden fixed top-0 left-0 right-0 z-30 ">
+          <div className="py-2 px-5 flex flex-row justify-between items-center backdrop-blur-lg bg-white/60">
+            <IoIosArrowRoundBack
+              className="w-[24px] h-[24px]"
+              onClick={() => {
+                setgoBack(!goBack);
+              }}
+            />
+            <h1 className="font-bold text-[18px]">Wishlist</h1>
+            <CiEdit className="w-[24px] h-[24px]" />
+          </div>
+          <div className="py-2 px-5 flex flex-row justify-around items-center backdrop-blur-lg bg-white/60 shadow-sm font-medium">
+            <h1 className="text-[16px]">All Items</h1>
+            <h1 className="text-[16px]">Board</h1>
+          </div>
+        </div>
+        <Wishlist currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      </div>
+      <nav className="lg:hidden flex justify-center items-center fixed bottom-0 left-0 right-0 z-20 h-[50px] bg-white border-t-2">
         <ul className="list-none flex flex-row w-full justify-around">
           <li>
             <Link href="/" className="flex flex-col items-center">
@@ -203,14 +213,15 @@ const layout = ({ children, returnBack }) => {
           <li>
             <Link href="/shop" className="flex flex-col items-center">
               <CiBoxList className="w-[20px] h-[20px]" />
-              <p className="text-[12px]">Category</p>
+              <p className="text-[12px]">Explore</p>
             </Link>
           </li>
           {currentUser && currentUser.user.role == "user" && (
             <li>
-              <Link href="/wishlist" className="flex flex-col items-center">
-                <CiHeart className="w-[21px] h-[21px]" />
-                <p className="text-[12px]">Wishlist</p>
+              <Link href="/cart" className="flex flex-col items-center">
+                {/* <CiHeart className="w-[21px] h-[21px]" /> */}
+                <CiShoppingCart className="w-[20px] h-[20px]" />
+                <p className="text-[12px]">Cart</p>
               </Link>
             </li>
           )}

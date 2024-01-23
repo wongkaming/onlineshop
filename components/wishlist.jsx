@@ -58,7 +58,7 @@ const Wishlist = ({ currentUser, setCurrentUser }) => {
         {/* )} */}
         {currentUser && wishlistData && wishlistData.length != 0 && (
           <div
-            className="px-[5%] overflow-auto pt-14 grow lg:pb-12 pb-16"
+            className="px-[5%] overflow-auto pt-8 grow lg:pb-12 pb-16"
             style={{ maxHeight: `calc(100vh - 32px)` }}
           >
             <DataList data={wishlistData} currentUser={currentUser} />

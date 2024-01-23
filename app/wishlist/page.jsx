@@ -4,7 +4,7 @@ import AuthService from "../../hook/auth";
 import { Wishlist } from "@/components/";
 import transition from "../transition";
 
-const page = () => {
+const WishlistPage = () => {
   let [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     setCurrentUser(AuthService.getCurrentUser());
@@ -22,4 +22,4 @@ const page = () => {
   );
 };
 
-export default transition(page);
+export default transition(WishlistPage);

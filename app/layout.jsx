@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
   };
 
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
     <html lang="en" className={font.className}>
       <Head>
@@ -57,17 +57,25 @@ export default function RootLayout({ children }) {
         <Nav />
         <AnimatePresence mode="wait">
           <LightProvider value2={changeLight}>
-            <CurrencyProvider rates={rates} rates2={rates2} change={change} currency={currency} unit={unit}>
-            <div
-              className={`flex bg-[#24282e] p-2 absolute top-14  z-10 rounded-r-full transition-transform ease-in-out duration-500 ${
-                isHovered ? 'translate-x-0' : '-translate-x-32'
-              }`}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
+            <CurrencyProvider
+              rates={rates}
+              rates2={rates2}
+              change={change}
+              currency={currency}
+              unit={unit}
             >
-              <Currency onDataSelected={handleDataSelected2} />
-              <Light lightSelected={handleDataSelected} />
-            </div>
+              <div
+                className={`flex bg-[#24282e] p-2 absolute top-14  z-10 rounded-r-full transition-transform ease-in-out duration-500 ${
+                  isHovered
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-40 -translate-x-32"
+                }`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <Currency onDataSelected={handleDataSelected2} />
+                <Light lightSelected={handleDataSelected} />
+              </div>
               {children}
             </CurrencyProvider>
             <HomepageCanvas />
