@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AuthService from "../hook/auth";
-import { Cart, SearchBar, WishlistPage } from "@/components";
+import { Cart, SearchBar, WishlistPage, WebSearchBar } from "@/components";
 import styles from "./layout.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -71,11 +71,11 @@ const layout = ({ children, returnBack }) => {
   return (
     <div>
       <nav
-        className={`w-full flex items-center fixed top-0 py-2 z-20 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50 ${
+        className={`w-full flex items-center fixed top-0 py-2 z-30 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50 ${
           scrolled ? "bg-white" : "bg-white/90"
         }`}
       >
-        <div className="w-full flex justify-between items-center max-w-8xl mx-auto px-9">
+        <div className="w-full flex justify-between items-center max-w-8xl mx-auto px-5 lg:px-9">
           <Link
             href="/"
             className="flex items-center gap-2"
@@ -102,7 +102,7 @@ const layout = ({ children, returnBack }) => {
 
           <ul className="list-none hidden lg:flex flex-row gap-5 items-center">
             <li>
-              <SearchBar />
+              <WebSearchBar />
             </li>
 
             {!currentUser && (
@@ -151,14 +151,13 @@ const layout = ({ children, returnBack }) => {
               }}
             />
           </div>
-          
         </div>
       </nav>
 
       <div
         className={`flex ${
           toggle
-            ? "bg-black/30 fixed bottom-0 left-0 right-0 top-0 bottom-0 z-40"
+            ? "bg-black/30 fixed bottom-0 left-0 right-0 top-0 z-40"
             : "bg-transparent"
         } `}
       >
@@ -176,10 +175,10 @@ const layout = ({ children, returnBack }) => {
               onClick={() => setToggle(!toggle)}
             />
           </div>
-          <Cart/>
+          <Cart />
         </div>
       </div>
-      
+
       {/* //wishlist */}
       <div
         className={`lg:hidden bg-white/60 backdrop-blur-lg fixed bottom-0 left-0 right-0 top-0 transition-transform duration-500 z-30 ${
@@ -202,9 +201,14 @@ const layout = ({ children, returnBack }) => {
             <h1 className="text-[16px]">Board</h1>
           </div>
           <div>
-          <WishlistPage currentUser={currentUser} setCurrentUser={setCurrentUser}/></div>
+            <WishlistPage
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          </div>
         </div>
       </div>
+
       <nav className="lg:hidden flex justify-center items-center fixed bottom-0 left-0 right-0 z-20 h-[50px] bg-white border-t-2">
         <ul className="list-none flex flex-row w-full justify-around">
           <li>

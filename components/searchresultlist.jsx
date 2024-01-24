@@ -20,7 +20,7 @@ const SearchResultList = ({ data }) => {
   let curr;
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-0 px-24">
+    <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 xl:grid-cols-5">
       {data &&
         data?.posts.map((d, index) => {
           if (change == true) {

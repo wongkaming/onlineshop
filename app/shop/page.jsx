@@ -1,88 +1,12 @@
 "use client";
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { ItemList, ConfigButton } from "@/components/";
+import { ItemList, MenuTable } from "@/components/";
 import { CategoryList } from "@/constants";
 import transition from "../transition";
-import { menu, close } from "@/public";
+import { close } from "@/public";
 import { CiViewList } from "react-icons/ci";
-
-class Menu extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      visible: true,
-      visibleMenuId: ["tag0"],
-      tags: [],
-    };
-  }
-
-  handleOpenMenu = (id) => {
-    if (this.state.visibleMenuId.includes(id)) {
-      const updatedVisibleMenuId = this.state.visibleMenuId.filter(
-        (menuId) => menuId !== id
-      );
-      this.setState({
-        visibleMenuId: updatedVisibleMenuId,
-      });
-    } else {
-      this.setState({
-        visibleMenuId: [...this.state.visibleMenuId, id],
-      });
-    }
-  };
-
-  render() {
-    const { CategoryList, handleTopsChange } = this.props;
-
-    const tags = CategoryList.map((e, index) => (
-      <div className="flex flex-col border-b border-white" key={index}>
-        <ConfigButton
-          subtitle={e.subtitle}
-          style={`rotate-180`}
-          key={"tag" + index}
-          onClick={() => this.handleOpenMenu("tag" + index)}
-        />
-        <ul
-          className={`pb-6 flex flex-col w-full items-start ${
-            this.state.visibleMenuId.includes("tag" + index)
-              ? "visible"
-              : "hidden"
-          }`}
-          key={index}
-        >
-          {e.title.map((d, index) => (
-            <li
-              className="checkbox space-x-6 px-10 hover:bg-white transition duration-300 ease-in-out"
-              key={index}
-            >
-              <input
-                id={d.replaceAll(" ", "")}
-                type="checkbox"
-                key={index}
-                name={d.toLowerCase()}
-                onClick={handleTopsChange}
-              />
-              <p className="text-base leading-4">{d}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ));
-
-    return (
-      <div
-        className="overflow-auto"
-        style={{ maxHeight: `calc(100vh - 200px)` }}
-      >
-        <h1 className="px-10 pt-4 font-bold">Filter By</h1>
-        {tags}
-      </div>
-    );
-  }
-}
 
 const CategoryMenu = () => {
   const [category, setCategory] = useState([]);
@@ -138,7 +62,7 @@ const CategoryMenu = () => {
       <div className="flex justify-evenly w-full ">
         <div className="py-14 ">
           <div className="hidden lg:flex flex-col justify-start items-start bubble">
-            <Menu
+            <MenuTable
               CategoryList={CategoryList}
               handleTopsChange={handleTopsChange}
             />
@@ -152,9 +76,9 @@ const CategoryMenu = () => {
               onClick={() => setToggle(!toggle)}
             />
           </div>
-          
+
           <div
-            className={`lg:hidden ${ 
+            className={`lg:hidden ${
               toggle
                 ? "bg-black/30 fixed bottom-0 left-0 right-0 top-0 z-20"
                 : "bg-transparent"
@@ -174,7 +98,7 @@ const CategoryMenu = () => {
                     onClick={() => setToggle(!toggle)}
                   />
                 </div>
-                <Menu
+                <MenuTable
                   CategoryList={CategoryList}
                   handleTopsChange={handleTopsChange}
                 />

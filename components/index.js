@@ -1,4 +1,4 @@
-import { HomepageCanvas, ItemDetailCanvas } from './canvas';
+import { HomepageCanvas, ItemDetailCanvas, StarsCanvas } from './canvas';
 import CanvasLoader from './canvasloader';
 import Cart from './cart';
 import Currency from './currency';
@@ -10,11 +10,13 @@ import ItemList from './itemlist';
 import Itempage from './itempage';
 import Light from './light';
 import Login from './login';
+import MenuTable from './MenuTable';
 import Nav from './nav';
 import Preview from './preview';
 import Profile from './profile';
 import Register from './register';
 import SearchBar from './searchbar';
+import WebSearchBar from './websearchbar';
 import SearchResultList from './searchresultlist';
 import WishlistPage from './wishlist';
 import ConfigButton from './ConfigButton';
@@ -31,14 +33,17 @@ export {
     Itempage, 
     Light,
     Login, 
+    MenuTable,
     Nav, 
     Preview, 
     Profile,
     Register, 
     SearchBar, 
+    WebSearchBar,
     SearchResultList, 
     WishlistPage,
     HomepageCanvas,
     ItemDetailCanvas,
+    StarsCanvas,
     ConfigButton
 };
