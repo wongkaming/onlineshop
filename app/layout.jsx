@@ -54,7 +54,6 @@ export default function RootLayout({ children }) {
       </Head>
       <title>Brandlogo</title>
       <body className="text-[#24282e]">
-        <Nav />
         <AnimatePresence mode="wait">
           <LightProvider value2={changeLight}>
             <CurrencyProvider
@@ -64,8 +63,9 @@ export default function RootLayout({ children }) {
               currency={currency}
               unit={unit}
             >
+              <Nav />
               <div
-                className={`flex bg-[#24282e] p-2 absolute top-14  z-10 rounded-r-full transition-transform ease-in-out duration-500 ${
+                className={`flex bg-[#24282e] p-2 absolute top-14  z-20 rounded-r-full transition-transform ease-in-out duration-500 ${
                   isHovered
                     ? "opacity-100 translate-x-0"
                     : "opacity-40 -translate-x-32"

@@ -39,7 +39,7 @@ const OneItem = ({ data, price, like }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="shadow-md shadow-[#d5e8ff] rounded-md">
+    <div className="shadow-md shadow-[#d5e8ff] rounded-md max-w-[400px]">
       <a target="_blank" href={`goods/${data.category}/${data._id}`}>
         <Image
           src={isHovered ? data.galleryWrap[1] : data.galleryWrap[0]}
@@ -52,8 +52,8 @@ const OneItem = ({ data, price, like }) => {
           className="border border-white rounded-t-md"
         />
       </a>
-      <div className="backdrop-blur-md bg-white/80 hover:bg-white transition duration-300 ease-in-out pb-5 border border-white rounded-b-md">
-        <h3 className="mt-1 p-2 text-[14px] max-w-[400px] truncate">
+      <div className="backdrop-blur-md bg-white/80 hover:bg-white transition duration-300 ease-in-out pb-2 border border-white rounded-b-md">
+        <h3 className="mt-1 px-2 text-[14px] max-w-[400px] truncate">
           {data.title}
         </h3>
         <div className="flex justify-between pl-2 pr-4">

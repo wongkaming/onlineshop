@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AuthService from "../hook/auth";
-import { SearchBar, Wishlist } from "@/components";
+import { Cart, SearchBar, WishlistPage } from "@/components";
 import styles from "./layout.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { menu, close } from "@/public";
+import { close } from "@/public";
 import { navLinks } from "../constants/index";
 import {
   CiHeart,
@@ -138,32 +138,6 @@ const layout = ({ children, returnBack }) => {
             </li>
           </ul>
 
-          <div
-            className={`${
-              !toggle
-                ? "hidden"
-                : "lg:bg-black/50 absolute h-[100vh] top-0 bottom-0 left-0 right-0 z-20"
-            } `}
-          >
-            <div
-              className={`${
-                !toggle ? "hidden w-[0px]" : "lg:flex justify-end w-[400px]"
-              } p-6 absolute hidden top-0 right-0 h-[100vh] z-20 bg-white transition-transform duration-300 ease-in-out`}
-            >
-              <ul className="list-none flex items-end flex-1 flex-col gap-4">
-                <li>
-                  <Image
-                    src={close}
-                    alt="menu"
-                    className="w-[16px] h-[16px] object-contain"
-                    onClick={() => setToggle(!toggle)}
-                  />
-                </li>
-                <li>nothing here!</li>
-              </ul>
-            </div>
-          </div>
-
           <div className="lg:hidden flex flex-1 justify-end items-center">
             <ul className="pl-10 pr-5">
               <li className="text-black">
@@ -177,14 +151,42 @@ const layout = ({ children, returnBack }) => {
               }}
             />
           </div>
+          
         </div>
       </nav>
+
       <div
-        className={`lg:hidden bg-white/60 backdrop-blur-lg fixed bottom-0 left-0 right-0 top-0 z-30 ${
+        className={`flex ${
+          toggle
+            ? "bg-black/30 fixed bottom-0 left-0 right-0 top-0 bottom-0 z-40"
+            : "bg-transparent"
+        } `}
+      >
+        <div
+          className={`flex flex-col justify-center w-96 fixed top-0 right-0 bottom-0 z-40 bg-white transition-transform duration-300 ${
+            toggle ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="py-2 px-5 flex flex-row justify-between items-center bg-white shadow-sm">
+            <h1 className="font-bold text-[18px]">Shopping Bag</h1>
+            <Image
+              src={close}
+              alt="menu"
+              className="w-[16px] h-[16px] object-contain"
+              onClick={() => setToggle(!toggle)}
+            />
+          </div>
+          <Cart/>
+        </div>
+      </div>
+      
+      {/* //wishlist */}
+      <div
+        className={`lg:hidden bg-white/60 backdrop-blur-lg fixed bottom-0 left-0 right-0 top-0 transition-transform duration-500 z-30 ${
           goBack ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col lg:hidden fixed top-0 left-0 right-0 z-30 ">
+        <div className="flex flex-col lg:hidden fixed top-0 left-0 right-0 bottom-0 z-30 ">
           <div className="py-2 px-5 flex flex-row justify-between items-center backdrop-blur-lg bg-white/60">
             <IoIosArrowRoundBack
               className="w-[24px] h-[24px]"
@@ -199,8 +201,9 @@ const layout = ({ children, returnBack }) => {
             <h1 className="text-[16px]">All Items</h1>
             <h1 className="text-[16px]">Board</h1>
           </div>
+          <div>
+          <WishlistPage currentUser={currentUser} setCurrentUser={setCurrentUser}/></div>
         </div>
-        <Wishlist currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </div>
       <nav className="lg:hidden flex justify-center items-center fixed bottom-0 left-0 right-0 z-20 h-[50px] bg-white border-t-2">
         <ul className="list-none flex flex-row w-full justify-around">
@@ -213,7 +216,7 @@ const layout = ({ children, returnBack }) => {
           <li>
             <Link href="/shop" className="flex flex-col items-center">
               <CiBoxList className="w-[20px] h-[20px]" />
-              <p className="text-[12px]">Explore</p>
+              <p className="text-[12px]">Category</p>
             </Link>
           </li>
           {currentUser && currentUser.user.role == "user" && (

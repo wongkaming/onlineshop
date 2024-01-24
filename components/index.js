@@ -1,5 +1,6 @@
 import { HomepageCanvas, ItemDetailCanvas } from './canvas';
 import CanvasLoader from './canvasloader';
+import Cart from './cart';
 import Currency from './currency';
 import Data from './data';
 import DataList from './datalist';
@@ -15,11 +16,12 @@ import Profile from './profile';
 import Register from './register';
 import SearchBar from './searchbar';
 import SearchResultList from './searchresultlist';
-import Wishlist from './wishlist';
+import WishlistPage from './wishlist';
 import ConfigButton from './ConfigButton';
 
 export {
     CanvasLoader,
+    Cart,
     Currency, 
     Data, 
     DataList, 
@@ -35,7 +37,7 @@ export {
     Register, 
     SearchBar, 
     SearchResultList, 
-    Wishlist,
+    WishlistPage,
     HomepageCanvas,
     ItemDetailCanvas,
     ConfigButton

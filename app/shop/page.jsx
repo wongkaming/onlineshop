@@ -156,12 +156,12 @@ const CategoryMenu = () => {
           <div
             className={`lg:hidden ${ 
               toggle
-                ? "bg-black/50 fixed bottom-0 left-0 right-0 top-0 z-20"
+                ? "bg-black/30 fixed bottom-0 left-0 right-0 top-0 z-20"
                 : "bg-transparent"
             }`}
           >
             <div
-              className={`lg:hidden fixed overflow-auto h-[400px] bottom-0 left-0 right-0 box-border p-5 rounded-t-lg bg-white transition-transform duration-500 z-20 ${
+              className={`lg:hidden fixed overflow-auto h-[400px] bottom-0 left-0 right-0 box-border p-5 rounded-t-lg bg-white transition-transform duration-500 z-30 ${
                 toggle ? "translate-y-0" : "translate-y-full"
               }`}
             >

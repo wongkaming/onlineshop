@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
-import WishlistItem from "../hook/item";
+import WishlistItem from "@/hook/item";
 import { DataList } from "@/components/";
 
-const Wishlist = ({ currentUser, setCurrentUser }) => {
+const WishlistPage = ({ currentUser, setCurrentUser }) => {
   const handleTakeToLogin = () => {
     redirect("/login");
   };
@@ -26,7 +26,6 @@ const Wishlist = ({ currentUser, setCurrentUser }) => {
         WishlistItem.getWishlist(_id)
           .then((data) => {
             setWishlistData(data.data);
-            console.log(data.data);
           })
           .catch((e) => {
             console.log(e);
@@ -36,7 +35,8 @@ const Wishlist = ({ currentUser, setCurrentUser }) => {
   }, [currentUser]); //意思是根据 currentUser 的变化来触发 useEffect; 当 currentUser 发生变化时，useEffect 才会重新运行
 
   return (
-    <section className="flex items-center md:px-24 max-h-screen absolute top-8 left-0 right-0 bottom-0">
+
+    <section className="flex items-center md:px-24 max-h-screen">
       <div className="flex flex-col justify-center w-full h-full">
         {!currentUser && (
           <div>
@@ -54,8 +54,7 @@ const Wishlist = ({ currentUser, setCurrentUser }) => {
             <h1>歡迎來到Admin頁面。</h1>
           </div>
         )}
-        {/* {currentUser && currentUser.user.role == "user" && ( */}
-        {/* )} */}
+
         {currentUser && wishlistData && wishlistData.length != 0 && (
           <div
             className="px-[5%] overflow-auto pt-8 grow lg:pb-12 pb-16"
@@ -69,4 +68,5 @@ const Wishlist = ({ currentUser, setCurrentUser }) => {
   );
 };
 
-export default Wishlist;
+
+export default WishlistPage;
