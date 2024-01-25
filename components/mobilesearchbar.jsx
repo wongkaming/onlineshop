@@ -13,7 +13,7 @@ const MobileSearchBar = () => {
   const [searchQuery, setSearchQuery] = useState(
     search ? search.get("q") : null
   );
-  const [input, setInput] = useState("")
+  const [input, setInput] = useState("");
   // const router = useRouter();
 
   const onSearch = (e) => {
@@ -30,20 +30,20 @@ const MobileSearchBar = () => {
 
   return (
     <div>
-      <div className="inline-block box-border">
+      <div className="box-border grow">
         <form onSubmit={onSearch} className="relative">
           <input
             value={searchQuery || ""}
             onChange={(event) => setSearchQuery(event.target.value)}
             placeholder="Search"
-            className={`${styles.formControl} px-2 font-medium`}
+            className={`border px-2 font-medium bg-black/5 w-56 backdrop-blur-sm rounded-full`}
           />
           <button
             onClick={() => {
               setgoBack(true);
-              setInput(searchQuery)
+              setInput(searchQuery);
             }}
-            className="absolute inset-y-0 right-0 flex items-center pr-1"
+            className="absolute inset-y-0 right-0 flex items-center pr-2"
           >
             <CiSearch
               style={{
@@ -56,30 +56,34 @@ const MobileSearchBar = () => {
           </button>
         </form>
       </div>
-      
+
       <div
         className={`lg:hidden fixed bottom-0 left-0 right-0 top-0 transition-transform duration-300 z-30 ${
           goBack ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        
-        <div className="py-2 px-5 flex flex-row justify-between fixed top-0 left-0 right-0 bottom-0 z-30 items-center backdrop-blur-lg bg-[#24282e]">
+        <div className="py-2 px-5 flex flex-row justify-between fixed top-0 left-0 right-0 bottom-0 z-30 items-center backdrop-blur-lg bg-white">
           <IoIosArrowRoundBack
             className="w-[24px] h-[24px]"
             onClick={() => {
               setgoBack(!goBack);
-              setSearchQuery("")
+              setSearchQuery("");
             }}
           />
-          <div className="inline-block box-border">
+          <div className="box-border px-10 grow">
             <form onSubmit={onSearch} className="relative">
               <input
                 value={searchQuery || ""}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder="Search"
-                className={`${styles.formControl} px-2 font-medium`}
+                className={`border w-full backdrop-blur-sm px-2 font-medium bg-black/5 rounded-full`}
               />
-              <button onClick={()=>{setInput(searchQuery)}} className="absolute inset-y-0 right-0 flex items-center pr-1">
+              <button
+                onClick={() => {
+                  setInput(searchQuery);
+                }}
+                className="absolute inset-y-0 right-0 flex items-center pr-2"
+              >
                 <CiSearch
                   style={{
                     width: "1.5em",
@@ -92,10 +96,7 @@ const MobileSearchBar = () => {
             </form>
           </div>
         </div>
-        {goBack && (
-          <SearchResultList input={input}/>
-        )}
-
+        {goBack && <SearchResultList input={input} />}
       </div>
     </div>
   );

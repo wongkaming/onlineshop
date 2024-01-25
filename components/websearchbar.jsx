@@ -24,17 +24,15 @@ const WebSearchBar = () => {
   };
 
   return (
-    <div className={styles.searchbar}>
+    <div className="box-border grow">
       <form onSubmit={onSearch} className="relative">
         <input
           value={searchQuery || ""}
           onChange={(event) => setSearchQuery(event.target.value)}
           placeholder="Search"
-          className={`${styles.formControl} px-2 font-medium bg-black/5`}
+          className={`border w-56 backdrop-blur-sm px-2 font-medium bg-black/5 rounded-full`}
         />
-        <button
-          className="absolute inset-y-0 right-0 flex items-center pr-1"
-        >
+        <button className="absolute inset-y-0 right-0 flex items-center pr-1">
           <CiSearch
             style={{
               width: "1.5em",

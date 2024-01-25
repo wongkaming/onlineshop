@@ -7,7 +7,7 @@ import { StarsCanvas, SearchResultData } from "@/components/";
 
 const fetchPosts = (url) => fetch(url).then((response) => response.json());
 
-const SearchResultList = ({input}) => {
+const SearchResultList = ({ input }) => {
   const search = useSearchParams();
   const searchQuery = search ? search.get("q") : null;
   const encodedSearchQuery = encodeURI(searchQuery || input);
@@ -41,7 +41,7 @@ const SearchResultList = ({input}) => {
         <SearchResultData data={data} />
         <div className="flex justify-center py-8">
           <a href="/shop">
-            <button className="text-white bg-[#24282e] hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700 ">
+            <button className="text-white bg-[#24282e] rounded-full hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700 ">
               Explore more
             </button>
           </a>
@@ -51,6 +51,5 @@ const SearchResultList = ({input}) => {
     </section>
   );
 };
-
 
 export default SearchResultList;

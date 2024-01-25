@@ -32,7 +32,7 @@
   box-sizing: border-box;
 }
 .layout .header div .searchbar .formControl {
-  width: 12rem;
+  width: 14rem;
   color: black;
   background-color: transparent;
   -webkit-backdrop-filter: blur(20px);

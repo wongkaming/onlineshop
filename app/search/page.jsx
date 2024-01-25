@@ -42,7 +42,7 @@ const page = () => {
         <SearchResultData data={data} />
         <div className="flex justify-center py-8">
           <Link href="/shop">
-            <button className="text-white bg-[#24282e] hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700 ">
+            <button className="text-white bg-[#24282e] rounded-full hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700 ">
               Explore more
             </button>
           </Link>

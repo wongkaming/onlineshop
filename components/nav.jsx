@@ -140,7 +140,7 @@ const layout = ({ children, returnBack }) => {
 
           <div className="lg:hidden flex flex-1 justify-end items-center">
             <ul className="flex flex-row">
-              <li className="text-black pl-10 pr-5">
+              <li className="text-black pl-3 pr-2">
                 <MobileSearch />
               </li>
               <li>
