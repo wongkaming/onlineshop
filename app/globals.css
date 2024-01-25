@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (min-width: 1024px) {
+  .lg\:hidden {
+    display: none !important;
+  }
+}
+
 .container {
     height: calc(100vh - 200px); /* 设置容器的固定高度 */
     overflow-y: auto;

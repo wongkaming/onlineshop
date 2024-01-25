@@ -1,44 +1,56 @@
 "use client";
-import React, { useContext } from "react";
-import OneItem from "./item";
-import { CurrencyContext } from "@/context/currencyContext";
+import React from "react";
+import { useSearchParams } from "next/navigation";
+import useSWR from "swr";
 
-const SearchResultList = ({ data }) => {
-  const {
-    rates,
-    setRates,
-    rates2,
-    setRates2,
-    change,
-    setChange,
-    currency,
-    setCurrency,
-    unit,
-    setUnit,
-  } = useContext(CurrencyContext);
+import { StarsCanvas, SearchResultData } from "@/components/";
 
-  let curr;
+const fetchPosts = (url) => fetch(url).then((response) => response.json());
+
+const SearchResultList = ({input}) => {
+  const search = useSearchParams();
+  const searchQuery = search ? search.get("q") : null;
+  const encodedSearchQuery = encodeURI(searchQuery || input);
+
+  const { data, isLoading } = useSWR(
+    `/api/search?q=${encodedSearchQuery}`,
+    fetchPosts
+  );
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (data?.posts.length == 0) {
+    return (
+      <div>
+        <p>Nothing found.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 xl:grid-cols-5">
-      {data &&
-        data?.posts.map((d, index) => {
-          if (change == true) {
-            curr = new Intl.NumberFormat(unit, {
-              style: "currency",
-              currency: currency,
-            }).format(((rates2 / rates) * d.price).toFixed(2));
-          } else {
-            curr = new Intl.NumberFormat(unit, {
-              style: "currency",
-              currency: currency,
-            }).format(d.price);
-          }
-          return <OneItem data={d} price={curr} like={d._id} key={index} />;
-        })}
-      {/* {!data && <p>nothing</p>} */}
-    </div>
+    <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-8 left-0 right-0 z-20">
+      <div
+        className="px-[5%] overflow-auto pt-12 grow lg:pb-10 pb-14"
+        style={{ maxHeight: `calc(100vh - 32px)` }}
+      >
+        <h1 className="text-white text-[24px] py-2">
+          Results for <span className="font-bold">' {input} '</span>
+        </h1>
+        <SearchResultData data={data} />
+        <div className="flex justify-center py-8">
+          <a href="/shop">
+            <button className="text-white bg-[#24282e] hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700 ">
+              Explore more
+            </button>
+          </a>
+        </div>
+        <StarsCanvas />
+      </div>
+    </section>
   );
 };
+
 
 export default SearchResultList;

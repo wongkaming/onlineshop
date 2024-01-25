@@ -21,10 +21,7 @@ const WebSearchBar = () => {
 
     const encodedSearchQuery = encodeURI(searchQuery || "");
     router.push(`/search?q=${encodedSearchQuery}`);
-
-    console.log("currrent query", encodedSearchQuery);
   };
-  const [goBack, setgoBack] = useState(false);
 
   return (
     <div className={styles.searchbar}>
@@ -33,12 +30,9 @@ const WebSearchBar = () => {
           value={searchQuery || ""}
           onChange={(event) => setSearchQuery(event.target.value)}
           placeholder="Search"
-          className={`${styles.formControl} px-2 font-medium bg-black`}
+          className={`${styles.formControl} px-2 font-medium bg-black/5`}
         />
         <button
-          onClick={() => {
-            setgoBack(!goBack);
-          }}
           className="absolute inset-y-0 right-0 flex items-center pr-1"
         >
           <CiSearch

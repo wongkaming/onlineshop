@@ -15,8 +15,9 @@ import Nav from './nav';
 import Preview from './preview';
 import Profile from './profile';
 import Register from './register';
-import SearchBar from './searchbar';
+import MobileSearch from './mobilesearchbar';
 import WebSearchBar from './websearchbar';
+import SearchResultData from './SearchResultData';
 import SearchResultList from './searchresultlist';
 import WishlistPage from './wishlist';
 import ConfigButton from './ConfigButton';
@@ -38,8 +39,9 @@ export {
     Preview, 
     Profile,
     Register, 
-    SearchBar, 
+    MobileSearch, 
     WebSearchBar,
+    SearchResultData,
     SearchResultList, 
     WishlistPage,
     HomepageCanvas,

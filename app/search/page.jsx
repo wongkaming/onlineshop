@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
-import { SearchResultList, StarsCanvas } from "@/components/";
+import { SearchResultData, StarsCanvas } from "@/components/";
 import transition from "../transition";
 
 const fetchPosts = (url) => fetch(url).then((response) => response.json());
@@ -39,7 +39,7 @@ const page = () => {
         <h1 className="text-white text-[24px] py-2">
           Results for <span className="font-bold">' {searchQuery} '</span>
         </h1>
-        <SearchResultList data={data} />
+        <SearchResultData data={data} />
         <div className="flex justify-center py-8">
           <Link href="/shop">
             <button className="text-white bg-[#24282e] hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700 ">

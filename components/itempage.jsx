@@ -112,7 +112,7 @@ const ItemPage = ({ data, like }) => {
   };
 
   return (
-    <div className="flex justify-between w-full md:pr-10 absolute top-0 md:top-20 md:bottom-10 bottom-0">
+    <div className="flex justify-between w-full md:pr-10 absolute top-0 md:top-20 md:bottom-10 bottom-0 z-10">
       <ItemDetailCanvas url={data.model3d} />
 
       <div className="overflow-auto flex flex-col h-full w-full md:w-3/5 bubble">

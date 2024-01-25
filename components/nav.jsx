@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AuthService from "../hook/auth";
-import { Cart, SearchBar, WishlistPage, WebSearchBar } from "@/components";
+import { Cart, MobileSearch, WishlistPage, WebSearchBar } from "@/components";
 import styles from "./layout.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -139,17 +139,19 @@ const layout = ({ children, returnBack }) => {
           </ul>
 
           <div className="lg:hidden flex flex-1 justify-end items-center">
-            <ul className="pl-10 pr-5">
-              <li className="text-black">
-                <SearchBar />
+            <ul className="flex flex-row">
+              <li className="text-black pl-10 pr-5">
+                <MobileSearch />
+              </li>
+              <li>
+                <CiHeart
+                  className="w-[24px] h-[24px] object-contain"
+                  onClick={() => {
+                    setgoBack(!goBack);
+                  }}
+                />
               </li>
             </ul>
-            <CiHeart
-              className="w-[24px] h-[24px] object-contain"
-              onClick={() => {
-                setgoBack(!goBack);
-              }}
-            />
           </div>
         </div>
       </nav>
