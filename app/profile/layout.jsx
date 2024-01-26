@@ -1,28 +1,23 @@
-"use client";
 import React from "react";
-import AuthService from "../../hook/auth";
+import Link from "next/link";
+import { profileNavLinks } from "@/constants/index";
 
 export default function ProfileLayout({ children }) {
-  const handleLogout = () => {
-    AuthService.logout(); // 清空local storage
-    window.location.href = "/";
-  };
-
   return (
-    <section>
-      <nav className="flex flex-row justify-around md:px-24 max-h-screen absolute top-8 left-0 right-0 items-center">
-        <div className="py-14 lg:w-1/5">
+    <section className="flex items-center md:px-24 max-h-screen absolute top-8 left-0 right-0 bottom-0 bg-white/60 backdrop-blur-lg">
+      <div className="flex grow flex-row justify-center py-14">
+        <nav className="flex flex-col items-center lg:w-1/5 bg-white p-8">
           <ul>
-            <li>My Account</li>
-            <li>Order</li>
+            {profileNavLinks.map((nav) => (
+              <li key={nav.id} className="hover:text-[#b5cce8] cursor-pointer flex py-2">
+                {nav.icon}
+                <Link href={`/profile/${nav.id}`}>{nav.title}</Link>
+              </li>
+            ))}
           </ul>
-        </div>
-        <div className="lg:w-4/5">
-          <h1 className="text-[28px] font-bold">My Account</h1>
-        </div>
-      </nav>
-      <main>{children}</main>
-      <button onClick={handleLogout}>Logout</button>
+        </nav>
+        <main className="grow pl-20 p-6 bg-gray-50">{children}</main>
+      </div>
     </section>
   );
 }

@@ -107,12 +107,12 @@ const layout = ({ children, returnBack }) => {
 
             {!currentUser && (
               <li>
-                <Link href="/login">Login</Link>
+                <Link href="/profile/login">Login</Link>
               </li>
             )}
             {currentUser && (
               <li>
-                <Link href="/profile">
+                <Link href="/profile/account">
                   <CiUser className="w-[23px] h-[23px]" />
                 </Link>
               </li>
@@ -126,7 +126,7 @@ const layout = ({ children, returnBack }) => {
             )}
             {currentUser && currentUser.user.role == "admin" && (
               <li>
-                <Link href="/data">Data</Link>
+                <Link href="/profile/data">Data</Link>
               </li>
             )}
 
@@ -236,7 +236,7 @@ const layout = ({ children, returnBack }) => {
           )}
           {!currentUser && (
             <li>
-              <Link href="/login" className="flex flex-col items-center">
+              <Link href="/profile/login" className="flex flex-col items-center">
                 <CiUser className="w-[20px] h-[20px]" />
                 <p className="text-[12px]">Me</p>
               </Link>
@@ -244,7 +244,7 @@ const layout = ({ children, returnBack }) => {
           )}
           {currentUser && (
             <li>
-              <Link href="/profile" className="flex flex-col items-center">
+              <Link href="/profile/account" className="flex flex-col items-center">
                 <CiUser className="w-[20px] h-[20px]" />
                 <p className="text-[12px]">Me</p>
               </Link>
@@ -252,7 +252,7 @@ const layout = ({ children, returnBack }) => {
           )}
           {currentUser && currentUser.user.role == "admin" && (
             <li>
-              <Link href="/data" className="flex flex-col items-center">
+              <Link href="/profile/data" className="flex flex-col items-center">
                 <CiHeart className="w-[21px] h-[21px]" />
                 <p className="text-[12px]">Data</p>
               </Link>

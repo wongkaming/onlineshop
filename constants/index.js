@@ -1,6 +1,3 @@
-import { Festive } from "next/font/google";
-
- 
 export const navLinks = [
     {
         id: "/shop",
@@ -19,7 +16,33 @@ export const navLinks = [
         title: "Accessories",
     },
 ];
-  
+
+import { CiFaceSmile, CiReceipt, CiMoneyCheck1, CiMapPin } from "react-icons/ci";
+
+ 
+export const profileNavLinks = [
+    {
+        id: "/account",
+        title: "My Account",
+        icon: <CiFaceSmile className="w-[20px] h-[20px]  mr-2" />,
+    },
+    {
+        id: "/order",
+        title: "Orders",
+        icon: <CiReceipt className="w-[20px] h-[20px]  mr-2" />,
+    },
+    {
+        id: "/coupon",
+        title: "Coupons",
+        icon: <CiMoneyCheck1 className="w-[20px] h-[20px]  mr-2" />,
+    },
+    {
+        id: "/address",
+        title: "Address Book",
+        icon: <CiMapPin className="w-[20px] h-[20px]  mr-2" />,
+    },
+];
+
 export const CategoryList = [
     {
         subtitle: "Categories",

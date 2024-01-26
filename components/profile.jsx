@@ -6,29 +6,25 @@ const Profile = ({ currentUser, setCurrentUser }) => {
       {!currentUser && <div>在獲取您的個人資料之前，您必須先登錄。</div>}
       {currentUser && (
         <div>
-          <h2>以下是您的個人檔案：</h2>
+          <h1 className="text-[36px] font-bold">My Account</h1>
+          <p className="text-[24px]">Account Info</p>
 
           <table className="table">
             <tbody>
               <tr>
                 <td>
-                  <strong>姓名：{currentUser.user.username}</strong>
+                  <strong>Username: {currentUser.user.username}</strong>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <strong>您的用戶ID: {currentUser.user._id}</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>您註冊的電子信箱: {currentUser.user.email}</strong>
+                  <strong>Email: {currentUser.user.email}</strong>
                 </td>
               </tr>
               {currentUser && currentUser.user.role == "admin" && (
                 <tr>
                   <td>
-                    <strong>身份: {currentUser.user.role}</strong>
+                    <strong>Role: {currentUser.user.role}</strong>
                   </td>
                 </tr>
               )}
