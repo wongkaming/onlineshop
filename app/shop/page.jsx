@@ -90,7 +90,12 @@ const CategoryMenu = () => {
           >
             <div className="flex flex-col">
               <div className="flex w-full justify-end">
-                <button className="border border-black rounded-full py-1 px-3" onClick={() => setToggle(!toggle)}>Apply</button>
+                <button
+                  className="border border-black rounded-full py-1 px-3"
+                  onClick={() => setToggle(!toggle)}
+                >
+                  Apply
+                </button>
               </div>
               <MenuTable
                 CategoryList={CategoryList}

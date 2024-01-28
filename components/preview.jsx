@@ -1,7 +1,7 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./layout.module.css";
-import Link from "next/link";
 
 const Preview = ({ data }) => {
   const [images, setImages] = useState([]);

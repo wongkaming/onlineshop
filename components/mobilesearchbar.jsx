@@ -3,7 +3,6 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import styles from "../components/layout.module.css";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 import { SearchResultList } from "@/components/";

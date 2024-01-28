@@ -8,7 +8,7 @@ const Register = () => {
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-  let [role, setRole] = useState("");
+  let [role, setRole] = useState("user");
   let [message, setMessage] = useState("");
 
   const handleUsername = (e) => {
@@ -35,13 +35,35 @@ const Register = () => {
         setMessage(e.response.data);
       });
   };
+  const handleGoogleLogin = () => {
+    const width = 500; // 視窗寬度
+    const height = 500; // 視窗高度
+    const left = (window.innerWidth - width) / 2; // 視窗左側位置
+    const top = (window.innerHeight - height) / 2; // 視窗上側位置
+
+    const popupWindow = window.open(
+      "http://localhost:4040/latest/user/google",
+      "Google Login",
+      `width=${width},height=${height},left=${left},top=${top}`
+    );
+
+    if (window.focus) {
+      popupWindow.focus(); // 將焦點設置在彈出式視窗上
+    }
+  };
 
   return (
     <div style={{ padding: "3rem" }} className="col-md-12">
+      <button
+        onClick={handleGoogleLogin}
+        className="btn btn-primary blackpurple text-white px-3 py-1 rounded-full"
+      >
+        <span>Google</span>
+      </button>
       <div>
         {message && <div className="alert alert-danger">{message}</div>}
         <div>
-          <label htmlFor="username">用戶名稱:</label>
+          <label htmlFor="username">Username：</label>
           <input
             onChange={handleUsername}
             type="text"
@@ -51,7 +73,7 @@ const Register = () => {
         </div>
         <br />
         <div className="form-group">
-          <label htmlFor="email">電子信箱：</label>
+          <label htmlFor="email">Email：</label>
           <input
             onChange={handleEmail}
             type="text"
@@ -61,7 +83,7 @@ const Register = () => {
         </div>
         <br />
         <div className="form-group">
-          <label htmlFor="password">密碼：</label>
+          <label htmlFor="password">Password：</label>
           <input
             onChange={handlePassword}
             type="password"
@@ -71,7 +93,7 @@ const Register = () => {
           />
         </div>
         <br />
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="password">身份：</label>
           <input
             onChange={handleRole}
@@ -81,9 +103,12 @@ const Register = () => {
             name="role"
           />
         </div>
-        <br />
-        <button onClick={handleRegister} className="btn btn-primary">
-          <span>註冊會員</span>
+        <br /> */}
+        <button
+          onClick={handleRegister}
+          className="btn btn-primary blackpurple text-white px-3 py-1 rounded-full"
+        >
+          <span>Register</span>
         </button>
       </div>
     </div>

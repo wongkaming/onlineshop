@@ -107,7 +107,7 @@ const layout = ({ children, returnBack }) => {
 
             {!currentUser && (
               <li>
-                <Link href="/profile/login">Login</Link>
+                <Link href="/login">Login</Link>
               </li>
             )}
             {currentUser && (
@@ -117,13 +117,11 @@ const layout = ({ children, returnBack }) => {
                 </Link>
               </li>
             )}
-            {currentUser && currentUser.user.role == "user" && (
-              <li>
-                <Link href="/wishlist">
-                  <CiHeart className="w-[24px] h-[24px]" />
-                </Link>
-              </li>
-            )}
+            <li>
+              <Link href="/wishlist">
+                <CiHeart className="w-[24px] h-[24px]" />
+              </Link>
+            </li>
             {currentUser && currentUser.user.role == "admin" && (
               <li>
                 <Link href="/profile/data">Data</Link>
@@ -225,18 +223,16 @@ const layout = ({ children, returnBack }) => {
               <p className="text-[12px]">Category</p>
             </Link>
           </li>
-          {currentUser && currentUser.user.role == "user" && (
-            <li>
-              <Link href="/cart" className="flex flex-col items-center">
-                {/* <CiHeart className="w-[21px] h-[21px]" /> */}
-                <CiShoppingCart className="w-[20px] h-[20px]" />
-                <p className="text-[12px]">Cart</p>
-              </Link>
-            </li>
-          )}
+          <li>
+            <Link href="/cart" className="flex flex-col items-center">
+              {/* <CiHeart className="w-[21px] h-[21px]" /> */}
+              <CiShoppingCart className="w-[20px] h-[20px]" />
+              <p className="text-[12px]">Cart</p>
+            </Link>
+          </li>
           {!currentUser && (
             <li>
-              <Link href="/profile/login" className="flex flex-col items-center">
+              <Link href="/login" className="flex flex-col items-center">
                 <CiUser className="w-[20px] h-[20px]" />
                 <p className="text-[12px]">Me</p>
               </Link>
@@ -244,7 +240,10 @@ const layout = ({ children, returnBack }) => {
           )}
           {currentUser && (
             <li>
-              <Link href="/profile/account" className="flex flex-col items-center">
+              <Link
+                href="/profile/account"
+                className="flex flex-col items-center"
+              >
                 <CiUser className="w-[20px] h-[20px]" />
                 <p className="text-[12px]">Me</p>
               </Link>

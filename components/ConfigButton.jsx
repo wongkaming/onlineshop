@@ -1,3 +1,4 @@
+"use client";
 import React, { Component } from "react";
 
 class ConfigButton extends Component {

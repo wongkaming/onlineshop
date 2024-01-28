@@ -17,7 +17,7 @@ export const navLinks = [
     },
 ];
 
-import { CiFaceSmile, CiReceipt, CiMoneyCheck1, CiMapPin } from "react-icons/ci";
+import { CiFaceSmile, CiReceipt, CiMoneyCheck1, CiMapPin, CiMaximize1 } from "react-icons/ci";
 
  
 export const profileNavLinks = [
@@ -42,6 +42,13 @@ export const profileNavLinks = [
         icon: <CiMapPin className="w-[20px] h-[20px]  mr-2" />,
     },
 ];
+
+export const windowIcon = [
+    {
+        icon: <CiMaximize1 className="w-[20px] h-[20px]" />,
+    },
+];
+
 
 export const CategoryList = [
     {
