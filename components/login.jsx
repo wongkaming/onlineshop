@@ -27,12 +27,45 @@ const Login = ({ currentUser, setCurrentUser }) => {
       setMessage(e.response.data);
     }
   };
+  const handleGoogleLogin = async () => {
+    const width = 500;
+    const height = 500;
+    const left = (window.innerWidth - width) / 2;
+    const top = (window.innerHeight - height) / 2;
+
+    const popupWindow = window.open(
+      "http://localhost:4040/latest/user/google",
+      "Google Login",
+      `width=${width},height=${height},left=${left},top=${top}`
+    );
+
+    if (window.focus) {
+      popupWindow.focus();
+    }
+    
+    try {
+      let response = await AuthService.googleLogin();
+      // localStorage.setItem("user", JSON.stringify(response.data));
+      // setCurrentUser(AuthService.getCurrentUser());
+      // setAuth(true);
+    } catch (e) {
+      setMessage(e.response.data);
+    }
+  };
+
   if (auth == true) {
     window.location.href = "/profile";
   }
+  
 
   return (
     <div style={{ padding: "3rem" }} className="col-md-12">
+      <button
+        onClick={handleGoogleLogin}
+        className="btn btn-primary blackpurple text-white px-3 py-1 rounded-full"
+      >
+        <span>Google</span>
+      </button>
       <div>
         {message && <div className="alert alert-danger">{message}</div>}
         <div className="form-group">
