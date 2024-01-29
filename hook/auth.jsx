@@ -18,7 +18,7 @@ class AuthService {
   }
 
   googleLogin() {
-    return axios.post(API_URL + "/profile");
+    return axios.get(API_URL + "/profile");
   }
 
   getCurrentUser() {
