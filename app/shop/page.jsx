@@ -30,7 +30,7 @@ const CategoryMenu = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}?page=1&perPage=10`,
+      `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}`,
       { method: "get" },
       { cache: "no-store" }
     )

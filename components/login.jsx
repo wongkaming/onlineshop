@@ -28,7 +28,7 @@ const Login = ({ currentUser, setCurrentUser }) => {
     }
   };
 
-  const handleGoogleLogin = async() => {
+  const handleGoogleLogin = async () => {
     const width = 500;
     const height = 500;
     const left = (window.innerWidth - width) / 2;
@@ -40,24 +40,22 @@ const Login = ({ currentUser, setCurrentUser }) => {
       `width=${width},height=${height},left=${left},top=${top}`
     );
 
-
     if (window.focus) {
       popupWindow.focus();
     }
-    
-    const timer = setInterval(async() => { 
+
+    const timer = setInterval(async () => {
       try {
-        if(popupWindow.closed) {
+        if (popupWindow.closed) {
           clearInterval(timer);
           AuthService.googleLogin();
           setCurrentUser(AuthService.getCurrentUser());
           setAuth(true);
         }
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
     }, 1000);
-
   };
 
   if (auth == true) {
