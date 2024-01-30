@@ -18,7 +18,16 @@ class AuthService {
   }
 
   googleLogin() {
-    return axios.get(API_URL + "/profile");
+    return axios.get(API_URL + "/profile", {
+      withCredentials: true
+    })
+    .then(response => {
+      console.log(response.data);
+      localStorage.setItem("user", JSON.stringify(response.data));
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   }
 
   getCurrentUser() {
