@@ -107,12 +107,12 @@ const layout = ({ children, returnBack }) => {
 
             {!currentUser && (
               <li>
-                <Link href="/login">Login</Link>
+                <Link href="/user/login">Login</Link>
               </li>
             )}
             {currentUser && (
               <li>
-                <Link href="/profile/account">
+                <Link href="/user/account">
                   <CiUser className="w-[23px] h-[23px]" />
                 </Link>
               </li>
@@ -124,7 +124,7 @@ const layout = ({ children, returnBack }) => {
             </li>
             {currentUser && currentUser.user.role == "admin" && (
               <li>
-                <Link href="/profile/data">Data</Link>
+                <Link href="/user/data">Data</Link>
               </li>
             )}
 
@@ -232,7 +232,7 @@ const layout = ({ children, returnBack }) => {
           </li>
           {!currentUser && (
             <li>
-              <Link href="/login" className="flex flex-col items-center">
+              <Link href="/user/login" className="flex flex-col items-center">
                 <CiUser className="w-[20px] h-[20px]" />
                 <p className="text-[12px]">Me</p>
               </Link>
@@ -240,10 +240,7 @@ const layout = ({ children, returnBack }) => {
           )}
           {currentUser && (
             <li>
-              <Link
-                href="/profile/account"
-                className="flex flex-col items-center"
-              >
+              <Link href="/user/account" className="flex flex-col items-center">
                 <CiUser className="w-[20px] h-[20px]" />
                 <p className="text-[12px]">Me</p>
               </Link>
@@ -251,7 +248,7 @@ const layout = ({ children, returnBack }) => {
           )}
           {currentUser && currentUser.user.role == "admin" && (
             <li>
-              <Link href="/profile/data" className="flex flex-col items-center">
+              <Link href="/user/data" className="flex flex-col items-center">
                 <CiHeart className="w-[21px] h-[21px]" />
                 <p className="text-[12px]">Data</p>
               </Link>

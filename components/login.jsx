@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { redirect } from "next/navigation";
+import Link from "next/link";
+import { useHistory } from "react-router-dom";
 import AuthService from "../hook/auth";
+import { CiMail } from "react-icons/ci";
 
 const Login = ({ currentUser, setCurrentUser }) => {
   let [email, setEmail] = useState("");
@@ -41,16 +43,19 @@ const Login = ({ currentUser, setCurrentUser }) => {
 
     if (window.focus) {
       popupWindow.focus();
-      localStorage.setItem("login", "in process")
+      localStorage.setItem("login", "in process");
     }
 
     const timer = setInterval(async () => {
       try {
-        if (popupWindow.closed && localStorage.getItem("login") == "in process") {
+        if (
+          popupWindow.closed &&
+          localStorage.getItem("login") == "in process"
+        ) {
           clearInterval(timer);
           await AuthService.googleLoginSuccess();
           setCurrentUser(AuthService.getCurrentUser());
-          localStorage.removeItem("login")
+          localStorage.removeItem("login");
         }
       } catch (e) {
         console.log(e);
@@ -58,48 +63,91 @@ const Login = ({ currentUser, setCurrentUser }) => {
     }, 1000);
   };
 
-
-  if (localStorage.getItem("user") !== null ) {
-    window.location.href = "/profile/account";
+  if (localStorage.getItem("user") !== null) {
+    window.location.href = "/user/account";
   }
 
   return (
     <div style={{ padding: "3rem" }} className="col-md-12">
-
-      <button 
+      <h1 className="text-2xl font-semibold mb-4">Log in to your account</h1>
+      <p>
+        Don't have an account?{" "}
+        <span className="text-[#0048ba] underline underline-offset-1">
+          <Link href="/user/register">Sign Up</Link>
+        </span>
+      </p>
+      <button
         onClick={handleGoogleLogin}
-        className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+        className="px-4 py-2 border flex gap-2 bg-white border-gray-400 shadow-md dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
       >
-        <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"/>
-        <span>Login with Google</span>
+        <img
+          className="w-6 h-6"
+          src="https://www.svgrepo.com/show/475656/google-color.svg"
+          loading="lazy"
+          alt="google logo"
+        />
+        <span>Google</span>
       </button>
-
+      <div class="relative mt-10 h-px bg-gray-300">
+        <div class="absolute left-0 top-0 flex justify-center w-full -mt-2">
+          <span class="bg-gray-50 px-4 text-xs text-gray-500 uppercase">
+            Or Login With Email
+          </span>
+        </div>
+      </div>
       <div>
         {message && <div className="alert alert-danger">{message}</div>}
-        <div className="form-group">
-          <label htmlFor="username">Email：</label>
-          <input
-            onChange={handleEmail}
-            type="text"
-            className="form-control"
-            name="email"
-          />
-        </div>
-        <br />
-        <div className="form-group">
-          <label htmlFor="password">Password：</label>
-          <input
-            onChange={handlePassword}
-            type="password"
-            className="form-control"
-            name="password"
-          />
-        </div>
-        <br />
-        <div className="form-group">
-          <button onClick={handleLogin} className="btn btn-primary btn-block">
-            Login
-          </button>
+        <div className="flex flex-col gap-4">
+          <div className="form-group">
+            <label
+              htmlFor="email"
+              className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600"
+            >
+              Email：
+            </label>
+            <div className="relative">
+              <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                <CiMail className="h-6 w-6" />
+              </div>
+              <input
+                onChange={handleEmail}
+                type="email"
+                name="email"
+                className="text-sm sm:text-base placeholder-gray-300 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                placeholder="Type your email"
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label
+              htmlFor="password"
+              className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600"
+            >
+              Password：
+            </label>
+            <div className="relative">
+              <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                <CiMail className="h-6 w-6" />
+              </div>
+              <input
+                onChange={handlePassword}
+                type="password"
+                name="password"
+                className="text-sm sm:text-base placeholder-gray-300 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                placeholder="Type your password"
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <button
+              onClick={handleLogin}
+              className="btn btn-primary blackpurple text-white px-3 py-1 rounded-full"
+            >
+              Login
+            </button>
+          </div>
         </div>
       </div>
     </div>
