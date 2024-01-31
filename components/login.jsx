@@ -20,7 +20,6 @@ const Login = ({ currentUser, setCurrentUser }) => {
     try {
       let response = await AuthService.login(email, password);
       localStorage.setItem("user", JSON.stringify(response.data));
-      // window.alert("登入成功。您現在將被重新導向到個人資料頁面。");
       setCurrentUser(AuthService.getCurrentUser());
       setAuth(true);
     } catch (e) {
@@ -42,15 +41,16 @@ const Login = ({ currentUser, setCurrentUser }) => {
 
     if (window.focus) {
       popupWindow.focus();
+      localStorage.setItem("login", "in process")
     }
 
     const timer = setInterval(async () => {
       try {
-        if (popupWindow.closed) {
+        if (popupWindow.closed && localStorage.getItem("login") == "in process") {
           clearInterval(timer);
-          AuthService.googleLogin();
+          await AuthService.googleLoginSuccess();
           setCurrentUser(AuthService.getCurrentUser());
-          setAuth(true);
+          localStorage.removeItem("login")
         }
       } catch (e) {
         console.log(e);
@@ -58,22 +58,26 @@ const Login = ({ currentUser, setCurrentUser }) => {
     }, 1000);
   };
 
-  if (auth == true) {
-    window.location.href = "/profile";
+
+  if (localStorage.getItem("user") !== null ) {
+    window.location.href = "/profile/account";
   }
 
   return (
     <div style={{ padding: "3rem" }} className="col-md-12">
-      <button
+
+      <button 
         onClick={handleGoogleLogin}
-        className="btn btn-primary blackpurple text-white px-3 py-1 rounded-full"
+        className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
       >
-        <span>Google</span>
+        <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"/>
+        <span>Login with Google</span>
       </button>
+
       <div>
         {message && <div className="alert alert-danger">{message}</div>}
         <div className="form-group">
-          <label htmlFor="username">電子信箱：</label>
+          <label htmlFor="username">Email：</label>
           <input
             onChange={handleEmail}
             type="text"
@@ -83,7 +87,7 @@ const Login = ({ currentUser, setCurrentUser }) => {
         </div>
         <br />
         <div className="form-group">
-          <label htmlFor="password">密碼：</label>
+          <label htmlFor="password">Password：</label>
           <input
             onChange={handlePassword}
             type="password"
@@ -94,7 +98,7 @@ const Login = ({ currentUser, setCurrentUser }) => {
         <br />
         <div className="form-group">
           <button onClick={handleLogin} className="btn btn-primary btn-block">
-            <span>登入系統</span>
+            Login
           </button>
         </div>
       </div>

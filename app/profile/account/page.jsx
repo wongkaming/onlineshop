@@ -12,7 +12,8 @@ const AccountPage = () => {
   }, []);
 
   const handleLogout = () => {
-    AuthService.logout(); // 清空local storage
+    AuthService.logout();
+    localStorage.removeItem("user")
     window.location.href = "/";
   };
 

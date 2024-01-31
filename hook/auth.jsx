@@ -6,7 +6,7 @@ class AuthService {
     return axios.post(API_URL + "/user/login", { email, password });
   }
   logout() {
-    localStorage.removeItem("user");
+    return axios.post(API_URL + "/user/logout")
   }
   register(username, email, password, role) {
     return axios.post(API_URL + "/user/register", {
@@ -17,13 +17,14 @@ class AuthService {
     });
   }
 
-  googleLogin() {
-    return axios.get(API_URL + "/profile", {
+  googleLoginSuccess() {
+    return axios.get(API_URL + "/profile/data", {
       withCredentials: true
     })
     .then(response => {
-      console.log(response.data);
-      localStorage.setItem("user", JSON.stringify(response.data));
+      if (response.data !== "fail") {
+        localStorage.setItem("user", JSON.stringify(response.data));
+      }
     })
     .catch(error => {
       console.error('Error:', error);
