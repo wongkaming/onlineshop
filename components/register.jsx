@@ -1,7 +1,10 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AuthService from "../hook/auth";
+import { CiUser, CiMail, CiLock } from "react-icons/ci";
+
 
 const Register = () => {
   // const navigate = useNavigate();
@@ -25,7 +28,7 @@ const Register = () => {
   const handleRegister = () => {
     AuthService.register(username, email, password, role)
       .then(() => {
-        window.alert("註冊成功。您現在將被導向到登入頁面");
+        window.alert("Congratulations, your account has been successfully created.");
         router.replace("/user/login");
       })
       .catch((e) => {
@@ -34,46 +37,68 @@ const Register = () => {
   };
 
   return (
-    <div style={{ padding: "3rem" }} className="col-md-12">
-      <div>
-        {message && <div className="alert alert-danger">{message}</div>}
+    <div className="col-md-12 md:p-12 p-5">
+      <h1 className="text-2xl font-semibold mb-4">Create your account</h1>
+      <p className="mb-6">
+        Have an account?{" "}
+        <span className="text-[#0048ba] underline underline-offset-1">
+          <Link href="/user/login">Log in now</Link>
+        </span>
+      </p>
+      {message && <div className="alert alert-danger">{message}</div>}
+      <div className="flex flex-col gap-4 grow">
         <div>
-          <label htmlFor="username">Username：</label>
-          <input
-            onChange={handleUsername}
-            type="text"
-            className="form-control"
-            name="username"
-          />
+          <label htmlFor="username" className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Username：</label>
+          <div className="relative">
+            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+              <CiUser className="h-6 w-6" />
+            </div>
+            <input
+              onChange={handleUsername}
+              type="text"
+              name="username"
+              className="text-sm bg-transparent sm:text-base placeholder-gray-300 pl-10 pr-4 border-b border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+            />
+          </div>
         </div>
-        <br />
-        <div className="form-group">
-          <label htmlFor="email">Email：</label>
-          <input
-            onChange={handleEmail}
-            type="text"
-            className="form-control"
-            name="email"
-          />
+
+        <div>
+          <label htmlFor="email" className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Email：</label>
+          <div className="relative">
+            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+              <CiMail className="h-6 w-6" />
+            </div>
+            <input
+              onChange={handleEmail}
+              type="email"
+              name="email"
+              className="text-sm bg-transparent sm:text-base placeholder-gray-300 pl-10 pr-4 border-b border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+            />
+          </div>
         </div>
-        <br />
-        <div className="form-group">
-          <label htmlFor="password">Password：</label>
-          <input
-            onChange={handlePassword}
-            type="password"
-            className="form-control"
-            name="password"
-            placeholder="長度至少超過6個英文或數字"
-          />
+        <div>
+          <label htmlFor="password" className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Password：</label>
+          <div className="relative">
+            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+              <CiLock className="h-6 w-6" />
+            </div>
+            <input
+              onChange={handlePassword}
+              type="password"
+              name="password"
+              placeholder="Must be at least 6 characters"
+              className="text-sm bg-transparent sm:text-base placeholder-gray-300 pl-10 pr-4 border-b border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+            />
+            </div>
         </div>
-        <br />
-        <button
-          onClick={handleRegister}
-          className="btn btn-primary blackpurple text-white px-3 py-1 rounded-full"
-        >
-          <span>Register</span>
-        </button>
+        <div className="flex w-full justify-center">
+          <button
+            onClick={handleRegister}
+            className="blackpurple text-white text-[16px] mt-2 px-8 py-2 rounded-full"
+          >
+            <span>Register</span>
+          </button>
+        </div>
       </div>
     </div>
   );

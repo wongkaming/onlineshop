@@ -10,9 +10,9 @@ const page = () => {
     setCurrentUser(AuthService.getCurrentUser());
   }, []);
   return (
-    <div>
+
       <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
-    </div>
+
   );
 };
 
