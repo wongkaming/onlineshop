@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { profileNavLinks, loginNavLinks, windowIcon } from "@/constants/index";
+import { profileNavLinks, windowIcon } from "@/constants/index";
 import AuthService from "@/hook/auth";
 
 export default function ProfileLayout({ children }) {
@@ -23,11 +23,14 @@ export default function ProfileLayout({ children }) {
             ))}
           </ul>
         </nav>
-        <div className="flex flex-row overflow-y-auto" style={{ maxHeight: `calc(100vh - 300px)` }}>
-          <nav className="hidden lg:flex flex-col items-center lg:w-1/5 px-8 py-14 ">
-            <ul>
-              {!currentUser &&
-                loginNavLinks.map((nav) => (
+        <div
+          className="flex flex-row overflow-y-auto"
+          style={{ maxHeight: `calc(100vh - 300px)` }}
+        >
+          {currentUser && currentUser.user.role == "user" && (
+            <nav className="hidden lg:flex flex-col items-center lg:w-1/5 px-8 py-14 ">
+              <ul>
+                {profileNavLinks.map((nav) => (
                   <li
                     key={nav.id}
                     className="hover:text-[#b5cce8] cursor-pointer flex py-2"
@@ -36,20 +39,17 @@ export default function ProfileLayout({ children }) {
                     <Link href={`/user/${nav.id}`}>{nav.title}</Link>
                   </li>
                 ))}
-              {currentUser &&
-                currentUser.user.role == "user" &&
-                profileNavLinks.map((nav) => (
-                  <li
-                    key={nav.id}
-                    className="hover:text-[#b5cce8] cursor-pointer flex py-2"
-                  >
-                    {nav.icon}
-                    <Link href={`/user/${nav.id}`}>{nav.title}</Link>
-                  </li>
-                ))}
-            </ul>
-          </nav>
-          <main className="grow lg:pl-20 p-6 overflow-y-auto" style={{ maxHeight: `calc(100vh - 300px)`, width: "50vw" }} >{children}</main>
+              </ul>
+            </nav>
+          )}
+          <main
+            className={`${
+              currentUser ? "lg:pl-20 p-6" : "p-6"
+            } grow overflow-y-auto`}
+            style={{ maxHeight: `calc(100vh - 300px)` }}
+          >
+            {children}
+          </main>
         </div>
       </div>
     </section>

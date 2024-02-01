@@ -13,7 +13,7 @@ const AccountPage = () => {
 
   const handleLogout = () => {
     AuthService.logout();
-    localStorage.removeItem("user")
+    localStorage.removeItem("user");
     window.location.href = "/";
   };
 
