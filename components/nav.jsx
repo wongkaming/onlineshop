@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AuthService from "../hook/auth";
-import { Cart, MobileSearch, WishlistPage, WebSearchBar } from "@/components";
+import WishlistItem from "@/hook/item";
+import { Cart, MobileSearch, WishlistPage, MobileWishlistPage, WebSearchBar } from "@/components";
 import styles from "./layout.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -48,10 +49,35 @@ const layout = ({ children, returnBack }) => {
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [goBack, setgoBack] = useState(false);
+  const [mobileWishlistData, setMobileWishlistData] = useState(null);
 
   useEffect(() => {
     setCurrentUser(AuthService.getCurrentUser());
   }, []);
+
+  useEffect(() => {
+    let _id;
+    if (currentUser) {
+      _id = currentUser.user._id;
+      if (currentUser.user.role === "admin") {
+        WishlistItem.get(_id)
+          .then((data) => {
+            setMobileWishlistData(data.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      } else if (currentUser.user.role === "user") {
+        WishlistItem.getWishlist(_id)
+          .then((data) => {
+            setMobileWishlistData(data.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    }
+  }, [goBack]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,7 +97,7 @@ const layout = ({ children, returnBack }) => {
   return (
     <div>
       <nav
-        className={`w-full flex items-center fixed top-0 py-2 z-30 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50 ${
+        className={`w-full flex flex-col items-center fixed top-0 py-2 z-30 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50 ${
           scrolled ? "bg-white" : "bg-white/90"
         }`}
       >
@@ -85,11 +111,11 @@ const layout = ({ children, returnBack }) => {
             }}
           >
             <p className="text-[18px] font-bold cursor-pointer flex">
-              BrandLogo
+              DazeStory☾
             </p>
           </Link>
 
-          <ul className="list-none hidden lg:flex flex-row gap-10 items-center ps-52">
+          <ul className="list-none hidden lg:flex flex-row gap-10 items-center lg:pl-36 md:pl-20 md:pr-10">
             {/* <li className="hover:text-[#b5cce8] cursor-pointer">
               <Shop />
             </li> */}
@@ -186,7 +212,7 @@ const layout = ({ children, returnBack }) => {
         }`}
       >
         <div className="flex flex-col lg:hidden fixed top-0 left-0 right-0 bottom-0 z-30 ">
-          <div className="py-2 px-5 flex flex-row justify-between items-center backdrop-blur-lg bg-white/60">
+          <div className="py-2 px-5 flex flex-row justify-between items-center backdrop-blur-lg bg-white/60 border-b shadow-sm">
             <IoIosArrowRoundBack
               className="w-[24px] h-[24px]"
               onClick={() => {
@@ -196,14 +222,16 @@ const layout = ({ children, returnBack }) => {
             <h1 className="font-bold text-[18px]">Wishlist</h1>
             <CiEdit className="w-[24px] h-[24px]" />
           </div>
-          <div className="py-2 px-5 flex flex-row justify-around items-center backdrop-blur-lg bg-white/60 shadow-sm font-medium">
+          <div className="py-2 px-10 flex flex-row justify-around items-center backdrop-blur-lg bg-white/60 shadow-sm font-medium">
             <h1 className="text-[16px]">All Items</h1>
+            <h className="w-px h-8px bg-gray-300 text-transparent">|</h>
             <h1 className="text-[16px]">Board</h1>
           </div>
           <div>
-            <WishlistPage
+            <MobileWishlistPage
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
+              wishlistData={mobileWishlistData}
             />
           </div>
         </div>

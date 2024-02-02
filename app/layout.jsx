@@ -52,7 +52,7 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="author" content="Cathy" />
       </Head>
-      <title>Brandlogo</title>
+      <title>DazeStory☾</title>
       <body className="text-[#24282e]">
         <AnimatePresence mode="wait">
           <LightProvider value2={changeLight}>

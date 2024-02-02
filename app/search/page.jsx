@@ -31,7 +31,7 @@ const page = () => {
   }
 
   return (
-    <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-8 left-0 right-0">
+    <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-8 left-0 right-0 bg-[#18202a]/50 backdrop-blur-lg">
       <div
         className="px-[5%] overflow-auto pt-12 grow lg:pb-10 pb-14"
         style={{ maxHeight: `calc(100vh - 32px)` }}

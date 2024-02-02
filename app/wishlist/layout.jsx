@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { profileNavLinks, windowIcon } from "@/constants/index";
+import { StarsCanvas } from "@/components/";
 import AuthService from "@/hook/auth";
 
 export default function WishlistLayout({ children }) {
   return (
-    <section className="flex items-center p-10 pb-20 lg:p-24 max-h-screen absolute top-8 left-0 right-0 bottom-0 bg-white/60 backdrop-blur-lg">
+    <section className="flex items-center p-5 pb-16 md:pb-20 md:p-10 lg:p-24 max-h-screen absolute top-8 left-0 right-0 bottom-0 bg-white/60 backdrop-blur-lg">
       <div className="grow h-full justify-center bg-gray-50 rounded-lg border border-gray-300 shadow-md">
         <nav className="flex flex-row justify-between py-1 rounded-t-lg pinkblue">
           <p className="font-bold px-3">My Wishlist</p>
@@ -17,18 +18,13 @@ export default function WishlistLayout({ children }) {
             ))}
           </ul>
         </nav>
-        <div
-          className="flex flex-row overflow-y-auto"
-          style={{ maxHeight: `calc(100vh - 300px)` }}
-        >
-          <main
-            className={`p-6 grow overflow-y-auto`}
-            style={{ maxHeight: `calc(100vh - 300px)` }}
-          >
+        <div className="flex justify-center w-full h-full">
+          <main className={`mx-0 md:mx-8 mb-8 overflow-y-auto`}>
             {children}
           </main>
         </div>
       </div>
+      <StarsCanvas />
     </section>
   );
 }

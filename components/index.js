@@ -20,6 +20,7 @@ import WebSearchBar from './websearchbar';
 import SearchResultData from './SearchResultData';
 import SearchResultList from './searchresultlist';
 import WishlistPage from './wishlist';
+import MobileWishlistPage from './mobileWishlist';
 import ConfigButton from './ConfigButton';
 
 export {
@@ -44,6 +45,7 @@ export {
     SearchResultData,
     SearchResultList, 
     WishlistPage,
+    MobileWishlistPage,
     HomepageCanvas,
     ItemDetailCanvas,
     StarsCanvas,

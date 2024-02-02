@@ -67,7 +67,7 @@ const Login = ({ currentUser, setCurrentUser }) => {
   }
 
   return (
-    <div className="flex w-full justify-center">
+    <div className="flex w-full pt-8 justify-center">
       <div className="col-md-12 md:p-12 lg:w-[50vw] flex flex-col justify-center">
         <h1 className="text-2xl font-semibold mb-4 flex w-full justify-center">
           Log in to your account

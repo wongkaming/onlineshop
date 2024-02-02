@@ -30,7 +30,7 @@ const Data = ({ data, price, currentUser, like }) => {
   };
 
   return (
-    <div className="shadow-md shadow-[#d5e8ff] rounded-md max-w-[400px]">
+    <div className="shadow-md rounded-md max-w-[400px]">
       <a target="_blank" href={`goods/${data.item.category}/${data.item._id}`}>
         <Image
           src={data.item.galleryWrap[0]}

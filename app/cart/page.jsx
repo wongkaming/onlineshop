@@ -1,8 +1,10 @@
-import React from 'react'
+"use client";
+import React from "react";
+import { Cart } from "@/components/";
 
 const page = () => {
   return (
-    <div className="lg:hidden bg-white/60 backdrop-blur-lg fixed bottom-0 left-0 right-0 top-0">page</div>
+    <div><Cart/></div>
   )
 }
 

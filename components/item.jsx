@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
-import AuthService from "../hook/item";
+import AuthService from "@/hook/item";
 
 const OneItem = ({ data, price, like }) => {
   const user = JSON.parse(localStorage.getItem("user"));
