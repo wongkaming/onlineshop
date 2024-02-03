@@ -5,13 +5,17 @@ import Currency from './currency';
 import Data from './data';
 import DataList from './datalist';
 import Home from './home';
+import HomeDeco from './homedeco';
 import OneItem from './item';
 import ItemList from './itemlist';
 import Itempage from './itempage';
 import Light from './light';
 import Login from './login';
+import Loading from './loading';
+import Nothing from './nothing';
 import MenuTable from './MenuTable';
 import Nav from './nav';
+import NoticeBar from './noticebar';
 import Preview from './preview';
 import Profile from './profile';
 import Register from './register';
@@ -30,13 +34,17 @@ export {
     Data, 
     DataList, 
     Home, 
+    HomeDeco,
     OneItem, 
     ItemList, 
     Itempage, 
     Light,
     Login, 
+    Loading,
+    Nothing,
     MenuTable,
     Nav, 
+    NoticeBar,
     Preview, 
     Profile,
     Register, 

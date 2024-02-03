@@ -1,64 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Typewriter from "typewriter-effect";
-import Preview from "./preview";
+import { Preview, HomeDeco } from "@/components";
+import useAxios from "../hook/useAxios";
+
 import styles from "./layout.module.css";
 
-const page = () => {
-  const [homepage, setHomepage] = useState(false);
-  const [width, setWidth] = useState("100vw");
+function WellcomePage({ handleClick }) {
   const [timer, setTimer] = useState("");
-  const [data, setDate] = useState(null);
-
-  useEffect(() => {
-    fetch(
-      "https://1zaqtzgggf.execute-api.ap-southeast-2.amazonaws.com/latest/intro/all",
-      { method: "get" }, //CORS
-      { cache: "no-store" }
-    )
-      .then(async function (req) {
-        let data = await req.json();
-        return setDate(data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
-
-  const handleClick = () => {
-    setHomepage(true);
-    setWidth("50vw");
-  };
-
-  function beginning() {
-    return (
-      <>
-        <p id={styles.time}>
-          HKT
-          <br />
-          {timer}
-        </p>
-        <span>
-          <Typewriter
-            options={{
-              strings: [
-                "Hello World",
-                "Its all about art in the 21st Century...",
-              ],
-              autoStart: true,
-              loop: true,
-              cursor: "_",
-            }}
-          />
-        </span>
-        <button id={styles.entry} onClick={handleClick}>
-          ExPlOrE⇩
-        </button>
-      </>
-    );
-  }
-
-  let [preview, setPreview] = useState(beginning());
 
   function myTimer() {
     const date = new Date();
@@ -66,67 +15,101 @@ const page = () => {
   }
   setInterval(myTimer, 100);
 
-  function abc() {
-    return {
-      display: "grid",
-      columnGap: "50px",
-      gridTemplateColumns: " repeat(5,1fr)",
-      height: "40px",
-      paddingLeft: "10px",
-      paddingRight: "10px",
-      alignItems: "baseline",
-      color: "azure",
-      justifyContent: "center",
-    };
-  }
-  let [style, setStyle] = useState(abc());
-
   return (
     <>
-      <div id={styles.home}>
-        <div id={styles.columns}>
-          <div
-            id={styles.centeredtext}
-            style={{ width: width, transition: "width 1s", ...style }}
-          >
-            {preview}
-          </div>
-          {/* (if this part is true) && (this part will execute) */}
-          {homepage && (
-            <div
-              id={styles.text}
-              style={{ width: "50vw" }}
-              onMouseEnter={() => {
-                setStyle({
-                  padding: "10px",
-                });
-                setPreview(
-                  <div id={styles.words}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eligendi neque magnam veniam error dignissimos molestiae
-                    quia, asperiores ipsum blanditiis assumenda ex culpa?
-                    Corporis cum in vitae accusantium aliquid, error reiciendis?
-                  </div>
-                );
-              }}
-              onMouseLeave={() => {
-                setStyle(abc());
-                setPreview(beginning());
-              }}
-            >
-              {data &&
-                data.map((d, index) => {
-                  return (
-                    <div key={index}>
-                      <Preview data={d} />
-                    </div>
-                  );
-                })}
-            </div>
-          )}
-        </div>
+      <div className="text-xl text-white">
+        HKT
+        <br />
+        {timer}
+      </div>
+      <div className="text-xl text-white w-96">
+        <Typewriter
+          options={{
+            strings: ["Welcome to Dazeworld", "Think about the dream..."],
+            autoStart: true,
+            loop: true,
+            cursor: "_",
+          }}
+        />
+      </div>
+      <div className="flex flex-row">
+        <button className="text-xl text-white" onClick={handleClick}>
+          ExPlOrE
+        </button>
+        <iframe
+          src="https://giphy.com/embed/EAP2HUqMrZsB0jqwUr"
+          width="36"
+          height="31.8"
+          allowFullScreen
+        ></iframe>
       </div>
     </>
+  );
+}
+
+const page = () => {
+  const [homepage, setHomepage] = useState(false);
+  const [preview, setPreview] = useState(false);
+
+  const [data, loaded, error] = useAxios(
+    "http://localhost:4040/latest/intro/all"
+  );
+
+  const handleClick = () => {
+    setHomepage(true);
+  };
+
+  return (
+    <div className="flex flex-row justify-between absolute w-full h-full top-0 bottom-0 right-0 left-0 overflow-hidden">
+      <div
+        className={`hidden lg:flex lg:flex-row justify-around w-full h-full ml-10 items-center ${
+          homepage ? "mr-5" : "mr-10"
+        }`}
+      >
+        {!preview && <WellcomePage handleClick={handleClick} />}
+        {preview && (
+          <div id={styles.words}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
+            neque magnam veniam error dignissimos molestiae quia, asperiores
+            ipsum blanditiis assumenda ex culpa? Corporis cum in vitae
+            accusantium aliquid, error reiciendis?
+          </div>
+        )}
+      </div>
+
+      <div
+        className={`hidden lg:flex lg:flex-col h-full overflow-y-auto bg-white/60 backdrop-blur-lg transition-all ease-in-out duration-1000 ${
+          homepage
+            ? "-translate-x-0 pl-5 pr-10 w-full"
+            : "translate-x-full pl-0 pr-0 w-0"
+        }`}
+        onMouseEnter={() => {
+          setPreview(true);
+        }}
+        onMouseLeave={() => {
+          setPreview(false);
+        }}
+      >
+        {data &&
+          data.map((d, index) => {
+            return <Preview data={d} key={index} />;
+          })}
+      </div>
+      <div
+        className={`lg:hidden flex flex-col md:px-10 px-5 w-full h-full overflow-y-auto bg-white/60 backdrop-blur-lg`}
+        onMouseEnter={() => {
+          setPreview(true);
+        }}
+        onMouseLeave={() => {
+          setPreview(false);
+        }}
+      >
+        {data &&
+          data.map((d, index) => {
+            return <Preview data={d} key={index} />;
+          })}
+      </div>
+    </div>
   );
 };
 

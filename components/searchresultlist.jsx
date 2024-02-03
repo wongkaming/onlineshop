@@ -3,7 +3,7 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 
-import { StarsCanvas, SearchResultData } from "@/components/";
+import { StarsCanvas, SearchResultData, Loading, Nothing } from "@/components/";
 
 const fetchPosts = (url) => fetch(url).then((response) => response.json());
 
@@ -18,15 +18,11 @@ const SearchResultList = ({ input }) => {
   );
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (data?.posts.length == 0) {
-    return (
-      <div>
-        <p>Nothing found.</p>
-      </div>
-    );
+    return <Nothing />;
   }
 
   return (

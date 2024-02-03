@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
-import { Home } from "@/components";
+import { Home, HomeDeco } from "@/components";
 import transition from "./transition";
 
 const page = () => {
   return (
     <>
+      <HomeDeco />
       <Home />
     </>
   );

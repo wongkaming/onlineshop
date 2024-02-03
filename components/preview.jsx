@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "./layout.module.css";
 
 const Preview = ({ data }) => {
   const [images, setImages] = useState([]);
@@ -11,7 +10,14 @@ const Preview = ({ data }) => {
 
     if (data.coverimage) {
       imageComponents.push(
-        <Image src={data.coverimage} alt="" width={960} height={540} key={1} />
+        <Image
+          src={data.coverimage}
+          alt=""
+          width={960}
+          height={540}
+          key={1}
+          className="row-span-2"
+        />
       );
     }
 
@@ -48,6 +54,7 @@ const Preview = ({ data }) => {
           alt=""
           width={960}
           height={540}
+          className="col-span-2"
           unoptimized={true}
           key={4}
         />
@@ -58,15 +65,18 @@ const Preview = ({ data }) => {
   }, []);
 
   return (
-    <div className={styles.preview}>
-      <p className={styles.category}>{data.category}</p>
-      <a style={{ display: "flex" }} onMouseEnter={() => console.log("on")}>
-        {images}
-      </a>
-
-      <h1 className={styles.title}>{data.title}</h1>
-
-      <p className={styles.description}>{data.description}</p>
+    <div className="flex flex-col pt-14 pb-5">
+      <p className="text-xl font-semibold m-2">{data.category}</p>
+      {images.length != 1 && (
+        <div className="grid grid-cols-2 max-w-[800px]">{images}</div>
+      )}
+      {images.length == 1 && (
+        <div className="grid grid-cols-1 max-w-[800px]">{images}</div>
+      )}
+      <div className="grid grid-cols-2 pt-5">
+        <h1 className="text-[48px] leading-10 mr-5">{data.title}</h1>
+        <p className="leading-none mr-5">{data.description}</p>
+      </div>
     </div>
   );
 };

@@ -23,11 +23,9 @@ export default function ProfileLayout({ children }) {
             ))}
           </ul>
         </nav>
-        <div
-          className="flex justify-center w-full h-full"
-        >
+        <div className="grow flex-row flex h-full">
           {currentUser && currentUser.user.role == "user" && (
-            <nav className="hidden md:flex flex-col items-center lg:w-1/5 px-8 py-14 ">
+            <nav className="hidden md:flex flex-col items-center lg:w-1/5 px-8 my-8 overflow-y-auto">
               <ul>
                 {profileNavLinks.map((nav) => (
                   <li
@@ -44,7 +42,7 @@ export default function ProfileLayout({ children }) {
           <main
             className={`${
               currentUser ? "lg:ml-20 p-6" : "p-0"
-            } mb-8 overflow-y-auto`}
+            } mb-8 grow overflow-y-auto`}
           >
             {children}
           </main>

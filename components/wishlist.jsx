@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import WishlistItem from "@/hook/item";
-import { DataList} from "@/components/";
+import { DataList } from "@/components/";
 
 const WishlistPage = ({ currentUser, setCurrentUser }) => {
   const router = useRouter();
@@ -34,16 +34,20 @@ const WishlistPage = ({ currentUser, setCurrentUser }) => {
           });
       }
     }
-  }, [currentUser]); //意思是根据 currentUser 的变化来触发 useEffect; 当 currentUser 发生变化时，useEffect 才会重新运行
+  }, [currentUser]);
 
   return (
     <div className="flex w-full justify-center">
       <div className="col-md-12 flex flex-col justify-center">
-        <div className={`${currentUser ? "pt-0" : "lg:pt-24 pt-12" } flex flex-col gap-4 grow`}>
+        <div
+          className={`${
+            currentUser ? "pt-0" : "lg:pt-24 pt-12"
+          } flex flex-col gap-4 grow`}
+        >
           {!currentUser && (
             <div
-            className="overflow-auto grow"
-            style={{ maxHeight: `calc(100vh - 32px)` }}
+              className="overflow-auto grow"
+              style={{ maxHeight: `calc(100vh - 32px)` }}
             >
               <div className="flex w-full justify-center mb-2">
                 <img
@@ -77,7 +81,12 @@ const WishlistPage = ({ currentUser, setCurrentUser }) => {
               className="overflow-auto grow py-8 px-6"
               style={{ maxHeight: `calc(100vh - 32px)` }}
             >
-              <h1 className="text-xl font-semibold mb-4">My Wish List <span className="border border-gray-500 px-2 rounded-full">{wishlistData.length}</span></h1>
+              <h1 className="text-xl font-semibold mb-4">
+                My Wish List{" "}
+                <span className="border border-gray-500 px-2 rounded-full">
+                  {wishlistData.length}
+                </span>
+              </h1>
               <DataList data={wishlistData} currentUser={currentUser} />
             </div>
           )}

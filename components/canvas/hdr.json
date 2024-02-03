@@ -1,18 +1,11 @@
 {
   "sunshine": {
-    "asset": "/assets/kloofendal_48d_partly_cloudy_puresky_4k.hdr",
-    "online": "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/HDR/kloofendal_48d_partly_cloudy_puresky_4k.hdr"
-  },
-  "studio": {
-    "asset": "/assets/studio_small_03_2k.hdr",
-    "online": "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/HDR/studio_small_03_4k.hdr"
+    "asset": "/assets/kloofendal_48d_partly_cloudy_puresky_4k.hdr"
   },
   "sunrise": {
-    "asset": "/assets/pink_sunrise_2k.hdr",
-    "online": "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/HDR/pink_sunrise_4k.hdr"
+    "asset": "/assets/hochsal_field_4k.hdr"
   },
   "night": {
-    "asset": "/assets/moonless_golf_2k.hdr",
-    "online": "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/HDR/moonless_golf_2k.hdr"
+    "asset": "/assets/vertopal.hdr"
   }
 }

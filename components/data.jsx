@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import AuthService from "../hook/item";
@@ -13,7 +12,6 @@ const Data = ({ data, price, currentUser, like }) => {
     AuthService.enroll(data.item._id)
       .then(() => {
         setLiked(!liked);
-        console.log(liked);
       })
       .catch((e) => {
         console.log(e.response.data);

@@ -4,7 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import AuthService from "../hook/auth";
 import WishlistItem from "@/hook/item";
-import { Cart, MobileSearch, WishlistPage, MobileWishlistPage, WebSearchBar } from "@/components";
+import {
+  Cart,
+  MobileSearch,
+  NoticeBar,
+  MobileWishlistPage,
+  WebSearchBar,
+} from "@/components";
 import styles from "./layout.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -96,12 +102,8 @@ const layout = ({ children, returnBack }) => {
 
   return (
     <div>
-      <nav
-        className={`w-full flex flex-col items-center fixed top-0 py-2 z-30 text-[16px] font-medium backdrop-blur-lg hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50 ${
-          scrolled ? "bg-white" : "bg-white/90"
-        }`}
-      >
-        <div className="w-full flex justify-between items-center max-w-8xl mx-auto px-5 lg:px-9">
+      <nav className="w-full flex flex-col items-center fixed top-0 z-30 text-[16px] font-medium">
+        <div className="w-full flex justify-between items-center max-w-8xl mx-auto px-5 lg:px-9 py-2 backdrop-blur-lg bg-white/90 hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50">
           <Link
             href="/"
             className="flex items-center gap-2"

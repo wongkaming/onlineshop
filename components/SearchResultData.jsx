@@ -21,7 +21,7 @@ const SearchResultData = ({ data }) => {
   let curr;
 
   return (
-    <div className="grid grid-cols-2 gap-x-6 gap-y-6 lg:gap-y-12 md:grid-cols-3 xl:grid-cols-5">
+    <div className="grid grid-cols-2 gap-x-6 gap-y-6 lg:gap-y-12 md:grid-cols-5 xl:grid-cols-6">
       {data &&
         data?.posts.map((d, index) => {
           if (change == true) {
