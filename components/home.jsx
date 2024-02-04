@@ -6,13 +6,13 @@ import useAxios from "../hook/useAxios";
 
 import styles from "./layout.module.css";
 
-function WellcomePage({ handleClick }) {
+const WellcomePage = ({ handleClick }) => {
   const [timer, setTimer] = useState("");
 
-  function myTimer() {
+  const myTimer = () => {
     const date = new Date();
     setTimer(date.toLocaleTimeString());
-  }
+  };
   setInterval(myTimer, 100);
 
   return (
@@ -45,7 +45,7 @@ function WellcomePage({ handleClick }) {
       </div>
     </>
   );
-}
+};
 
 const page = () => {
   const [homepage, setHomepage] = useState(false);
@@ -78,7 +78,7 @@ const page = () => {
       </div>
 
       <div
-        className={`hidden lg:flex lg:flex-col h-full overflow-y-auto bg-white/60 backdrop-blur-lg transition-all ease-in-out duration-1000 ${
+        className={`hidden lg:flex lg:flex-col h-full overflow-y-auto bg-white/90 backdrop-blur-lg transition-all ease-in-out duration-1000 ${
           homepage
             ? "-translate-x-0 pl-5 pr-10 w-full"
             : "translate-x-full pl-0 pr-0 w-0"
@@ -92,7 +92,9 @@ const page = () => {
       >
         {data &&
           data.map((d, index) => {
-            return <Preview data={d} key={index} />;
+            return (
+              <Preview data={d} index={index} key={index} homepage={homepage} />
+            );
           })}
       </div>
       <div
@@ -106,7 +108,9 @@ const page = () => {
       >
         {data &&
           data.map((d, index) => {
-            return <Preview data={d} key={index} />;
+            return (
+              <Preview data={d} index={index} key={index} homepage={true} />
+            );
           })}
       </div>
     </div>

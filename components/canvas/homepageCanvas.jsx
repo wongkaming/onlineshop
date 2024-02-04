@@ -41,7 +41,7 @@ import LightProvider, { LightContext } from "@/context/lightContext";
 import Hdr from "./hdr.json";
 
 extend({ Water });
-function River() {
+const River = () => {
   const ref = useRef();
   const gl = useThree((state) => state.gl);
   const waterNormals = useLoader(
@@ -75,9 +75,9 @@ function River() {
       position={[0, 0.05, 0]}
     />
   );
-}
+};
 
-function Forest() {
+const Forest = () => {
   const ref = useRef();
 
   const gtlf = useLoader(GLTFLoader, "/assets/ground3.glb");
@@ -106,9 +106,9 @@ function Forest() {
       <primitive object={gtlf.scene} position={[0, -0.5, 0]} />
     </mesh>
   );
-}
+};
 
-function Polyhedron({ polyhedron, color, ...props }) {
+const Polyhedron = ({ polyhedron, color, ...props }) => {
   const ref = useRef();
   const [count, setCount] = useState(0);
 
@@ -129,9 +129,9 @@ function Polyhedron({ polyhedron, color, ...props }) {
       <meshBasicMaterial wireframe />
     </mesh>
   );
-}
+};
 
-function Light() {
+const Light = () => {
   return (
     <>
       <pointLight position={[0.28, 5, 1.22]} intensity={10} color={"#AECDFD"} />
@@ -148,9 +148,9 @@ function Light() {
       />
     </>
   );
-}
+};
 
-function Effect() {
+const Effect = () => {
   // const options1 = useMemo(() => {
   //   return {
   //     focusDistance: { value: 0, min: 0, max: 1.0, step: 0.01 },
@@ -188,9 +188,9 @@ function Effect() {
       <Noise opacity={0.15} />
     </EffectComposer>
   );
-}
+};
 
-function Rig() {
+const Rig = () => {
   const { camera } = useThree();
   const clock = new Clock();
 
@@ -201,7 +201,7 @@ function Rig() {
     camera.position.z = 10; // 固定 Z 轴位置
     camera.lookAt(0, 1.06, 0);
   });
-}
+};
 
 export default function homepageCanvas() {
   const polyhedron = useMemo(

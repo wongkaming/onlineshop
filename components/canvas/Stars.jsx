@@ -5,13 +5,13 @@ import { Points, PointMaterial, Preload } from "@react-three/drei";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import * as random from "maath/random/dist/maath-random.esm";
 
-function Effect() {
+const Effect = () => {
   return (
     <EffectComposer>
       <Bloom luminanceThreshold={0.4} luminanceSmoothing={0.8} height={400} />
     </EffectComposer>
   );
-}
+};
 
 const Stars = (props) => {
   const ref = useRef();

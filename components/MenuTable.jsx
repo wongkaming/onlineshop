@@ -1,7 +1,7 @@
 import React from "react";
 import { ConfigButton } from "@/components";
 
-class MenuTable extends React.Component {
+const MenuTable = class extends React.Component {
   constructor(props) {
     super(props);
 
@@ -75,6 +75,6 @@ class MenuTable extends React.Component {
       </div>
     );
   }
-}
+};
 
 export default MenuTable;

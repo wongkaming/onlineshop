@@ -8,7 +8,7 @@ import CanvasLoader from "../canvasloader";
 import LightProvider, { LightContext } from "@/context/lightContext";
 import Hdr from "./hdr.json";
 
-function Item3d({ url, show }) {
+const Item3d = ({ url, show }) => {
   const gtlf = useLoader(GLTFLoader, url);
   const annotations = [];
   gtlf.scene.children.map((o) => {
@@ -53,7 +53,7 @@ function Item3d({ url, show }) {
       {/* </motion.mesh> */}
     </mesh>
   );
-}
+};
 
 const itemdetail = ({ url }) => {
   let [detail, setDetail] = useState(false);

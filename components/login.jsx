@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import AuthService from "../hook/auth";
 import { CiMail, CiLock } from "react-icons/ci";
 

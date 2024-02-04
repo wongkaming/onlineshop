@@ -78,7 +78,7 @@ export default function RootLayout({ children }) {
               </div>
               {children}
             </CurrencyProvider>
-            <HomepageCanvas />
+            {/* <HomepageCanvas /> */}
           </LightProvider>
         </AnimatePresence>
       </body>

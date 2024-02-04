@@ -1,7 +1,7 @@
 "use client";
 import React, { Component } from "react";
 
-class ConfigButton extends Component {
+const ConfigButton = class extends Component {
   render() {
     const { subtitle, style } = this.props;
 
@@ -30,6 +30,6 @@ class ConfigButton extends Component {
       </button>
     );
   }
-}
+};
 
 export default ConfigButton;
