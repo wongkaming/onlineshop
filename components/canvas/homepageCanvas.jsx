@@ -1,12 +1,5 @@
 "use client";
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  useContext,
-  useMemo,
-  Suspense,
-} from "react";
+import React, { useState, useRef, useContext, useMemo } from "react";
 import * as THREE from "three";
 import { Clock } from "three";
 import {
@@ -17,27 +10,15 @@ import {
   useThree,
 } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import {
-  OrbitControls,
-  ScrollControls,
-  useScroll,
-  useGLTF,
-  Sky,
-  Environment,
-  Sampler,
-  Stats,
-  Circle,
-  ContactShadows,
-} from "@react-three/drei";
+import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
 import {
   Bloom,
   DepthOfField,
   EffectComposer,
   Noise,
-  Vignette,
 } from "@react-three/postprocessing";
 import { Water } from "three-stdlib";
-import LightProvider, { LightContext } from "@/context/lightContext";
+import { LightContext } from "@/context/lightContext";
 import Hdr from "./hdr.json";
 
 extend({ Water });
@@ -80,16 +61,8 @@ const River = () => {
 const Forest = () => {
   const ref = useRef();
 
-  const gtlf = useLoader(GLTFLoader, "/assets/ground3.glb");
-  const door = useLoader(GLTFLoader, "/assets/door.glb");
-
-  useEffect(() => {
-    let mixer = new THREE.AnimationMixer(door.scene);
-    for (let i = 0; i < door.animations.length; i++) {
-      door.scene.animations.push(door.animations[i]);
-    }
-    // console.log(ref.current.children[0]);
-  }, []);
+  const gltf = useMemo(() => useLoader(GLTFLoader, "/assets/ground3.glb"), []);
+  const door = useMemo(() => useLoader(GLTFLoader, "/assets/door.glb"), []);
 
   return (
     <mesh ref={ref} receiveShadow>
@@ -103,7 +76,7 @@ const Forest = () => {
           // });
         }}
       />
-      <primitive object={gtlf.scene} position={[0, -0.5, 0]} />
+      <primitive object={gltf.scene} position={[0, -0.5, 0]} />
     </mesh>
   );
 };
@@ -196,9 +169,9 @@ const Rig = () => {
 
   return useFrame(() => {
     const t = clock.getElapsedTime();
-    camera.position.x = Math.sin(t * 0.2) * 0.5 + 2.0; // X 轴方向移动
-    camera.position.y = Math.cos(t * 0.2) * 0.2 + 1.5; // Y 轴方向移动
-    camera.position.z = 10; // 固定 Z 轴位置
+    camera.position.x = Math.sin(t * 0.2) * 0.5 + 2.0;
+    camera.position.y = Math.cos(t * 0.2) * 0.2 + 1.5;
+    camera.position.z = 10;
     camera.lookAt(0, 1.06, 0);
   });
 };
@@ -237,7 +210,6 @@ export default function homepageCanvas() {
           enablePan={false}
           maxPolarAngle={Math.PI / 2.2}
           minPolarAngle={Math.PI / 2.2}
-          // autoRotate
         />
         <Forest />
         <River />

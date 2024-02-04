@@ -5,9 +5,9 @@ import { WishlistPage } from "@/components/";
 import transition from "../transition";
 
 const page = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, wishlistData } = useContext(UserContext);
 
-  return <WishlistPage currentUser={currentUser} />;
+  return <WishlistPage currentUser={currentUser} wishlistData={wishlistData} />;
 };
 
 export default transition(page);

@@ -4,11 +4,7 @@ import { Register } from "@/components/";
 import transition from "@/app/transition";
 
 const page = () => {
-  return (
-    <div>
-      <Register />
-    </div>
-  );
+  return <Register />;
 };
 
 export default transition(page);

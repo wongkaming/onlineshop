@@ -2,20 +2,11 @@
 import React, { useContext } from "react";
 import OneItem from "./item";
 import { CurrencyContext } from "@/context/currencyContext";
+import { UserContext } from "@/context/userContext";
 
 const ItemList = ({ data }) => {
-  const {
-    rates,
-    setRates,
-    rates2,
-    setRates2,
-    change,
-    setChange,
-    currency,
-    setCurrency,
-    unit,
-    setUnit,
-  } = useContext(CurrencyContext);
+  const { rates, rates2, change, currency, unit } = useContext(CurrencyContext);
+  const { currentUser } = useContext(UserContext);
 
   let curr;
 
@@ -35,7 +26,15 @@ const ItemList = ({ data }) => {
             }).format(d.price);
           }
 
-          return <OneItem data={d} price={curr} like={d._id} key={index} />;
+          return (
+            <OneItem
+              data={d}
+              price={curr}
+              like={d._id}
+              key={index}
+              currentUser={currentUser}
+            />
+          );
         })}
     </div>
   );

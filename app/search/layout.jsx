@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { StarsCanvas } from "@/components/";
+import React, { Suspense, lazy } from "react";
+const StarsCanvas = lazy(() => import("@/components/canvas/Stars"));
 
 export default function SearchLayout({ children }) {
   return (
@@ -10,7 +10,11 @@ export default function SearchLayout({ children }) {
         style={{ maxHeight: `calc(100vh - 32px)` }}
       >
         {children}
-        <StarsCanvas />
+        {children && (
+          <Suspense fallback={<div> </div>}>
+            <StarsCanvas />
+          </Suspense>
+        )}
       </div>
     </section>
   );

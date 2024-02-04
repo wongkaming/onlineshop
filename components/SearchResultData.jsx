@@ -1,22 +1,12 @@
 "use client";
 import React, { useContext } from "react";
 import { CurrencyContext } from "@/context/currencyContext";
-
+import { UserContext } from "@/context/userContext";
 import { OneItem } from "@/components/";
 
 const SearchResultData = ({ data }) => {
-  const {
-    rates,
-    setRates,
-    rates2,
-    setRates2,
-    change,
-    setChange,
-    currency,
-    setCurrency,
-    unit,
-    setUnit,
-  } = useContext(CurrencyContext);
+  const { rates, rates2, change, currency, unit } = useContext(CurrencyContext);
+  const { currentUser } = useContext(UserContext);
 
   let curr;
 
@@ -35,7 +25,15 @@ const SearchResultData = ({ data }) => {
               currency: currency,
             }).format(d.price);
           }
-          return <OneItem data={d} price={curr} like={d._id} key={index} />;
+          return (
+            <OneItem
+              data={d}
+              price={curr}
+              like={d._id}
+              key={index}
+              currentUser={currentUser}
+            />
+          );
         })}
       {/* {!data && <p>nothing</p>} */}
     </div>

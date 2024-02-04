@@ -1,11 +1,9 @@
 "use client";
-import React from "react";
-import useAxios from "../hook/useAxios";
+import React, { useContext } from "react";
+import { CurrencyContext } from "@/context/currencyContext";
 
 const Currency = ({ onDataSelected }) => {
-  const [data, loaded, error] = useAxios(
-    "https://api.exchangerate-api.com/v4/latest/USD"
-  );
+  const { data } = useContext(CurrencyContext);
 
   const usd = data?.rates?.USD; //操作符 ?. 来进行安全访问，以确保当 data 或 data.rates 为 null 或 undefined 时不会引发错误
   const hkd = data?.rates?.HKD;

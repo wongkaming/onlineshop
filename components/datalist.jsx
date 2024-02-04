@@ -4,18 +4,7 @@ import Data from "./data";
 import { CurrencyContext } from "@/context/currencyContext";
 
 const DataList = ({ data, currentUser }) => {
-  const {
-    rates,
-    setRates,
-    rates2,
-    setRates2,
-    change,
-    setChange,
-    currency,
-    setCurrency,
-    unit,
-    setUnit,
-  } = useContext(CurrencyContext);
+  const { rates, rates2, change, currency, unit } = useContext(CurrencyContext);
 
   let curr;
 

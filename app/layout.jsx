@@ -1,14 +1,15 @@
 "use client";
 import "./globals.css";
 import Head from "next/head";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Nav, Light, Currency } from "@/components";
-import { HomepageCanvas } from "@/components/canvas";
 import CurrencyProvider from "@/context/currencyContext";
 import LightProvider from "@/context/lightContext";
+import UserProvider from "@/context/userContext";
 import { AnimatePresence } from "framer-motion";
 import { Forum } from "next/font/google";
-import UserProvider from "@/context/userContext";
+
+const HomepageCanvas = lazy(() => import("@/components/canvas/homepageCanvas"));
 
 const font = Forum({ weight: "400", preload: false });
 
@@ -26,18 +27,22 @@ export default function RootLayout({ children }) {
   const [unit, setUnit] = useState("zh-HK");
 
   useEffect(() => {
-    const myFunction = async () => {
-      let api = await fetch("https://api.exchangerate-api.com/v4/latest/USD");
-      let currencydata = await api.json();
-      setRates(currencydata.rates.HKD);
-      setRates2(currencydata.rates.HKD);
-    };
-    myFunction();
+    (async () => {
+      try {
+        const response = await fetch(
+          "https://api.exchangerate-api.com/v4/latest/USD"
+        );
+        const currencydata = await response.json();
+
+        setRates(currencydata.rates.HKD);
+        setRates2(currencydata.rates.HKD);
+      } catch (error) {
+        console.error("There was an error fetching the currency data", error);
+      }
+    })();
   }, []);
 
   const handleDataSelected2 = (selectedValue) => {
-    // 在这里处理接收到的数据
-    //console.log("Selected value:", selectedValue);
     setRates2(selectedValue.value);
     setCurrency(selectedValue.selectedOptions[0].id);
     setUnit(selectedValue.selectedOptions[0].className);
@@ -45,11 +50,6 @@ export default function RootLayout({ children }) {
   };
 
   const [isHovered, setIsHovered] = useState(false);
-
-  // let [currentUser, setCurrentUser] = useState(null);
-  // useEffect(() => {
-  //   setCurrentUser(AuthService.getCurrentUser());
-  // }, []);
 
   return (
     <html lang="en" className={font.className}>
@@ -62,16 +62,16 @@ export default function RootLayout({ children }) {
       <body className="text-[#24282e]">
         <main>
           <AnimatePresence mode="wait">
-            <LightProvider value2={changeLight}>
-              <CurrencyProvider
-                rates={rates}
-                rates2={rates2}
-                change={change}
-                currency={currency}
-                unit={unit}
-              >
-                <UserProvider>
-                  <Nav />
+            <UserProvider>
+              <LightProvider value2={changeLight}>
+                <CurrencyProvider
+                  rates={rates}
+                  rates2={rates2}
+                  change={change}
+                  currency={currency}
+                  unit={unit}
+                >
+                  {children && <Nav />}
                   <div
                     className={`flex bg-[#24282e] p-2 absolute top-14  z-20 rounded-r-full transition-transform ease-in-out duration-500 ${
                       isHovered
@@ -85,10 +85,14 @@ export default function RootLayout({ children }) {
                     <Light lightSelected={handleDataSelected} />
                   </div>
                   {children}
-                </UserProvider>
-              </CurrencyProvider>
-              <HomepageCanvas />
-            </LightProvider>
+                </CurrencyProvider>
+                {children && (
+                  <Suspense fallback={<div> </div>}>
+                    <HomepageCanvas />
+                  </Suspense>
+                )}
+              </LightProvider>
+            </UserProvider>
           </AnimatePresence>
         </main>
       </body>

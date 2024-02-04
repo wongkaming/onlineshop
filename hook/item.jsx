@@ -37,6 +37,7 @@ class Item {
     });
   }
 
+  // 用item id尋找wishlist
   getLikedItem(_id) {
     let token;
     if (localStorage.getItem("user")) {

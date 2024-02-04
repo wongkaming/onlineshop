@@ -5,21 +5,21 @@ import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import AuthService from "@/hook/item";
 
-const OneItem = ({ data, price, like }) => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const token = user ? user.token : null;
-  if (token) {
-    AuthService.getLikedItem(like)
-      .then((i) => {
-        setLiked(i.data);
-        // console.log(i.data);
-      })
-      .catch((e) => {
-        console.log(e.response ? e.response.data : e);
-      });
-  }
-
+const OneItem = ({ data, price, like, currentUser }) => {
   let [liked, setLiked] = useState(false);
+  useEffect(() => {
+    setLiked(false);
+    if (currentUser && currentUser.user && currentUser.user.role === "user") {
+      AuthService.getLikedItem(like)
+        .then((i) => {
+          setLiked(i.data);
+        })
+        .catch((e) => {
+          console.error(e.response ? e.response.data : e);
+        });
+    }
+  }, [like, currentUser]);
+
   const toggleFavorite = () => {
     AuthService.enroll(data._id)
       .then(() => {

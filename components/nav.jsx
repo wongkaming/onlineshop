@@ -6,11 +6,9 @@ import WishlistItem from "@/hook/item";
 import {
   Cart,
   MobileSearch,
-  NoticeBar,
   MobileWishlistPage,
   WebSearchBar,
 } from "@/components";
-import styles from "./layout.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { close } from "@/public";
@@ -52,9 +50,7 @@ const Shop = () => {
 const Nav = () => {
   const { currentUser } = useContext(UserContext);
 
-  const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [goBack, setgoBack] = useState(false);
   const [mobileWishlistData, setMobileWishlistData] = useState(null);
 
@@ -80,22 +76,7 @@ const Nav = () => {
           });
       }
     }
-  }, [goBack]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      if (scrollTop > 100) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [goBack, currentUser]);
 
   return (
     <div>
@@ -105,7 +86,6 @@ const Nav = () => {
             href="/"
             className="flex items-center gap-2"
             onClick={() => {
-              setActive("");
               window.scrollTo(0, 0);
             }}
           >

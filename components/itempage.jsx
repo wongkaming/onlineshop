@@ -6,6 +6,7 @@ import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import AuthService from "../hook/item";
 import EmblaCarousel from "./EmblaCarousel";
+import { UserContext } from "@/context/userContext";
 
 const ItemDetailCanvas = dynamic(() => import("./canvas/itemdetail"), {
   ssr: false,
@@ -32,30 +33,22 @@ const ItemPage = ({ data, like }) => {
       });
   };
 
+  const { currentUser } = useContext(UserContext);
   useEffect(() => {
-    AuthService.getLikedItem(like)
-      .then((i) => {
-        setLiked(i.data);
-        // console.log(i.data);
-      })
-      .catch((e) => {
-        console.log(e.response.data);
-      });
-  }, []);
+    setLiked(false);
+    if (currentUser && currentUser.user && currentUser.user.role === "user") {
+      AuthService.getLikedItem(like)
+        .then((i) => {
+          setLiked(i.data);
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    }
+  }, [like, currentUser]);
 
   const [curr, setCurr] = useState(null);
-  const {
-    rates,
-    setRates,
-    rates2,
-    setRates2,
-    change,
-    setChange,
-    currency,
-    setCurrency,
-    unit,
-    setUnit,
-  } = useContext(CurrencyContext);
+  const { rates, rates2, change, currency, unit } = useContext(CurrencyContext);
 
   useEffect(() => {
     if (data) {

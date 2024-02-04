@@ -1,17 +1,18 @@
 "use client";
-import React, { Suspense, useState, useContext } from "react";
+import React, { Suspense, useState, useContext, useMemo } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls, Html, Environment, Preload } from "@react-three/drei";
 import { CiCircleInfo } from "react-icons/ci";
 import CanvasLoader from "../canvasloader";
-import LightProvider, { LightContext } from "@/context/lightContext";
+import { LightContext } from "@/context/lightContext";
 import Hdr from "./hdr.json";
 
 const Item3d = ({ url, show }) => {
-  const gtlf = useLoader(GLTFLoader, url);
+  const gltf = useMemo(() => useLoader(GLTFLoader, url), []);
+
   const annotations = [];
-  gtlf.scene.children.map((o) => {
+  gltf.scene.children.map((o) => {
     if (o.type == "Object3D") {
       annotations.push(
         <Html
@@ -47,7 +48,7 @@ const Item3d = ({ url, show }) => {
     <mesh>
       <hemisphereLight intensity={0.15} groundColor="white" />
       {/* <motion.mesh ref={ref} rotation-y={mouse.x}> */}
-      <primitive object={gtlf.scene} position={[0, 0, 0]}>
+      <primitive object={gltf.scene} position={[0, 0, 0]}>
         {show && annotations}
       </primitive>
       {/* </motion.mesh> */}

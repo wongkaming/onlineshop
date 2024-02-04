@@ -1,40 +1,14 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
-import WishlistItem from "@/hook/item";
 import { DataList } from "@/components/";
 
-const WishlistPage = ({ currentUser }) => {
+const WishlistPage = ({ currentUser, wishlistData }) => {
   const router = useRouter();
   const handleTakeToLogin = (e) => {
     e.preventDefault();
     router.push("/user/login");
   };
-  const [wishlistData, setWishlistData] = useState(null);
-
-  useEffect(() => {
-    let _id;
-    if (currentUser) {
-      _id = currentUser.user._id;
-      if (currentUser.user.role === "admin") {
-        WishlistItem.get(_id)
-          .then((data) => {
-            setWishlistData(data.data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      } else if (currentUser.user.role === "user") {
-        WishlistItem.getWishlist(_id)
-          .then((data) => {
-            setWishlistData(data.data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      }
-    }
-  }, [currentUser]);
 
   return (
     <div className="flex w-full justify-center">

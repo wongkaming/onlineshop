@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { IntroList } from "@/constants/index";
 import Typewriter from "typewriter-effect";
 import { Preview, HomeDeco } from "@/components";
-import useAxios from "../hook/useAxios";
 
 import styles from "./layout.module.css";
 
@@ -36,12 +36,10 @@ const WellcomePage = ({ handleClick }) => {
         <button className="text-xl text-white" onClick={handleClick}>
           ExPlOrE
         </button>
-        <iframe
-          src="https://giphy.com/embed/EAP2HUqMrZsB0jqwUr"
-          width="36"
-          height="31.8"
-          allowFullScreen
-        ></iframe>
+        <img
+          src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExamJqbnc5bjQ3Mzg1OGViMDZvZjR4YXd1ZnU5Y21iczBtY2g0cTZybSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/EAP2HUqMrZsB0jqwUr/giphy.gif"
+          className="w-10 h-9"
+        />
       </div>
     </>
   );
@@ -50,10 +48,6 @@ const WellcomePage = ({ handleClick }) => {
 const page = () => {
   const [homepage, setHomepage] = useState(false);
   const [preview, setPreview] = useState(false);
-
-  const [data, loaded, error] = useAxios(
-    "http://localhost:4040/latest/intro/all"
-  );
 
   const handleClick = () => {
     setHomepage(true);
@@ -90,8 +84,8 @@ const page = () => {
           setPreview(false);
         }}
       >
-        {data &&
-          data.map((d, index) => {
+        {IntroList &&
+          IntroList.map((d, index) => {
             return (
               <Preview data={d} index={index} key={index} homepage={homepage} />
             );
@@ -106,8 +100,8 @@ const page = () => {
           setPreview(false);
         }}
       >
-        {data &&
-          data.map((d, index) => {
+        {IntroList &&
+          IntroList.map((d, index) => {
             return (
               <Preview data={d} index={index} key={index} homepage={true} />
             );
