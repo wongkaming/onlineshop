@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { profileNavLinks, windowIcon } from "@/constants/index";
+import React from "react";
+import { windowIcon } from "@/constants/index";
 import { StarsCanvas } from "@/components/";
-import AuthService from "@/hook/auth";
 
 export default function WishlistLayout({ children }) {
   return (
@@ -19,9 +18,7 @@ export default function WishlistLayout({ children }) {
           </ul>
         </nav>
         <div className="flex justify-center w-full h-full">
-          <main className={`mx-0 md:mx-8 mb-8 overflow-y-auto`}>
-            {children}
-          </main>
+          <div className={`mx-0 md:mx-8 mb-8 overflow-y-auto`}>{children}</div>
         </div>
       </div>
       <StarsCanvas />

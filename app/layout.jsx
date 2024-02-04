@@ -8,6 +8,7 @@ import CurrencyProvider from "@/context/currencyContext";
 import LightProvider from "@/context/lightContext";
 import { AnimatePresence } from "framer-motion";
 import { Forum } from "next/font/google";
+import UserProvider from "@/context/userContext";
 
 const font = Forum({ weight: "400", preload: false });
 
@@ -45,6 +46,11 @@ export default function RootLayout({ children }) {
 
   const [isHovered, setIsHovered] = useState(false);
 
+  // let [currentUser, setCurrentUser] = useState(null);
+  // useEffect(() => {
+  //   setCurrentUser(AuthService.getCurrentUser());
+  // }, []);
+
   return (
     <html lang="en" className={font.className}>
       <Head>
@@ -54,33 +60,37 @@ export default function RootLayout({ children }) {
       </Head>
       <title>DazeStory☾</title>
       <body className="text-[#24282e]">
-        <AnimatePresence mode="wait">
-          <LightProvider value2={changeLight}>
-            <CurrencyProvider
-              rates={rates}
-              rates2={rates2}
-              change={change}
-              currency={currency}
-              unit={unit}
-            >
-              <Nav />
-              <div
-                className={`flex bg-[#24282e] p-2 absolute top-14  z-20 rounded-r-full transition-transform ease-in-out duration-500 ${
-                  isHovered
-                    ? "opacity-100 translate-x-0"
-                    : "opacity-40 -translate-x-32"
-                }`}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+        <main>
+          <AnimatePresence mode="wait">
+            <LightProvider value2={changeLight}>
+              <CurrencyProvider
+                rates={rates}
+                rates2={rates2}
+                change={change}
+                currency={currency}
+                unit={unit}
               >
-                <Currency onDataSelected={handleDataSelected2} />
-                <Light lightSelected={handleDataSelected} />
-              </div>
-              {children}
-            </CurrencyProvider>
-            {/* <HomepageCanvas /> */}
-          </LightProvider>
-        </AnimatePresence>
+                <UserProvider>
+                  <Nav />
+                  <div
+                    className={`flex bg-[#24282e] p-2 absolute top-14  z-20 rounded-r-full transition-transform ease-in-out duration-500 ${
+                      isHovered
+                        ? "opacity-100 translate-x-0"
+                        : "opacity-40 -translate-x-32"
+                    }`}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    <Currency onDataSelected={handleDataSelected2} />
+                    <Light lightSelected={handleDataSelected} />
+                  </div>
+                  {children}
+                </UserProvider>
+              </CurrencyProvider>
+              <HomepageCanvas />
+            </LightProvider>
+          </AnimatePresence>
+        </main>
       </body>
     </html>
   );

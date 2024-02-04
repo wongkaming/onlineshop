@@ -1,6 +1,6 @@
 import React from "react";
 
-const Profile = ({ currentUser, setCurrentUser }) => {
+const Profile = ({ currentUser }) => {
   return (
     <div style={{ padding: "3rem" }}>
       {!currentUser && <div>在獲取您的個人資料之前，您必須先登錄。</div>}

@@ -1,8 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import AuthService from "../hook/auth";
 import WishlistItem from "@/hook/item";
 import {
   Cart,
@@ -25,6 +24,7 @@ import {
   CiEdit,
 } from "react-icons/ci";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { UserContext } from "@/context/userContext";
 
 const Shop = () => {
   const [showDropdown, setShowDropdown] = useState(true);
@@ -49,17 +49,14 @@ const Shop = () => {
   );
 };
 
-const layout = ({ children, returnBack }) => {
-  let [currentUser, setCurrentUser] = useState("");
+const Nav = () => {
+  const { currentUser } = useContext(UserContext);
+
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [goBack, setgoBack] = useState(false);
   const [mobileWishlistData, setMobileWishlistData] = useState(null);
-
-  useEffect(() => {
-    setCurrentUser(AuthService.getCurrentUser());
-  }, []);
 
   useEffect(() => {
     let _id;
@@ -232,7 +229,6 @@ const layout = ({ children, returnBack }) => {
           <div>
             <MobileWishlistPage
               currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
               wishlistData={mobileWishlistData}
             />
           </div>
@@ -286,15 +282,14 @@ const layout = ({ children, returnBack }) => {
           )}
         </ul>
       </nav>
-      <main className="my-14">{children}</main>
 
-      {returnBack && (
+      {/* {returnBack && (
         <Link className={styles.home} href="/">
           home
         </Link>
-      )}
+      )} */}
     </div>
   );
 };
 
-export default layout;
+export default Nav;

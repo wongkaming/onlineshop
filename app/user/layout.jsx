@@ -1,14 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import { profileNavLinks, windowIcon } from "@/constants/index";
-import AuthService from "@/hook/auth";
+import { UserContext } from "@/context/userContext";
 
 export default function ProfileLayout({ children }) {
-  let [currentUser, setCurrentUser] = useState("");
-  useEffect(() => {
-    setCurrentUser(AuthService.getCurrentUser());
-  }, []);
+  const { currentUser } = useContext(UserContext);
 
   return (
     <section className="flex items-center p-5 pb-16 md:pb-20 md:p-10 lg:p-24 max-h-screen absolute top-8 left-0 right-0 bottom-0 bg-white/60 backdrop-blur-lg">
@@ -39,13 +36,13 @@ export default function ProfileLayout({ children }) {
               </ul>
             </nav>
           )}
-          <main
+          <div
             className={`${
               currentUser ? "lg:ml-20 p-6" : "p-0"
             } mb-8 grow overflow-y-auto`}
           >
             {children}
-          </main>
+          </div>
         </div>
       </div>
     </section>

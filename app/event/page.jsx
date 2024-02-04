@@ -19,11 +19,7 @@ const page = () => {
         console.log(e);
       });
   }, []);
-  return (
-    <div>
-      <EventList data={data} />
-    </div>
-  );
+  return <EventList data={data} />;
 };
 
 export default transition(page);

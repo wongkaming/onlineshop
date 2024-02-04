@@ -9,7 +9,7 @@ export default function SearchLayout({ children }) {
         className="px-[5%] overflow-auto pt-12 grow lg:pb-10 pb-14"
         style={{ maxHeight: `calc(100vh - 32px)` }}
       >
-        <main>{children}</main>
+        {children}
         <StarsCanvas />
       </div>
     </section>

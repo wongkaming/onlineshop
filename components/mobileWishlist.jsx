@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { DataList} from "@/components/";
+import { DataList } from "@/components/";
 
-const MobileWishlistPage = ({ currentUser, setCurrentUser, wishlistData }) => {
+const MobileWishlistPage = ({ currentUser, wishlistData }) => {
   const router = useRouter();
   const handleTakeToLogin = (e) => {
     e.preventDefault();
@@ -13,11 +13,15 @@ const MobileWishlistPage = ({ currentUser, setCurrentUser, wishlistData }) => {
   return (
     <div className="flex w-full justify-center">
       <div className="col-md-12 flex flex-col justify-center">
-        <div className={`${currentUser ? "pt-0" : "lg:pt-24 pt-12" } flex flex-col gap-4 grow`}>
+        <div
+          className={`${
+            currentUser ? "pt-0" : "lg:pt-24 pt-12"
+          } flex flex-col gap-4 grow`}
+        >
           {!currentUser && (
             <div
-            className="overflow-auto grow"
-            style={{ maxHeight: `calc(100vh - 32px)` }}
+              className="overflow-auto grow"
+              style={{ maxHeight: `calc(100vh - 32px)` }}
             >
               <div className="flex w-full justify-center mb-2">
                 <img
@@ -51,7 +55,12 @@ const MobileWishlistPage = ({ currentUser, setCurrentUser, wishlistData }) => {
               className="overflow-auto grow py-8 px-6"
               style={{ maxHeight: `calc(100vh - 32px)` }}
             >
-              <h1 className="text-xl font-semibold mb-4">My Wish List <span className="border border-gray-500 px-2 rounded-full">{wishlistData.length}</span></h1>
+              <h1 className="text-xl font-semibold mb-4">
+                My Wish List{" "}
+                <span className="border border-gray-500 px-2 rounded-full">
+                  {wishlistData.length}
+                </span>
+              </h1>
               <DataList data={wishlistData} currentUser={currentUser} />
             </div>
           )}

@@ -1,7 +1,3 @@
 export default function ShopLayout({ children }) {
-  return (
-    <section>
-      <main>{children}</main>
-    </section>
-  );
+  return <section>{children}</section>;
 }

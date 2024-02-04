@@ -1,14 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import AuthService from "../hook/auth";
 import { CiMail, CiLock } from "react-icons/ci";
+import { UserContext } from "@/context/userContext";
 
-const Login = ({ currentUser, setCurrentUser }) => {
+const Login = () => {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [message, setMessage] = useState("");
-  let [auth, setAuth] = useState("");
+  let [auth, setAuth] = useState(false);
+  const { setCurrentUser } = useContext(UserContext);
+
+  const router = useRouter();
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -22,7 +27,7 @@ const Login = ({ currentUser, setCurrentUser }) => {
       let response = await AuthService.login(email, password);
       localStorage.setItem("user", JSON.stringify(response.data));
       setCurrentUser(AuthService.getCurrentUser());
-      setAuth(true);
+      router.push("/user/account");
     } catch (e) {
       setMessage(e.response.data);
     }
@@ -53,17 +58,16 @@ const Login = ({ currentUser, setCurrentUser }) => {
           clearInterval(timer);
           await AuthService.googleLoginSuccess();
           setCurrentUser(AuthService.getCurrentUser());
+          router.push("/user/account");
           localStorage.removeItem("login");
         }
       } catch (e) {
         console.log(e);
       }
     }, 1000);
-  };
 
-  if (localStorage.getItem("user") !== null) {
-    window.location.href = "/user/account";
-  }
+    return () => clearInterval(timer);
+  };
 
   return (
     <div className="flex w-full pt-8 justify-center">

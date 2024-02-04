@@ -3,9 +3,7 @@ import React from "react";
 import { Cart } from "@/components/";
 
 const page = () => {
-  return (
-    <div><Cart/></div>
-  )
-}
+  return <Cart />;
+};
 
-export default page
+export default page;

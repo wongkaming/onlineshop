@@ -6,7 +6,7 @@ class AuthService {
     return axios.post(API_URL + "/user/login", { email, password });
   }
   logout() {
-    return axios.post(API_URL + "/user/logout")
+    return axios.post(API_URL + "/user/logout");
   }
   register(username, email, password, role) {
     return axios.post(API_URL + "/user/register", {
@@ -18,17 +18,18 @@ class AuthService {
   }
 
   googleLoginSuccess() {
-    return axios.get(API_URL + "/profile/data", {
-      withCredentials: true
-    })
-    .then(response => {
-      if (response.data !== "fail") {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    return axios
+      .get(API_URL + "/profile/data", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data !== "fail") {
+          localStorage.setItem("user", JSON.stringify(response.data));
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 
   getCurrentUser() {

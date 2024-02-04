@@ -7,20 +7,20 @@ import useAxios from "../hook/useAxios";
 import styles from "./layout.module.css";
 
 const WellcomePage = ({ handleClick }) => {
-  const [timer, setTimer] = useState("");
+  // const [timer, setTimer] = useState("");
 
-  const myTimer = () => {
-    const date = new Date();
-    setTimer(date.toLocaleTimeString());
-  };
-  setInterval(myTimer, 100);
+  // const myTimer = () => {
+  //   const date = new Date();
+  //   setTimer(date.toLocaleTimeString());
+  // };
+  // setInterval(myTimer, 100);
 
   return (
     <>
       <div className="text-xl text-white">
         HKT
-        <br />
-        {timer}
+        {/* <br />
+        {timer} */}
       </div>
       <div className="text-xl text-white w-96">
         <Typewriter

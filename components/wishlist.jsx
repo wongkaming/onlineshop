@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import WishlistItem from "@/hook/item";
 import { DataList } from "@/components/";
 
-const WishlistPage = ({ currentUser, setCurrentUser }) => {
+const WishlistPage = ({ currentUser }) => {
   const router = useRouter();
   const handleTakeToLogin = (e) => {
     e.preventDefault();

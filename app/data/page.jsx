@@ -1,20 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
-import AuthService from "../../hook/auth";
+import { useContext } from "react";
+import { UserContext } from "@/context/userContext";
 import { Wishlist } from "@/components/";
 
 const page = () => {
-  let [currentUser, setCurrentUser] = useState(null);
-  useEffect(() => {
-    setCurrentUser(AuthService.getCurrentUser());
-  }, []);
-  // console.log(currentUser?.token);
+  const { currentUser } = useContext(UserContext);
 
-  return (
-    <div>
-      <Wishlist currentUser={currentUser} setCurrentUser={setCurrentUser} />
-    </div>
-  );
+  return <Wishlist currentUser={currentUser} />;
 };
 
 export default page;
