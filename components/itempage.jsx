@@ -1,6 +1,5 @@
 "use client";
 import React, { Suspense, useContext, useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import { CurrencyContext } from "@/context/currencyContext";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
@@ -8,9 +7,6 @@ import AuthService from "../hook/item";
 import EmblaCarousel from "./EmblaCarousel";
 import { UserContext } from "@/context/userContext";
 
-const ItemDetailCanvas = dynamic(() => import("./canvas/itemdetail"), {
-  ssr: false,
-});
 const OPTIONS = {};
 const ItemPage = ({ data, like }) => {
   let [liked, setLiked] = useState(false);
@@ -105,156 +101,150 @@ const ItemPage = ({ data, like }) => {
   };
 
   return (
-    <div className="flex justify-between w-full md:pr-10 absolute top-0 md:top-20 md:bottom-10 bottom-0 z-10">
-      <ItemDetailCanvas url={data.model3d} />
-
-      <div className="overflow-auto flex flex-col h-full w-full md:w-3/5 bubble">
-        <div className="pt-24 md:pt-10 px-12">
-          <ul className="flex flex-col">
-            <li className="flex justify-between">
-              <p className="text-[24px] text-[#5a6674]">{data.title}</p>
-              {liked == false && (
-                <a id={data._id} onClick={toggleFavorite}>
-                  <GoHeart
-                    style={{
-                      width: "2em",
-                      height: "2em",
-                      color: "black",
-                    }}
-                  />
-                </a>
-              )}
-              {liked == true && (
-                <a id={data._id} onClick={toggleUnlike}>
-                  <GoHeartFill
-                    style={{
-                      width: "2em",
-                      height: "2em",
-                      color: "black",
-                    }}
-                  />
-                </a>
-              )}
-            </li>
-            {curr && <li className="text-[20px] font-bold">{curr}</li>}
+    <div className="overflow-auto flex flex-col h-full w-full md:w-3/5 bubble">
+      <div className="pt-24 md:pt-10 px-12">
+        <ul className="flex flex-col">
+          <li className="flex justify-between">
+            <p className="text-[24px] text-[#5a6674]">{data.title}</p>
+            {liked == false && (
+              <a id={data._id} onClick={toggleFavorite}>
+                <GoHeart
+                  style={{
+                    width: "2em",
+                    height: "2em",
+                    color: "black",
+                  }}
+                />
+              </a>
+            )}
+            {liked == true && (
+              <a id={data._id} onClick={toggleUnlike}>
+                <GoHeartFill
+                  style={{
+                    width: "2em",
+                    height: "2em",
+                    color: "black",
+                  }}
+                />
+              </a>
+            )}
+          </li>
+          {curr && <li className="text-[20px] font-bold">{curr}</li>}
+        </ul>
+        <div className="pb-3 pt-8">
+          {data.typeSelector.map((d, index) => {
+            return (
+              <button
+                key={index}
+                className={`${
+                  selectedColor === d ? "border-gray-800" : "border-gray-400"
+                } w-8 h-8 rounded-full border-2  mr-2`}
+                style={{ backgroundColor: d }}
+                onClick={() => handleColorClick(d)}
+              ></button>
+            );
+          })}
+        </div>
+        <div className="pb-8">
+          {data.sizeSelector.map((d, index) => {
+            return (
+              <button
+                className={`border ${
+                  selectedSize === d
+                    ? "text-white font-bold pinkblue border-white"
+                    : "border-gray-400"
+                } py-1 px-4 rounded-full mr-2 hover:border-white hover:text-white `}
+                onClick={() => handleSizeClick(d)}
+                key={index}
+              >
+                {d}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="relative h-[520px]">
+        <EmblaCarousel slides={data.galleryWrap} options={OPTIONS} />
+      </div>
+      <div className="flex flex-col justify-start items-center px-10 border-t border-b border-gray-600  w-full">
+        <button
+          onClick={showMenu}
+          className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
+        >
+          <p class="text-sm leading-5 font-bold uppercase">Description & fit</p>
+          <svg
+            className={rotate}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M18 15L12 9L6 15"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <div
+          className={`${
+            !hidden ? "hidden pb-6" : "pb-6"
+          }flex justify-start  flex-col w-full md:w-auto items-start`}
+        >
+          <p>{data.description}</p>
+          <ul className="max-w-md space-y-1 text-black ">
+            <li>Model size: The model is 179cm/5'10" and wears a size S</li>
+            <li>Length: Long</li>
+            <li>Fit: Fitted</li>
           </ul>
-          <div className="pb-3 pt-8">
-            {data.typeSelector.map((d, index) => {
-              return (
-                <button
-                  key={index}
-                  className={`${
-                    selectedColor === d ? "border-gray-800" : "border-gray-400"
-                  } w-8 h-8 rounded-full border-2  mr-2`}
-                  style={{ backgroundColor: d }}
-                  onClick={() => handleColorClick(d)}
-                ></button>
-              );
-            })}
-          </div>
-          <div className="pb-8">
-            {data.sizeSelector.map((d, index) => {
-              return (
-                <button
-                  className={`border ${
-                    selectedSize === d
-                      ? "text-white font-bold pinkblue border-white"
-                      : "border-gray-400"
-                  } py-1 px-4 rounded-full mr-2 hover:border-white hover:text-white `}
-                  onClick={() => handleSizeClick(d)}
-                  key={index}
-                >
-                  {d}
-                </button>
-              );
-            })}
-          </div>
         </div>
-        <div className="relative h-[520px]">
-          <EmblaCarousel slides={data.galleryWrap} options={OPTIONS} />
-        </div>
-        <div className="flex flex-col justify-start items-center px-10 border-t border-b border-gray-600  w-full">
-          <button
-            onClick={showMenu}
-            className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
+      </div>
+      <div className="flex flex-col justify-start items-center px-10 border-b border-gray-600  w-full">
+        <button
+          onClick={showMenu2}
+          className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
+        >
+          <p className="text-sm leading-5 font-bold uppercase">Care guide</p>
+          <svg
+            className={rotate2}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <p class="text-sm leading-5 font-bold uppercase">
-              Description & fit
-            </p>
-            <svg
-              className={rotate}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M18 15L12 9L6 15"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          <div
-            className={`${
-              !hidden ? "hidden pb-6" : "pb-6"
-            }flex justify-start  flex-col w-full md:w-auto items-start`}
-          >
-            <p>{data.description}</p>
-            <ul className="max-w-md space-y-1 text-black ">
-              <li>Model size: The model is 179cm/5'10" and wears a size S</li>
-              <li>Length: Long</li>
-              <li>Fit: Fitted</li>
-            </ul>
-          </div>
-        </div>
-        <div className="flex flex-col justify-start items-center px-10 border-b border-gray-600  w-full">
-          <button
-            onClick={showMenu2}
-            className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
-          >
-            <p className="text-sm leading-5 font-bold uppercase">Care guide</p>
-            <svg
-              className={rotate2}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M18 15L12 9L6 15"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          <div
-            className={`${
-              hidden2 ? "pb-6" : "hidden pb-6"
-            }flex justify-start  flex-col w-full md:w-auto items-start`}
-          >
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-              dolore, vitae animi exercitationem ex sed eius, tempora cum
-              aperiam magni suscipit placeat magnam tenetur nam culpa debitis!
-              Nisi, quisquam reiciendis!
-            </p>
-            <p>Read about how you can make your clothes last longer</p>
-            <h2>Care instructions</h2>
-            <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-              <li>Only non-chlorine bleach when needed</li>
-              <li>Medium iron</li>
-              <li>Machine wash cold</li>
-              <li>Dry flat</li>
-              <li>Can be dry cleaned</li>
-            </ul>
-          </div>
+            <path
+              d="M18 15L12 9L6 15"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <div
+          className={`${
+            hidden2 ? "pb-6" : "hidden pb-6"
+          }flex justify-start  flex-col w-full md:w-auto items-start`}
+        >
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo dolore,
+            vitae animi exercitationem ex sed eius, tempora cum aperiam magni
+            suscipit placeat magnam tenetur nam culpa debitis! Nisi, quisquam
+            reiciendis!
+          </p>
+          <p>Read about how you can make your clothes last longer</p>
+          <h2>Care instructions</h2>
+          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            <li>Only non-chlorine bleach when needed</li>
+            <li>Medium iron</li>
+            <li>Machine wash cold</li>
+            <li>Dry flat</li>
+            <li>Can be dry cleaned</li>
+          </ul>
         </div>
       </div>
     </div>

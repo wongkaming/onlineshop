@@ -1,7 +1,8 @@
 "use client";
 import "./globals.css";
 import Head from "next/head";
-import React, { useState, useEffect, Suspense, lazy } from "react";
+import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { Nav, Light, Currency } from "@/components";
 import CurrencyProvider from "@/context/currencyContext";
 import LightProvider from "@/context/lightContext";
@@ -9,7 +10,12 @@ import UserProvider from "@/context/userContext";
 import { AnimatePresence } from "framer-motion";
 import { Forum } from "next/font/google";
 
-const HomepageCanvas = lazy(() => import("@/components/canvas/homepageCanvas"));
+const HomepageCanvas = dynamic(
+  () => import("@/components/canvas/homepageCanvas"),
+  {
+    ssr: false,
+  }
+);
 
 const font = Forum({ weight: "400", preload: false });
 
@@ -86,11 +92,7 @@ export default function RootLayout({ children }) {
                   </div>
                   {children}
                 </CurrencyProvider>
-                {children && (
-                  <Suspense fallback={<div> </div>}>
-                    <HomepageCanvas />
-                  </Suspense>
-                )}
+                {children && <HomepageCanvas />}
               </LightProvider>
             </UserProvider>
           </AnimatePresence>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
@@ -43,7 +44,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
 
   return (
     <div className="shadow-md shadow-[#d5e8ff] rounded-md max-w-[400px]">
-      <a target="_blank" href={`goods/${data.category}/${data._id}`}>
+      <Link href={`goods/${data.category}/${data._id}`}>
         <Image
           src={isHovered ? data.galleryWrap[1] : data.galleryWrap[0]}
           alt=""
@@ -54,7 +55,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
           // onMouseLeave={() => setIsHovered(false)}
           className="border border-white rounded-t-md"
         />
-      </a>
+      </Link>
       <div className="backdrop-blur-md bg-white/80 hover:bg-white transition duration-300 ease-in-out pb-2 border border-white rounded-b-md">
         <h3 className="mt-1 px-2 text-[14px] max-w-[400px] truncate">
           {data.title}
