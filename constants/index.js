@@ -135,7 +135,7 @@ export const IntroList = [
   },
   {
     _id: "654e59f660970ba13c94bf05",
-    title: "DIVE COLLECTION WOMENSWEAR AW23",
+    title: "DIVE COLLECTION WOMEN AW23",
     description:
       "Fashion design, Different angles of a piece of clothing, character with orthographic, model portrait photography, studio photography, professional lighting, aesthetic lighting, romantic and dreamy fashion design style, lace and satin fabrics, cool colors, fluffy, Fashion photography",
     category: "FEATURED STYLES",

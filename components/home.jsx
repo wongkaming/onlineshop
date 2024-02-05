@@ -1,10 +1,9 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { IntroList } from "@/constants/index";
 import Typewriter from "typewriter-effect";
 import { Preview, HomeDeco } from "@/components";
-
-import styles from "./layout.module.css";
+import Image from "next/image";
 
 const WellcomePage = ({ handleClick }) => {
   // const [timer, setTimer] = useState("");
@@ -22,7 +21,7 @@ const WellcomePage = ({ handleClick }) => {
         {/* <br />
         {timer} */}
       </div>
-      <div className="text-xl text-white w-96">
+      <div className="text-xl text-white w-64">
         <Typewriter
           options={{
             strings: ["Welcome to Dazeworld", "Think about the dream..."],
@@ -47,7 +46,7 @@ const WellcomePage = ({ handleClick }) => {
 
 const page = () => {
   const [homepage, setHomepage] = useState(false);
-  const [preview, setPreview] = useState(false);
+  const [preview, setPreview] = useState(null);
 
   const handleClick = () => {
     setHomepage(true);
@@ -55,44 +54,55 @@ const page = () => {
 
   return (
     <div className="flex flex-row justify-between absolute w-full h-full top-0 bottom-0 right-0 left-0 overflow-hidden">
-      <div
-        className={`hidden lg:flex lg:flex-row justify-around w-full h-full ml-10 items-center ${
-          homepage ? "mr-5" : "mr-10"
-        }`}
-      >
-        {!preview && <WellcomePage handleClick={handleClick} />}
-        {preview && (
-          <div id={styles.words}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-            neque magnam veniam error dignissimos molestiae quia, asperiores
-            ipsum blanditiis assumenda ex culpa? Corporis cum in vitae
-            accusantium aliquid, error reiciendis?
+      {!preview && (
+        <div
+          className={`hidden lg:flex lg:flex-row justify-around w-full h-full items-center`}
+        >
+          <WellcomePage handleClick={handleClick} />
+        </div>
+      )}
+      {preview && (
+        <div className="hidden lg:flex lg:flex-col w-full h-full bg-white pt-10">
+          <div className="flex flex-col w-full justify-center">
+            {preview.coverimage && (
+              <img
+                src={preview.coverimage}
+                alt=""
+              />              
+            )}
+            {preview.hostimage && <img src={preview.hostimage[0]} />}
           </div>
-        )}
-      </div>
+        </div>
+      )}      
 
       <div
-        className={`hidden lg:flex lg:flex-col h-full overflow-y-auto bg-white/90 backdrop-blur-lg transition-all ease-in-out duration-1000 ${
+        className={`hidden lg:flex lg:flex-col h-full pt-14 overflow-y-auto bg-white/90 bg-repeat backdrop-blur-lg transition-all ease-in-out duration-1000 ${
           homepage
-            ? "-translate-x-0 pl-5 pr-10 w-full"
-            : "translate-x-full pl-0 pr-0 w-0"
+            ? "-translate-x-0 px-5 w-full"
+            : "translate-x-full px-0 w-0"
         }`}
-        onMouseEnter={() => {
-          setPreview(true);
-        }}
-        onMouseLeave={() => {
-          setPreview(false);
-        }}
+        style={{backgroundImage: `url("https://www.transparenttextures.com/patterns/textured-paper.png")`}}
       >
+        <h1 className="text-5xl text-slate-800 tracking-widest font-serif	flex w-full justify-center border-b-8 border-slate-800 border-double mb-4">DAILY NEWS</h1>
         {IntroList &&
           IntroList.map((d, index) => {
             return (
-              <Preview data={d} index={index} key={index} homepage={homepage} />
+              <div
+                onMouseEnter={() => {
+                  setPreview(d);
+                }}
+                onMouseLeave={() => {
+                  setPreview(null);
+                }}
+              >
+                <Preview data={d} index={index} key={index} homepage={homepage} />
+              </div>
             );
           })}
       </div>
       <div
-        className={`lg:hidden flex flex-col md:px-10 px-5 w-full h-full overflow-y-auto bg-white/60 backdrop-blur-lg`}
+        className={`lg:hidden flex flex-col md:px-10 pt-14 px-5 w-full h-full overflow-y-auto bg-white/90 bg-repeat backdrop-blur-lg`}
+        style={{backgroundImage: `url("https://www.transparenttextures.com/patterns/textured-paper.png")`}}
         onMouseEnter={() => {
           setPreview(true);
         }}
@@ -100,6 +110,7 @@ const page = () => {
           setPreview(false);
         }}
       >
+        <h1 className="text-5xl text-slate-800 tracking-widest font-serif	flex w-full justify-center border-b-8 border-slate-800 border-double mb-4">DAILY NEWS</h1>
         {IntroList &&
           IntroList.map((d, index) => {
             return (
