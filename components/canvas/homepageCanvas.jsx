@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useContext, useMemo } from "react";
+import React, { useState, useRef, useContext, useMemo, Suspense } from "react";
 import * as THREE from "three";
 import { Clock } from "three";
 import {
@@ -10,12 +10,17 @@ import {
   useThree,
 } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
+import {
+  OrbitControls,
+  Environment,
+  Preload,
+  Html,
+  useProgress,
+} from "@react-three/drei";
 import {
   Bloom,
   DepthOfField,
   EffectComposer,
-  Noise,
 } from "@react-three/postprocessing";
 import { Water } from "three-stdlib";
 import { LightContext } from "@/context/lightContext";
@@ -30,11 +35,11 @@ const River = () => {
     "/assets/waternormals.jpg"
   );
   waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
-  const geom = useMemo(() => new THREE.PlaneGeometry(50, 50), []);
+  const geom = useMemo(() => new THREE.PlaneGeometry(45, 45), []);
   const config = useMemo(
     () => ({
-      textureWidth: 512,
-      textureHeight: 512,
+      textureWidth: 64,
+      textureHeight: 64,
       waterNormals,
       sunDirection: new THREE.Vector3(),
       sunColor: "#cfe2f3",
@@ -66,16 +71,7 @@ const Forest = () => {
 
   return (
     <mesh ref={ref} receiveShadow>
-      <primitive
-        object={door.scene}
-        position={[0, -0.6, 0]}
-        onPointerDown={() => {
-          console.log("clicked");
-          // door.scene.animations.forEach((e) => {
-          //   e.play();
-          // });
-        }}
-      />
+      <primitive object={door.scene} position={[0, -0.6, 0]} />
       <primitive object={gltf.scene} position={[0, -0.5, 0]} />
     </mesh>
   );
@@ -124,31 +120,6 @@ const Light = () => {
 };
 
 const Effect = () => {
-  // const options1 = useMemo(() => {
-  //   return {
-  //     focusDistance: { value: 0, min: 0, max: 1.0, step: 0.01 },
-  //     focalLength: { value: 0.04, min: 0, max: 1.0, step: 0.01 },
-  //     bokehScale: { value: 2, min: 0, max: 10, step: 1 },
-  //     height: { value: 400, min: 0, max: 1000, step: 10 },
-  //   };
-  // }, []);
-  // const options2 = useMemo(() => {
-  //   return {
-  //     luminanceThreshold: { value: 1.0, min: 0, max: 1, step: 0.1 },
-  //     luminanceSmoothing: { value: 0.8, min: 0, max: 1, step: 0.1 },
-  //     height: { value: 300, min: 0, max: 1000, step: 10 },
-  //   };
-  // }, []);
-  // const options3 = useMemo(() => {
-  //   return {
-  //     opacity: 0.1,
-  //   };
-  // }, []);
-
-  // const A = useControls("DepthOfField", options1);
-  // const B = useControls("Bloom", options2);
-  // const C = useControls("Noise", options3);
-
   return (
     <EffectComposer>
       <DepthOfField
@@ -184,39 +155,58 @@ export default function homepageCanvas() {
 
   const { value2 } = useContext(LightContext);
   const environmentMap = useMemo(() => Hdr[value2].asset, [value2]);
-
+  const { progress } = useProgress();
   return (
-    <div id="homecanvas">
+    <div className="h-screen w-full homecanvas">
       <Canvas
+        frameloop="demand"
         dpr={[1, 1.5]}
         camera={{ position: [2.5, 1.8, 10], fov: 50 }}
         gl={{ antialias: false, preserveDrawingBuffer: false }}
       >
-        <Environment
-          files={environmentMap}
-          background
-          ground={{
-            height: 0,
-            radius: 50,
-            scale: 100,
-          }}
-        />
-        <Rig />
-        {/* <Light /> */}
-        <Effect />
-        {/* <ScrollControls pages={5}> */}
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          maxPolarAngle={Math.PI / 2.2}
-          minPolarAngle={Math.PI / 2.2}
-        />
-        <Forest />
-        <River />
-        {/* <ContactShadows position={[0.33, -0.33, 0.33]} opacity={1.5} /> */}
-        <Polyhedron position={[-1, 1, 0]} polyhedron={polyhedron} />
-        <Polyhedron position={[1, 1, 0]} polyhedron={polyhedron} />
-        {/* </ScrollControls> */}
+        <Suspense
+          fallback={
+            <Html
+              as="div"
+              className="absolute top-0 bottom-0 left-0 right-0 bg-black"
+            >
+              <p
+                style={{
+                  fontSize: 14,
+                  color: "#F1F1F1",
+                  fontWeight: 800,
+                  marginTop: 40,
+                }}
+              >
+                Loading {progress.toFixed(2)}%
+              </p>
+            </Html>
+          }
+        >
+          <Environment
+            files={environmentMap}
+            // background
+            ground={{
+              height: 0,
+              radius: 50,
+              scale: 100,
+            }}
+          />
+          <Rig />
+          <Light />
+          <Effect />
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            maxPolarAngle={Math.PI / 2.2}
+            minPolarAngle={Math.PI / 2.2}
+          />
+          <Forest />
+          <River />
+          <Polyhedron position={[-1, 1, 0]} polyhedron={polyhedron} />
+          <Polyhedron position={[1, 1, 0]} polyhedron={polyhedron} />
+        </Suspense>
+        <Preload all />
       </Canvas>
     </div>
   );

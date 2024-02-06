@@ -167,7 +167,9 @@ const ItemPage = ({ data, like }) => {
           onClick={showMenu}
           className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
         >
-          <p className="text-sm leading-5 font-bold uppercase">Description & fit</p>
+          <p className="text-sm leading-5 font-bold uppercase">
+            Description & fit
+          </p>
           <svg
             className={rotate}
             width="24"

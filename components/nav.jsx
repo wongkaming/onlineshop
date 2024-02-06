@@ -48,7 +48,7 @@ const Shop = () => {
 };
 
 const Nav = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, refresh, setRefresh } = useContext(UserContext);
 
   const [toggle, setToggle] = useState(false);
   const [goBack, setgoBack] = useState(false);
@@ -82,10 +82,7 @@ const Nav = () => {
     <div>
       <nav className="w-full flex flex-col items-center fixed top-0 z-30 text-[16px] font-medium">
         <div className="w-full flex justify-between items-center max-w-8xl mx-auto px-5 lg:px-9 py-2 backdrop-blur-lg bg-white/90 hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50">
-          <Link
-            href="/"
-            className="flex items-center gap-2"
-          >
+          <Link href="/" className="flex items-center gap-2">
             <p className="text-[18px] font-bold cursor-pointer flex">
               DazeStory☾
             </p>
@@ -121,7 +118,10 @@ const Nav = () => {
             )}
             <li>
               <Link href="/wishlist">
-                <CiHeart className="w-[24px] h-[24px]" />
+                <CiHeart
+                  className="w-[24px] h-[24px]"
+                  onClick={() => setRefresh(!refresh)}
+                />
               </Link>
             </li>
             {currentUser && currentUser.user.role == "admin" && (

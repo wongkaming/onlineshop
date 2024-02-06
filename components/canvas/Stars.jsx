@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useMemo, Suspense } from "react";
+import { useState, useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
@@ -41,8 +41,8 @@ const Stars = (props) => {
 
 const StarsCanvas = () => {
   return (
-    <div className="w-full h-auto absolute inset-0 z-[-1]">
-      <Canvas camera={{ position: [0, 0, 1] }}>
+    <div className="w-full h-screen absolute inset-0 z-[-1]">
+      <Canvas frameloop="demand" camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
           <Effect />
           <Stars />

@@ -1,7 +1,6 @@
 "use client";
-import React, { Suspense, lazy } from "react";
+import React, { lazy } from "react";
 import { windowIcon } from "@/constants/index";
-const StarsCanvas = lazy(() => import("@/components/canvas/Stars"));
 
 export default function WishlistLayout({ children }) {
   return (
@@ -21,11 +20,6 @@ export default function WishlistLayout({ children }) {
           <div className={`mx-0 md:mx-8 mb-8 overflow-y-auto`}>{children}</div>
         </div>
       </div>
-      {children && (
-        <Suspense fallback={<div> </div>}>
-          <StarsCanvas />
-        </Suspense>
-      )}
     </section>
   );
 }

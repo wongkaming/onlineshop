@@ -1,17 +1,14 @@
-"use client"
-import React, { useContext, useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import { ProductContext } from '@/context/productContext';
+"use client";
+import React, { useContext, useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import { ProductContext } from "@/context/productContext";
 
 const Itempage = dynamic(() => import("@/components/itempage"), {
   ssr: false,
 });
-const Item3d = dynamic(
-  () => import("@/components/canvas/item3d"),
-  {
-    ssr: false,
-  }
-);
+const Item3d = dynamic(() => import("@/components/canvas/item3d"), {
+  ssr: false,
+});
 
 async function fetchData(id, signal) {
   try {
@@ -19,7 +16,7 @@ async function fetchData(id, signal) {
       `http://localhost:4040/latest/clothes/item/${id}`,
       {
         cache: "force-cache",
-        signal: signal
+        signal: signal,
       }
     );
     if (!response.ok) {
@@ -35,15 +32,15 @@ async function fetchData(id, signal) {
 export default function Profile({ params }) {
   const { data } = useContext(ProductContext);
   const idToFind = params.id;
-  const index = data.findIndex(item => item._id === idToFind);
+  const index = data.findIndex((item) => item._id === idToFind);
 
   const [data2, setData2] = useState(null);
 
   useEffect(() => {
-    const controller = new AbortController(); 
+    const controller = new AbortController();
     const signal = controller.signal;
 
-    fetchData(params.id, signal).then(fetchedData => {
+    fetchData(params.id, signal).then((fetchedData) => {
       setData2(fetchedData);
     });
 
@@ -56,14 +53,14 @@ export default function Profile({ params }) {
   if (index == -1) {
     return (
       <>
-        <Item3d url={data2?.model3d} />
-        <Itempage data={data2} like={data2?._id}/>
+        {/* <Item3d url={data2?.model3d} /> */}
+        <Itempage data={data2} like={data2?._id} />
       </>
-    )
+    );
   }
   return (
     <>
-      {/* <Item3d url={data[index].model3d} /> */}
+      <Item3d url={data[index].model3d} />
       <Itempage data={data[index]} like={data[index]._id} />
     </>
   );

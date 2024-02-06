@@ -37,10 +37,10 @@ const SearchResultList = ({ input }) => {
                 </button>
               </a>
             </div>
-            </>
+          </>
         )}
-        {data?.posts.length == 0 && (<Nothing />)}
-        {isLoading && (<Loading />)}
+        {data?.posts.length == 0 && <Nothing />}
+        {isLoading && <Loading />}
         {/* <Suspense fallback={<div> </div>}>
           <StarsCanvas />
         </Suspense> */}

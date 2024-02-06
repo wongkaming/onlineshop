@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { ItemList, MenuTable } from "@/components/";
 import { CategoryList } from "@/constants";
 import transition from "../transition";
 import { CiViewList } from "react-icons/ci";
+import { UserContext } from "@/context/userContext";
 
 const CategoryMenu = () => {
   const [category, setCategory] = useState([]);
@@ -26,11 +27,12 @@ const CategoryMenu = () => {
   const [data, setData] = useState(null);
   const encodedSearchQuery = encodeURI(category);
   let [page, setPage] = useState(1);
+  const { refresh } = useContext(UserContext);
 
   useEffect(() => {
     fetch(
       `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}`,
-      { method: "get" },
+      { method: "get" }
     )
       .then(async function (req) {
         let data2 = await req.json();
@@ -39,7 +41,7 @@ const CategoryMenu = () => {
       .catch((e) => {
         console.log(e);
       });
-  }, [category]);
+  }, [category, refresh]);
 
   const morePicture = async () => {
     setPage(page + 1);

@@ -44,24 +44,23 @@ const Item3d = ({ url }) => {
   const { value2 } = useContext(LightContext);
 
   return (
-    <div className="flex-col hidden md:flex md:w-2/5 h-full">
+    <div className="flex-col hidden md:flex md:w-2/5 h-screen/3">
       <span id="info">{value2} is selected.</span>
       <Canvas
         frameloop="demand"
         shadows
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         camera={{ position: [3, 0, -0.2], fov: 25 }}
         gl={{ preserveDrawingBuffer: false }}
       >
         <Suspense fallback={<CanvasLoader />}>
-          {/* <Item3d url={`/assets/${url}.glb`} show={detail} /> */}
           <Model url={url} show={detail} />
           <Environment files={Hdr[value2].asset} blur={0.05} />
           <OrbitControls enableZoom={true} enablePan={true} />
         </Suspense>
-        {/* <Preload all /> */}
+        <Preload all />
       </Canvas>
-      <button onClick={showDetail} show={detail}>
+      <button onClick={showDetail}>
         <CiCircleInfo
           style={{
             width: "2em",

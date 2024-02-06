@@ -26,11 +26,8 @@
     padding: 1rem;
     width: 400px;
 }
-#homecanvas {
-    color: aqua;
-    background-color: black;
+.homecanvas {
     position: absolute;
-    width: 100%;
     top: 0px;
     bottom: 0px;
     right: 0px;

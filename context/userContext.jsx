@@ -7,6 +7,7 @@ export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const [wishlistData, setWishlistData] = useState(null);
 
   useEffect(() => {
@@ -35,9 +36,16 @@ const UserProvider = ({ children }) => {
           });
       }
     }
-  }, [currentUser]);
+  }, [currentUser, refresh]);
 
-  const value3 = { currentUser, setCurrentUser, wishlistData, setWishlistData };
+  const value3 = {
+    currentUser,
+    setCurrentUser,
+    wishlistData,
+    setWishlistData,
+    refresh,
+    setRefresh,
+  };
 
   return <UserContext.Provider value={value3}>{children}</UserContext.Provider>;
 };
