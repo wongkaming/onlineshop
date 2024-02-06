@@ -94,7 +94,7 @@ export default function RootLayout({ children }) {
                   </div>
                   {children}
                 </CurrencyProvider>
-                {children && <HomepageCanvas />}
+                <HomepageCanvas />
               </LightProvider>
               </ProductProvider>
             </UserProvider>

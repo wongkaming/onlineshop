@@ -88,6 +88,7 @@ const page = () => {
           IntroList.map((d, index) => {
             return (
               <div
+                key={index}
                 onMouseEnter={() => {
                   setPreview(d);
                 }}
