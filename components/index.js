@@ -1,4 +1,4 @@
-import { HomepageCanvas, ItemDetailCanvas, StarsCanvas } from './canvas';
+import { HomepageCanvas, Item3d, StarsCanvas } from './canvas';
 import CanvasLoader from './canvasloader';
 import Cart from './cart';
 import Currency from './currency';
@@ -55,7 +55,7 @@ export {
     WishlistPage,
     MobileWishlistPage,
     HomepageCanvas,
-    ItemDetailCanvas,
+    Item3d,
     StarsCanvas,
     ConfigButton
 };

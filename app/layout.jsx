@@ -7,6 +7,7 @@ import { Nav, Light, Currency } from "@/components";
 import CurrencyProvider from "@/context/currencyContext";
 import LightProvider from "@/context/lightContext";
 import UserProvider from "@/context/userContext";
+import ProductProvider from "@/context/productContext";
 import { AnimatePresence } from "framer-motion";
 import { Forum } from "next/font/google";
 
@@ -69,6 +70,7 @@ export default function RootLayout({ children }) {
         <main>
           <AnimatePresence mode="wait">
             <UserProvider>
+              <ProductProvider>
               <LightProvider value2={changeLight}>
                 <CurrencyProvider
                   rates={rates}
@@ -94,6 +96,7 @@ export default function RootLayout({ children }) {
                 </CurrencyProvider>
                 {children && <HomepageCanvas />}
               </LightProvider>
+              </ProductProvider>
             </UserProvider>
           </AnimatePresence>
         </main>

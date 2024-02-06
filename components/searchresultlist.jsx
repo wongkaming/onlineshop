@@ -41,9 +41,9 @@ const SearchResultList = ({ input }) => {
         )}
         {data?.posts.length == 0 && (<Nothing />)}
         {isLoading && (<Loading />)}
-        <Suspense fallback={<div> </div>}>
+        {/* <Suspense fallback={<div> </div>}>
           <StarsCanvas />
-        </Suspense>
+        </Suspense> */}
       </div>
     </section>
   );

@@ -1,9 +1,9 @@
 {
   "sunshine": {
-    "asset": "/assets/kloofendal_48d_partly_cloudy_puresky_4k.hdr"
+    "asset": "/assets/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
   },
   "sunrise": {
-    "asset": "/assets/hochsal_field_4k.hdr"
+    "asset": "/assets/hochsal_field_2k.hdr"
   },
   "night": {
     "asset": "/assets/vertopal.hdr"

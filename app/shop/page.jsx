@@ -5,7 +5,6 @@ import Image from "next/image";
 import { ItemList, MenuTable } from "@/components/";
 import { CategoryList } from "@/constants";
 import transition from "../transition";
-import { close } from "@/public";
 import { CiViewList } from "react-icons/ci";
 
 const CategoryMenu = () => {
@@ -32,7 +31,6 @@ const CategoryMenu = () => {
     fetch(
       `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}`,
       { method: "get" },
-      { cache: "no-store" }
     )
       .then(async function (req) {
         let data2 = await req.json();

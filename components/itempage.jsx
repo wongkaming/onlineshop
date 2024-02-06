@@ -85,11 +85,7 @@ const ItemPage = ({ data, like }) => {
       setRotate2("rotate-0");
     }
   };
-  // let [light, onDataSelected] = useState("studio");
-  // const handleSelectLight = (e) => {
-  //   const selectedValue = e.target;
-  //   onDataSelected(selectedValue.value);
-  // };
+
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
 
@@ -171,7 +167,7 @@ const ItemPage = ({ data, like }) => {
           onClick={showMenu}
           className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
         >
-          <p class="text-sm leading-5 font-bold uppercase">Description & fit</p>
+          <p className="text-sm leading-5 font-bold uppercase">Description & fit</p>
           <svg
             className={rotate}
             width="24"

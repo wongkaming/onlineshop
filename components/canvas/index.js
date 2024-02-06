@@ -1,5 +1,5 @@
 import HomepageCanvas from "./homepageCanvas";
-import ItemDetailCanvas from "./itemdetail";
+import Item3d from "./item3d";
 import StarsCanvas from "./Stars";
 
-export { HomepageCanvas, ItemDetailCanvas, StarsCanvas };
+export { HomepageCanvas, Item3d, StarsCanvas };

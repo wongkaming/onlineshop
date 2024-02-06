@@ -85,9 +85,6 @@ const Nav = () => {
           <Link
             href="/"
             className="flex items-center gap-2"
-            onClick={() => {
-              window.scrollTo(0, 0);
-            }}
           >
             <p className="text-[18px] font-bold cursor-pointer flex">
               DazeStory☾

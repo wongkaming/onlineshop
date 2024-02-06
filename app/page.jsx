@@ -6,7 +6,6 @@ import transition from "./transition";
 const page = () => {
   return (
     <>
-      <HomeDeco />
       <Home />
     </>
   );

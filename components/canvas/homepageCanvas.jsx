@@ -158,7 +158,7 @@ const Effect = () => {
         height={400}
       />
       <Bloom luminanceThreshold={1} luminanceSmoothing={0.8} height={300} />
-      <Noise opacity={0.15} />
+      {/* <Noise opacity={0.15} /> */}
     </EffectComposer>
   );
 };
@@ -183,17 +183,17 @@ export default function homepageCanvas() {
   );
 
   const { value2 } = useContext(LightContext);
+  const environmentMap = useMemo(() => Hdr[value2].asset, [value2]);
 
   return (
     <div id="homecanvas">
       <Canvas
-        shadows
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         camera={{ position: [2.5, 1.8, 10], fov: 50 }}
-        gl={{ preserveDrawingBuffer: false }}
+        gl={{ antialias: false, preserveDrawingBuffer: false }}
       >
         <Environment
-          files={Hdr[value2].asset}
+          files={environmentMap}
           background
           ground={{
             height: 0,
@@ -202,7 +202,7 @@ export default function homepageCanvas() {
           }}
         />
         <Rig />
-        <Light />
+        {/* <Light /> */}
         <Effect />
         {/* <ScrollControls pages={5}> */}
         <OrbitControls
@@ -213,7 +213,7 @@ export default function homepageCanvas() {
         />
         <Forest />
         <River />
-        <ContactShadows position={[0.33, -0.33, 0.33]} opacity={1.5} />
+        {/* <ContactShadows position={[0.33, -0.33, 0.33]} opacity={1.5} /> */}
         <Polyhedron position={[-1, 1, 0]} polyhedron={polyhedron} />
         <Polyhedron position={[1, 1, 0]} polyhedron={polyhedron} />
         {/* </ScrollControls> */}
