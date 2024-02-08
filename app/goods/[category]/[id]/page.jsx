@@ -2,6 +2,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { ProductContext } from "@/context/productContext";
+import { LightContext } from "@/context/lightContext";
 
 const Itempage = dynamic(() => import("@/components/itempage"), {
   ssr: false,
@@ -58,9 +59,15 @@ export default function Profile({ params }) {
       </>
     );
   }
+
+  const { value2 } = useContext(LightContext);
+
   return (
     <>
-      <Item3d url={data[index].model3d} />
+      <iframe
+        src={`https://3dcanvas.vercel.app/${data[index].model3d}/${value2}`}
+        className="hidden md:flex md:w-2/5 items-center"
+      ></iframe>
       <Itempage data={data[index]} like={data[index]._id} />
     </>
   );
