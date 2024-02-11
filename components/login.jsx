@@ -5,12 +5,13 @@ import Link from "next/link";
 import AuthService from "../hook/auth";
 import { CiMail, CiLock } from "react-icons/ci";
 import { UserContext } from "@/context/userContext";
+require("dotenv").config();
 
 const Login = () => {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [message, setMessage] = useState("");
-  let [auth, setAuth] = useState(false);
+
   const { setCurrentUser } = useContext(UserContext);
 
   const router = useRouter();
@@ -39,34 +40,29 @@ const Login = () => {
     const left = (window.innerWidth - width) / 2;
     const top = (window.innerHeight - height) / 2;
     const popupWindow = window.open(
-      "http://localhost:4040/latest/user/google",
+      "https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/user/google",
       "Google Login",
       `width=${width},height=${height},left=${left},top=${top}`
     );
 
     if (window.focus) {
       popupWindow.focus();
-      localStorage.setItem("login", "in process");
     }
 
     const timer = setInterval(async () => {
       try {
-        if (
-          popupWindow.closed &&
-          localStorage.getItem("login") == "in process"
-        ) {
+        await AuthService.googleLoginSuccess();
+        if (popupWindow.closed && localStorage.getItem("user")) {
           clearInterval(timer);
-          await AuthService.googleLoginSuccess();
           setCurrentUser(AuthService.getCurrentUser());
           router.push("/user/account");
-          localStorage.removeItem("login");
+        } else if (popupWindow.closed) {
+          clearInterval(timer);
         }
       } catch (e) {
         console.log(e);
       }
     }, 1000);
-
-    return () => clearInterval(timer);
   };
 
   return (

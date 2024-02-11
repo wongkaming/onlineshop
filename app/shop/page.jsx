@@ -31,7 +31,7 @@ const CategoryMenu = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}`,
+      `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/result/findByCategory/${encodedSearchQuery}`,
       { method: "get" }
     )
       .then(async function (req) {
@@ -45,9 +45,9 @@ const CategoryMenu = () => {
 
   const morePicture = async () => {
     setPage(page + 1);
-    let newURL = `http://localhost:4040/latest/result/findByCategory/${encodedSearchQuery}?page=${
+    let newURL = `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/result/findByCategory/${encodedSearchQuery}?page=${
       page + 1
-    }&perPage=10`;
+    }&perPage=15`;
 
     let result = await axios.get(newURL);
     if (result.data.length !== 0) {

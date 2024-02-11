@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       const response = await fetch(
-        `http://localhost:4040/latest/result/findByName/${query.q}`
+        `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/result/findByName/${query.q}`
       );
       const posts = await response.json();
       res.status(200).send({ posts });

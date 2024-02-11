@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://localhost:4040/latest";
+const API_URL = `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest`;
 
 class AuthService {
   login(email, password) {
@@ -30,6 +30,10 @@ class AuthService {
       .catch((error) => {
         console.error("Error:", error);
       });
+  }
+
+  googleLogout() {
+    return axios.get(API_URL + "/user/logout");
   }
 
   getCurrentUser() {

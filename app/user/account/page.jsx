@@ -12,10 +12,24 @@ const AccountPage = () => {
 
   const handleLogout = async () => {
     try {
-      // await AuthService.logout();
-      localStorage.removeItem("user");
-      setCurrentUser(AuthService.getCurrentUser());
-      router.push("/");
+      const response = await fetch(
+        `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/user/logout`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        localStorage.removeItem("user");
+        setCurrentUser(AuthService.getCurrentUser());
+        router.push("/");
+      } else {
+        console.error("Logout failed");
+      }
     } catch (e) {
       console.log(e);
     }

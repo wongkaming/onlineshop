@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://localhost:4040/latest";
+const API_URL = `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest`;
 
 class Item {
   post(item) {
