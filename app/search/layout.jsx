@@ -10,11 +10,10 @@ export default function SearchLayout({ children }) {
         style={{ maxHeight: `calc(100vh - 32px)` }}
       >
         {children}
-        {children && (
-          <Suspense fallback={<div> </div>}>
-            <StarsCanvas />
-          </Suspense>
-        )}
+        <iframe
+          src={`https://3dcanvas.vercel.app/stars`}
+          className="h-screen w-full homecanvas"
+        ></iframe>
       </div>
     </section>
   );

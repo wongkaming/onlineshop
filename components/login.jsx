@@ -5,7 +5,6 @@ import Link from "next/link";
 import AuthService from "../hook/auth";
 import { CiMail, CiLock } from "react-icons/ci";
 import { UserContext } from "@/context/userContext";
-require("dotenv").config();
 
 const Login = () => {
   let [email, setEmail] = useState("");

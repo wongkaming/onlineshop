@@ -69,7 +69,7 @@ const MobileSearchBar = () => {
               setSearchQuery("");
             }}
           />
-          <div className="box-border px-10 grow">
+          <div className="box-border px-5 grow">
             <form onSubmit={onSearch} className="relative">
               <input
                 value={searchQuery || ""}
