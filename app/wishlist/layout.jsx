@@ -1,5 +1,5 @@
 "use client";
-import React, { lazy } from "react";
+import React from "react";
 import { windowIcon } from "@/constants/index";
 
 export default function WishlistLayout({ children }) {

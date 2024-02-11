@@ -1,5 +1,3 @@
-import { HomepageCanvas, Item3d, StarsCanvas } from './canvas';
-import CanvasLoader from './canvasloader';
 import Cart from './cart';
 import Currency from './currency';
 import Data from './data';
@@ -28,7 +26,6 @@ import MobileWishlistPage from './mobileWishlist';
 import ConfigButton from './ConfigButton';
 
 export {
-    CanvasLoader,
     Cart,
     Currency, 
     Data, 
@@ -54,8 +51,5 @@ export {
     SearchResultList, 
     WishlistPage,
     MobileWishlistPage,
-    HomepageCanvas,
-    Item3d,
-    StarsCanvas,
     ConfigButton
 };

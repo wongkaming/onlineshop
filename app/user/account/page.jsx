@@ -13,7 +13,7 @@ const AccountPage = () => {
   const handleLogout = async () => {
     try {
       const response = await fetch(
-        `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/user/logout`,
+        `${process.env.NEXT_PUBLIC_API}/latest/user/logout`,
         {
           method: "GET",
           credentials: "include",

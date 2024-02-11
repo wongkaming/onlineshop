@@ -39,7 +39,7 @@ const Login = () => {
     const left = (window.innerWidth - width) / 2;
     const top = (window.innerHeight - height) / 2;
     const popupWindow = window.open(
-      "https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/user/google",
+      `${process.env.NEXT_PUBLIC_API}/latest/user/google`,
       "Google Login",
       `width=${width},height=${height},left=${left},top=${top}`
     );

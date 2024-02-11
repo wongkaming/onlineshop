@@ -1,6 +1,4 @@
-"use client";
-import React, { Suspense, lazy } from "react";
-const StarsCanvas = lazy(() => import("@/components/canvas/Stars"));
+import React from "react";
 
 export default function SearchLayout({ children }) {
   return (

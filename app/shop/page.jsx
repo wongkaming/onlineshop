@@ -31,7 +31,7 @@ const CategoryMenu = () => {
 
   useEffect(() => {
     fetch(
-      `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/result/findByCategory/${encodedSearchQuery}`,
+      `${process.env.NEXT_PUBLIC_API}/latest/result/findByCategory/${encodedSearchQuery}`,
       { method: "get" }
     )
       .then(async function (req) {
@@ -45,7 +45,9 @@ const CategoryMenu = () => {
 
   const morePicture = async () => {
     setPage(page + 1);
-    let newURL = `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/result/findByCategory/${encodedSearchQuery}?page=${
+    let newURL = `${
+      process.env.NEXT_PUBLIC_API
+    }/latest/result/findByCategory/${encodedSearchQuery}?page=${
       page + 1
     }&perPage=15`;
 

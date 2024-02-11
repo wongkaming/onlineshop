@@ -61,7 +61,7 @@ const MobileSearchBar = () => {
           goBack ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="py-2 px-5 flex flex-row justify-between fixed top-0 left-0 right-0 bottom-0 z-30 items-center backdrop-blur-lg bg-white">
+        <div className="py-2 px-5 flex flex-row justify-between fixed top-0 left-0 right-0 z-30 items-center backdrop-blur-lg bg-white">
           <IoIosArrowRoundBack
             className="w-[24px] h-[24px]"
             onClick={() => {

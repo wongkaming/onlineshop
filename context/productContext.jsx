@@ -6,7 +6,7 @@ export const ProductContext = createContext({ data: null });
 
 const ProductProvider = ({ children }) => {
   const [data, loaded, error] = useAxios(
-    `https://nodejs-restfulapi-onlineshopdb.onrender.com/latest/result/findByName`
+    `${process.env.NEXT_PUBLIC_API}/latest/result/findByName`
   );
 
   // Memoize the context value to prevent unnecessary re-renders
