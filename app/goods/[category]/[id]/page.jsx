@@ -19,7 +19,7 @@ export default function Profile({ params }) {
     <>
       <iframe
         src={`https://3dcanvas.vercel.app/${data[index].model3d}/${value2}`}
-        className="hidden md:flex md:w-2/5 items-center"
+        className="hidden md:flex md:w-2/5 items-center pt-14"
       ></iframe>
       <Itempage data={data[index]} like={data[index]._id} />
     </>
