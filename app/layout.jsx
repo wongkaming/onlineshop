@@ -8,9 +8,9 @@ import LightProvider from "@/context/lightContext";
 import UserProvider from "@/context/userContext";
 import ProductProvider from "@/context/productContext";
 import { AnimatePresence } from "framer-motion";
-import { Forum } from "next/font/google";
+import { Inconsolata } from "next/font/google";
 
-const font = Forum({ weight: "400", preload: false });
+const font = Inconsolata({ weight: "400", preload: false });
 
 export default function RootLayout({ children }) {
   const [changeLight, setChangeLight] = useState("sunshine");
@@ -73,7 +73,7 @@ export default function RootLayout({ children }) {
                   >
                     {children && <Nav />}
                     <div
-                      className={`flex bg-[#24282e] p-2 absolute top-14  z-20 rounded-r-full transition-transform ease-in-out duration-500 ${
+                      className={`flex bg-[#24282e] p-2 absolute top-14  z-30 rounded-r-full transition-transform ease-in-out duration-500 ${
                         isHovered
                           ? "opacity-100 translate-x-0"
                           : "opacity-40 -translate-x-32"

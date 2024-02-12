@@ -9,6 +9,7 @@ const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const [wishlistData, setWishlistData] = useState(null);
+  const [homepage, setHomepage] = useState(false);
 
   useEffect(() => {
     setCurrentUser(AuthService.getCurrentUser());
@@ -45,6 +46,8 @@ const UserProvider = ({ children }) => {
     setWishlistData,
     refresh,
     setRefresh,
+    homepage,
+    setHomepage,
   };
 
   return <UserContext.Provider value={value3}>{children}</UserContext.Provider>;

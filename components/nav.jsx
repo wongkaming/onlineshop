@@ -22,6 +22,7 @@ import {
   CiEdit,
 } from "react-icons/ci";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { RiFolderZipLine } from "react-icons/ri";
 import { UserContext } from "@/context/userContext";
 
 const Shop = () => {
@@ -78,9 +79,26 @@ const Nav = () => {
     }
   }, [goBack, currentUser]);
 
+  const { homepage, setHomepage } = useContext(UserContext);
+
+  useEffect(() => {
+    if (window.location.href !== process.env.NEXT_PUBLIC_ORIGIN) {
+      setHomepage(true);
+    }
+  }, []);
+
   return (
     <div>
-      <nav className="w-full flex flex-col items-center fixed top-0 z-30 text-[16px] font-medium">
+      <nav
+        className={`w-full flex flex-col items-center fixed top-0 z-30 text-[16px] translate-y-0 font-medium transition duration-300 ease-in-out ${
+          homepage
+            ? "lg:translate-y-0"
+            : "lg:-translate-y-10 hover:lg:translate-y-0"
+        }`}
+        onClick={() => {
+          setHomepage(true);
+        }}
+      >
         <div className="w-full flex justify-between items-center max-w-8xl mx-auto px-5 lg:px-9 py-2 backdrop-blur-lg bg-white/90 hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50">
           <Link href="/" className="flex items-center gap-2">
             <p className="text-[18px] font-bold cursor-pointer flex">
@@ -154,8 +172,44 @@ const Nav = () => {
             </ul>
           </div>
         </div>
+        {!homepage &&
+          window.location.href == process.env.NEXT_PUBLIC_ORIGIN && (
+            <div className="hidden lg:flex lg:flex-row w-full justify-between text-white p-4 ">
+              <div>
+                <img
+                  src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXU3b2hhbzA4Z3VsamhpdWtxZXUzbHJidWN2N3VqMXdhbTBibjZhciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/8kERJ466SJRKpaUf5S/giphy.gif"
+                  style={{ width: `300px` }}
+                />
+              </div>
+              <div className="border border-dashed border-white flex flex-col p-2">
+                <p className="text-xl">PLAY ▶</p>
+                <p className="text-sm">
+                  Clear your mind, and start your dream.
+                </p>
+              </div>
+            </div>
+          )}
       </nav>
-
+      {!homepage && window.location.href == process.env.NEXT_PUBLIC_ORIGIN && (
+        <div className="hidden lg:flex lg:flex-row w-full justify-between text-white p-4 absolute -bottom-5">
+          <div>
+            <img
+              src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHM5NWVjNDJsYmM0c2JxYWxsaHpvc2l3aXFqMzU3eGFyZWRwb21xYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/LoM7g4sLUIQdUaWuTh/giphy.gif"
+              style={{ width: `150px` }}
+            />
+          </div>
+          <div className="flex flex-row gap-4">
+            <div>
+              <RiFolderZipLine className="w-[80px] h-[80px]" />
+              <p className="flex w-full justify-center">DOWNLOAD</p>
+            </div>
+            <div>
+              <RiFolderZipLine className="w-[80px] h-[80px]" />
+              <p className="flex w-full justify-center">DAZECORE</p>
+            </div>
+          </div>
+        </div>
+      )}
       <div
         className={`flex ${
           toggle
@@ -181,7 +235,7 @@ const Nav = () => {
         </div>
       </div>
 
-      {/* //wishlist */}
+      {/* //mobile wishlist */}
       <div
         className={`lg:hidden bg-white/60 backdrop-blur-lg fixed bottom-0 left-0 right-0 top-0 transition-transform duration-500 z-30 ${
           goBack ? "translate-x-0" : "translate-x-full"

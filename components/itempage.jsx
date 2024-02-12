@@ -6,6 +6,7 @@ import { GoHeartFill } from "react-icons/go";
 import AuthService from "../hook/item";
 import EmblaCarousel from "./EmblaCarousel";
 import { UserContext } from "@/context/userContext";
+import { CiShoppingCart } from "react-icons/ci";
 
 const OPTIONS = {};
 const ItemPage = ({ data, like }) => {
@@ -97,33 +98,41 @@ const ItemPage = ({ data, like }) => {
   };
 
   return (
-    <div className="overflow-auto flex flex-col h-full w-full md:w-3/5 bubble">
+    <div className="overflow-auto flex flex-col h-full w-full md:w-3/5 infobox">
+      <nav className="flex flex-row justify-between py-1 rounded-t-lg sliver">
+        <p className="font-bold px-3 uppercase">{data.category}</p>
+      </nav>
       <div className="pt-24 md:pt-10 px-12">
         <ul className="flex flex-col">
           <li className="flex justify-between">
             <p className="text-[24px] text-[#5a6674]">{data.title}</p>
-            {liked == false && (
-              <a id={data._id} onClick={toggleFavorite}>
-                <GoHeart
-                  style={{
-                    width: "2em",
-                    height: "2em",
-                    color: "black",
-                  }}
-                />
-              </a>
-            )}
-            {liked == true && (
-              <a id={data._id} onClick={toggleUnlike}>
-                <GoHeartFill
-                  style={{
-                    width: "2em",
-                    height: "2em",
-                    color: "black",
-                  }}
-                />
-              </a>
-            )}
+            <div className="flex flex-row gap-5 items-center">
+              {liked == false && (
+                <a id={data._id} onClick={toggleFavorite}>
+                  <GoHeart
+                    style={{
+                      width: "2em",
+                      height: "2em",
+                      color: "black",
+                    }}
+                  />
+                </a>
+              )}
+              {liked == true && (
+                <a id={data._id} onClick={toggleUnlike}>
+                  <GoHeartFill
+                    style={{
+                      width: "2em",
+                      height: "2em",
+                      color: "black",
+                    }}
+                  />
+                </a>
+              )}
+              <button className="blackpurple px-4 py-2 text-white">
+                Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
+              </button>
+            </div>
           </li>
           {curr && <li className="text-[20px] font-bold">{curr}</li>}
         </ul>
@@ -133,7 +142,7 @@ const ItemPage = ({ data, like }) => {
               <button
                 key={index}
                 className={`${
-                  selectedColor === d ? "border-gray-800" : "border-gray-400"
+                  selectedColor === d ? "border-gray-800" : "border"
                 } w-8 h-8 rounded-full border-2  mr-2`}
                 style={{ backgroundColor: d }}
                 onClick={() => handleColorClick(d)}
@@ -141,7 +150,7 @@ const ItemPage = ({ data, like }) => {
             );
           })}
         </div>
-        <div className="pb-8">
+        <div className="mb-8">
           {data.sizeSelector.map((d, index) => {
             return (
               <button

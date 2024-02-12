@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { IntroList } from "@/constants/index";
 import Typewriter from "typewriter-effect";
-import { Preview, HomeDeco } from "@/components";
-import Image from "next/image";
+import { Preview } from "@/components";
+import { UserContext } from "@/context/userContext";
 
 const WellcomePage = ({ handleClick }) => {
   // const [timer, setTimer] = useState("");
@@ -18,10 +18,11 @@ const WellcomePage = ({ handleClick }) => {
     <>
       <div className="text-xl text-white">
         HKT
-        {/* <br />
-        {timer} */}
+        <br />
+        FEB 04 24
       </div>
-      <div className="text-xl text-white w-64">
+      <div className="text-xl text-[#00FF00] font-semibold w-80 flex">
+        <p className="pr-2">C: {">"}</p>
         <Typewriter
           options={{
             strings: ["Welcome to Dazeworld", "Think about the dream..."],
@@ -44,8 +45,8 @@ const WellcomePage = ({ handleClick }) => {
   );
 };
 
-const page = () => {
-  const [homepage, setHomepage] = useState(false);
+const Home = () => {
+  const { homepage, setHomepage } = useContext(UserContext);
   const [preview, setPreview] = useState(null);
 
   const handleClick = () => {
@@ -132,4 +133,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Home;

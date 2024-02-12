@@ -16,10 +16,7 @@ const CurrencyProvider = ({
     "https://api.exchangerate-api.com/v4/latest/USD"
   );
 
-  const value = useMemo(
-    () => ({ data, rates, rates2, change, currency, unit }),
-    [data, rates, rates2, change, currency, unit]
-  );
+  const value = { data, rates, rates2, change, currency, unit };
 
   return (
     <CurrencyContext.Provider value={value}>
