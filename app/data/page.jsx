@@ -1,12 +1,12 @@
 "use client";
 import { useContext } from "react";
 import { UserContext } from "@/context/userContext";
-import { Wishlist } from "@/components/";
+import { WishlistPage } from "@/components/";
 
 const page = () => {
   const { currentUser } = useContext(UserContext);
 
-  return <Wishlist currentUser={currentUser} />;
+  return <WishlistPage currentUser={currentUser} />;
 };
 
 export default page;

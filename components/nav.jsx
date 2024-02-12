@@ -2,6 +2,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import WishlistItem from "@/hook/item";
 import {
   Cart,
@@ -80,9 +81,10 @@ const Nav = () => {
   }, [goBack, currentUser]);
 
   const { homepage, setHomepage } = useContext(UserContext);
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (window.location.href !== process.env.NEXT_PUBLIC_ORIGIN) {
+    if (pathname !== "/") {
       setHomepage(true);
     }
   }, []);
@@ -144,7 +146,7 @@ const Nav = () => {
             </li>
             {currentUser && currentUser.user.role == "admin" && (
               <li>
-                <Link href="/user/data">Data</Link>
+                <Link href="/data">Data</Link>
               </li>
             )}
 
@@ -172,25 +174,22 @@ const Nav = () => {
             </ul>
           </div>
         </div>
-        {!homepage &&
-          window.location.href == process.env.NEXT_PUBLIC_ORIGIN && (
-            <div className="hidden lg:flex lg:flex-row w-full justify-between text-white p-4 ">
-              <div>
-                <img
-                  src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXU3b2hhbzA4Z3VsamhpdWtxZXUzbHJidWN2N3VqMXdhbTBibjZhciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/8kERJ466SJRKpaUf5S/giphy.gif"
-                  style={{ width: `300px` }}
-                />
-              </div>
-              <div className="border border-dashed border-white flex flex-col p-2">
-                <p className="text-xl">PLAY ▶</p>
-                <p className="text-sm">
-                  Clear your mind, and start your dream.
-                </p>
-              </div>
+        {!homepage && pathname == "/" && (
+          <div className="hidden lg:flex lg:flex-row w-full justify-between text-white p-4 ">
+            <div>
+              <img
+                src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXU3b2hhbzA4Z3VsamhpdWtxZXUzbHJidWN2N3VqMXdhbTBibjZhciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/8kERJ466SJRKpaUf5S/giphy.gif"
+                style={{ width: `300px` }}
+              />
             </div>
-          )}
+            <div className="border border-dashed border-white flex flex-col p-2">
+              <p className="text-xl">PLAY ▶</p>
+              <p className="text-sm">Clear your mind, and start your dream.</p>
+            </div>
+          </div>
+        )}
       </nav>
-      {!homepage && window.location.href == process.env.NEXT_PUBLIC_ORIGIN && (
+      {!homepage && pathname == "/" && (
         <div className="hidden lg:flex lg:flex-row w-full justify-between text-white p-4 absolute -bottom-5">
           <div>
             <img
@@ -305,7 +304,7 @@ const Nav = () => {
           )}
           {currentUser && currentUser.user.role == "admin" && (
             <li>
-              <Link href="/user/data" className="flex flex-col items-center">
+              <Link href="/data" className="flex flex-col items-center">
                 <CiHeart className="w-[21px] h-[21px]" />
                 <p className="text-[12px]">Data</p>
               </Link>
