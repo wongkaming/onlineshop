@@ -1,6 +1,4 @@
-"use client";
 import React from "react";
-import { StarsCanvas } from "@/components/";
 
 export default function CartLayout({ children }) {
   return (
@@ -8,7 +6,10 @@ export default function CartLayout({ children }) {
       <div className="flex justify-center w-full h-full">
         <div className={`mx-0 md:mx-8 mb-8 overflow-y-auto`}>{children}</div>
       </div>
-      <StarsCanvas />
+      <iframe
+        src={`https://3dcanvas.vercel.app/stars`}
+        className="h-screen w-full homecanvas"
+      ></iframe>
     </section>
   );
 }
