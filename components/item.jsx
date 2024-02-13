@@ -39,6 +39,9 @@ const OneItem = ({ data, price, like, currentUser }) => {
         console.log(e.response.data);
       });
   };
+  const remindLogin = () => {
+    alert("Please login first.");
+  };
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -62,7 +65,18 @@ const OneItem = ({ data, price, like, currentUser }) => {
         </h3>
         <div className="flex justify-between pl-2 pr-4">
           <p className=" text-[16px] font-bold">{price}</p>
-          {liked == false && (
+          {!currentUser && (
+            <GoHeart
+              id={data._id}
+              onClick={remindLogin}
+              style={{
+                width: "1.5em",
+                height: "1.5em",
+                color: "black",
+              }}
+            />
+          )}
+          {currentUser && liked == false && (
             <GoHeart
               id={data._id}
               onClick={toggleFavorite}
@@ -73,7 +87,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
               }}
             />
           )}
-          {liked == true && (
+          {currentUser && liked == true && (
             <GoHeartFill
               id={data._id}
               onClick={toggleUnlike}

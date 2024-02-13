@@ -1,5 +1,6 @@
 "use client";
 import React, { Suspense, useContext, useState, useEffect } from "react";
+import Image from "next/image";
 import { CurrencyContext } from "@/context/currencyContext";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
@@ -7,6 +8,7 @@ import AuthService from "../hook/item";
 import EmblaCarousel from "./EmblaCarousel";
 import { UserContext } from "@/context/userContext";
 import { CiShoppingCart } from "react-icons/ci";
+import { close } from "@/public";
 
 const OPTIONS = {};
 const ItemPage = ({ data, like }) => {
@@ -96,43 +98,60 @@ const ItemPage = ({ data, like }) => {
   const handleColorClick = (color) => {
     setSelectedColor(color);
   };
+  const remindLogin = () => {
+    alert("Please login first.");
+  };
 
   return (
     <div className="overflow-auto flex flex-col h-full w-full md:w-3/5 infobox">
       <nav className="flex flex-row justify-between py-1 rounded-t-lg sliver">
         <p className="font-bold px-3 uppercase">{data.category}</p>
+        <div className="flex flex-row items-center">
+          <Image
+            src={close}
+            alt="menu"
+            className="w-[18px] h-[18px] cursor-pointer mr-2"
+          />
+        </div>
       </nav>
-      <div className="pt-24 md:pt-10 px-12">
+      <div className="pt-10 px-12">
         <ul className="flex flex-col">
           <li className="flex justify-between">
             <p className="text-[24px] text-[#5a6674]">{data.title}</p>
-            <div className="flex flex-row gap-5 items-center">
-              {liked == false && (
-                <a id={data._id} onClick={toggleFavorite}>
-                  <GoHeart
-                    style={{
-                      width: "2em",
-                      height: "2em",
-                      color: "black",
-                    }}
-                  />
-                </a>
-              )}
-              {liked == true && (
-                <a id={data._id} onClick={toggleUnlike}>
-                  <GoHeartFill
-                    style={{
-                      width: "2em",
-                      height: "2em",
-                      color: "black",
-                    }}
-                  />
-                </a>
-              )}
-              <button className="blackpurple px-4 py-2 text-white">
-                Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
-              </button>
-            </div>
+
+            {!currentUser && (
+              <GoHeart
+                id={data._id}
+                onClick={remindLogin}
+                style={{
+                  width: "1.5em",
+                  height: "1.5em",
+                  color: "black",
+                }}
+              />
+            )}
+            {currentUser && liked == false && (
+              <a id={data._id} onClick={toggleFavorite}>
+                <GoHeart
+                  style={{
+                    width: "2em",
+                    height: "2em",
+                    color: "black",
+                  }}
+                />
+              </a>
+            )}
+            {currentUser && liked == true && (
+              <a id={data._id} onClick={toggleUnlike}>
+                <GoHeartFill
+                  style={{
+                    width: "2em",
+                    height: "2em",
+                    color: "black",
+                  }}
+                />
+              </a>
+            )}
           </li>
           {curr && <li className="text-[20px] font-bold">{curr}</li>}
         </ul>
@@ -150,7 +169,7 @@ const ItemPage = ({ data, like }) => {
             );
           })}
         </div>
-        <div className="mb-8">
+        <div className="mb-3">
           {data.sizeSelector.map((d, index) => {
             return (
               <button
@@ -167,6 +186,9 @@ const ItemPage = ({ data, like }) => {
             );
           })}
         </div>
+        <button className="blackpurple px-4 py-2 text-white mb-8">
+          Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
+        </button>
       </div>
       <div className="relative h-[520px]">
         <EmblaCarousel slides={data.galleryWrap} options={OPTIONS} />
