@@ -9,6 +9,7 @@ import EmblaCarousel from "./EmblaCarousel";
 import { UserContext } from "@/context/userContext";
 import { CiShoppingCart } from "react-icons/ci";
 import { close } from "@/public";
+import { useRouter } from "next/navigation";
 
 const OPTIONS = {};
 const ItemPage = ({ data, like }) => {
@@ -101,9 +102,10 @@ const ItemPage = ({ data, like }) => {
   const remindLogin = () => {
     alert("Please login first.");
   };
+  const router = useRouter();
 
   return (
-    <div className="overflow-auto flex flex-col h-full w-full md:w-3/5 infobox">
+    <div className="flex flex-col h-full w-full md:w-4/5 infobox mr-10">
       <nav className="flex flex-row justify-between py-1 rounded-t-lg sliver">
         <p className="font-bold px-3 uppercase">{data.category}</p>
         <div className="flex flex-row items-center">
@@ -111,169 +113,174 @@ const ItemPage = ({ data, like }) => {
             src={close}
             alt="menu"
             className="w-[18px] h-[18px] cursor-pointer mr-2"
+            onClick={() => {
+              router.back();
+            }}
           />
         </div>
       </nav>
-      <div className="pt-10 px-12">
-        <ul className="flex flex-col">
-          <li className="flex justify-between">
-            <p className="text-[24px] text-[#5a6674]">{data.title}</p>
+      <div className="overflow-auto">
+        <div className="pt-8 px-12">
+          <ul className="flex flex-col">
+            <li className="flex justify-between">
+              <p className="text-[24px] text-[#5a6674]">{data.title}</p>
 
-            {!currentUser && (
-              <GoHeart
-                id={data._id}
-                onClick={remindLogin}
-                style={{
-                  width: "1.5em",
-                  height: "1.5em",
-                  color: "black",
-                }}
-              />
-            )}
-            {currentUser && liked == false && (
-              <a id={data._id} onClick={toggleFavorite}>
+              {!currentUser && (
                 <GoHeart
+                  id={data._id}
+                  onClick={remindLogin}
                   style={{
-                    width: "2em",
-                    height: "2em",
+                    width: "1.5em",
+                    height: "1.5em",
                     color: "black",
                   }}
                 />
-              </a>
-            )}
-            {currentUser && liked == true && (
-              <a id={data._id} onClick={toggleUnlike}>
-                <GoHeartFill
-                  style={{
-                    width: "2em",
-                    height: "2em",
-                    color: "black",
-                  }}
-                />
-              </a>
-            )}
-          </li>
-          {curr && <li className="text-[20px] font-bold">{curr}</li>}
-        </ul>
-        <div className="pb-3 pt-8">
-          {data.typeSelector.map((d, index) => {
-            return (
-              <button
-                key={index}
-                className={`${
-                  selectedColor === d ? "border-gray-800" : "border"
-                } w-8 h-8 rounded-full border-2  mr-2`}
-                style={{ backgroundColor: d }}
-                onClick={() => handleColorClick(d)}
-              ></button>
-            );
-          })}
-        </div>
-        <div className="mb-3">
-          {data.sizeSelector.map((d, index) => {
-            return (
-              <button
-                className={`border ${
-                  selectedSize === d
-                    ? "text-white font-bold pinkblue border-white"
-                    : "border-gray-400"
-                } py-1 px-4 rounded-full mr-2 hover:border-white hover:text-white `}
-                onClick={() => handleSizeClick(d)}
-                key={index}
-              >
-                {d}
-              </button>
-            );
-          })}
-        </div>
-        <button className="blackpurple px-4 py-2 text-white mb-8">
-          Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
-        </button>
-      </div>
-      <div className="relative h-[520px]">
-        <EmblaCarousel slides={data.galleryWrap} options={OPTIONS} />
-      </div>
-      <div className="flex flex-col justify-start items-center px-10 border-t border-b border-gray-600  w-full">
-        <button
-          onClick={showMenu}
-          className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
-        >
-          <p className="text-sm leading-5 font-bold uppercase">
-            Description & fit
-          </p>
-          <svg
-            className={rotate}
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M18 15L12 9L6 15"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-        <div
-          className={`${
-            !hidden ? "hidden pb-6" : "pb-6"
-          }flex justify-start  flex-col w-full md:w-auto items-start`}
-        >
-          <p>{data.description}</p>
-          <ul className="max-w-md space-y-1 text-black ">
-            <li>Model size: The model is 179cm/5'10" and wears a size S</li>
-            <li>Length: Long</li>
-            <li>Fit: Fitted</li>
+              )}
+              {currentUser && liked == false && (
+                <a id={data._id} onClick={toggleFavorite}>
+                  <GoHeart
+                    style={{
+                      width: "2em",
+                      height: "2em",
+                      color: "black",
+                    }}
+                  />
+                </a>
+              )}
+              {currentUser && liked == true && (
+                <a id={data._id} onClick={toggleUnlike}>
+                  <GoHeartFill
+                    style={{
+                      width: "2em",
+                      height: "2em",
+                      color: "black",
+                    }}
+                  />
+                </a>
+              )}
+            </li>
+            {curr && <li className="text-[20px] font-bold">{curr}</li>}
           </ul>
+          <div className="pb-3 pt-8">
+            {data.typeSelector.map((d, index) => {
+              return (
+                <button
+                  key={index}
+                  className={`${
+                    selectedColor === d ? "border-gray-800" : "border"
+                  } w-8 h-8 rounded-full border-2  mr-2`}
+                  style={{ backgroundColor: d }}
+                  onClick={() => handleColorClick(d)}
+                ></button>
+              );
+            })}
+          </div>
+          <div className="mb-5">
+            {data.sizeSelector.map((d, index) => {
+              return (
+                <button
+                  className={`border ${
+                    selectedSize === d
+                      ? "text-white font-bold pinkblue border-white"
+                      : "border-gray-400"
+                  } py-1 px-4 rounded-full mr-2 hover:border-white hover:text-white `}
+                  onClick={() => handleSizeClick(d)}
+                  key={index}
+                >
+                  {d}
+                </button>
+              );
+            })}
+          </div>
+          <button className="blackpurple px-4 py-2 text-white mb-8 rounded">
+            Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
+          </button>
         </div>
-      </div>
-      <div className="flex flex-col justify-start items-center px-10 border-b border-gray-600  w-full">
-        <button
-          onClick={showMenu2}
-          className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
-        >
-          <p className="text-sm leading-5 font-bold uppercase">Care guide</p>
-          <svg
-            className={rotate2}
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        <div className="relative h-[520px]">
+          <EmblaCarousel slides={data.galleryWrap} options={OPTIONS} />
+        </div>
+        <div className="flex flex-col justify-start items-center px-10 border-t border-b border-gray-600  w-full">
+          <button
+            onClick={showMenu}
+            className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
           >
-            <path
-              d="M18 15L12 9L6 15"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-        <div
-          className={`${
-            hidden2 ? "pb-6" : "hidden pb-6"
-          }flex justify-start  flex-col w-full md:w-auto items-start`}
-        >
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo dolore,
-            vitae animi exercitationem ex sed eius, tempora cum aperiam magni
-            suscipit placeat magnam tenetur nam culpa debitis! Nisi, quisquam
-            reiciendis!
-          </p>
-          <p>Read about how you can make your clothes last longer</p>
-          <h2>Care instructions</h2>
-          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-            <li>Only non-chlorine bleach when needed</li>
-            <li>Medium iron</li>
-            <li>Machine wash cold</li>
-            <li>Dry flat</li>
-            <li>Can be dry cleaned</li>
-          </ul>
+            <p className="text-sm leading-5 font-bold uppercase">
+              Description & fit
+            </p>
+            <svg
+              className={rotate}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 15L12 9L6 15"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <div
+            className={`${
+              !hidden ? "hidden pb-6" : "pb-6"
+            }flex justify-start  flex-col w-full md:w-auto items-start`}
+          >
+            <p>{data.description}</p>
+            <ul className="max-w-md space-y-1 text-black ">
+              <li>Model size: The model is 179cm/5'10" and wears a size S</li>
+              <li>Length: Long</li>
+              <li>Fit: Fitted</li>
+            </ul>
+          </div>
+        </div>
+        <div className="flex flex-col justify-start items-center px-10 border-b border-gray-600  w-full">
+          <button
+            onClick={showMenu2}
+            className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
+          >
+            <p className="text-sm leading-5 font-bold uppercase">Care guide</p>
+            <svg
+              className={rotate2}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 15L12 9L6 15"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <div
+            className={`${
+              hidden2 ? "pb-6" : "hidden pb-6"
+            }flex justify-start  flex-col w-full md:w-auto items-start`}
+          >
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
+              dolore, vitae animi exercitationem ex sed eius, tempora cum
+              aperiam magni suscipit placeat magnam tenetur nam culpa debitis!
+              Nisi, quisquam reiciendis!
+            </p>
+            <p>Read about how you can make your clothes last longer</p>
+            <h2>Care instructions</h2>
+            <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+              <li>Only non-chlorine bleach when needed</li>
+              <li>Medium iron</li>
+              <li>Machine wash cold</li>
+              <li>Dry flat</li>
+              <li>Can be dry cleaned</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

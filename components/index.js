@@ -7,6 +7,7 @@ import HomeDeco from './homedeco';
 import OneItem from './item';
 import ItemList from './itemlist';
 import Itempage from './itempage';
+import Model3dPreview from './model3dPreview';
 import Light from './light';
 import Login from './login';
 import Loading from './loading';
@@ -35,6 +36,7 @@ export {
     OneItem, 
     ItemList, 
     Itempage, 
+    Model3dPreview,
     Light,
     Login, 
     Loading,

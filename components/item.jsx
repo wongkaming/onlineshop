@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import AuthService from "@/hook/item";
@@ -44,21 +45,24 @@ const OneItem = ({ data, price, like, currentUser }) => {
   };
 
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="shadow-md shadow-[#d5e8ff] rounded-md max-w-[400px]">
-      <Link href={`goods/${data.category}/${data._id}`}>
-        <Image
-          src={isHovered ? data.galleryWrap[1] : data.galleryWrap[0]}
-          alt=""
-          width={400}
-          height={600}
-          unoptimized={true}
-          // onMouseEnter={() => setIsHovered(true)}
-          // onMouseLeave={() => setIsHovered(false)}
-          className="border border-white rounded-t-md"
-        />
-      </Link>
+      <Image
+        src={isHovered ? data.galleryWrap[1] : data.galleryWrap[0]}
+        alt=""
+        width={400}
+        height={600}
+        unoptimized={true}
+        onClick={() => {
+          router.push(`goods/${data.category}/${data._id}`, { scroll: false });
+        }}
+        // onMouseEnter={() => setIsHovered(true)}
+        // onMouseLeave={() => setIsHovered(false)}
+        className="border border-white rounded-t-md cursor-pointer"
+      />
+
       <div className="backdrop-blur-md bg-white/80 hover:bg-white transition duration-300 ease-in-out pb-2 border border-white rounded-b-md">
         <h3 className="mt-1 px-2 text-[14px] max-w-[400px] truncate">
           {data.title}
