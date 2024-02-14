@@ -2,7 +2,6 @@
 import "./globals.css";
 import Head from "next/head";
 import React, { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { Nav, Light, Currency } from "@/components";
 import CurrencyProvider from "@/context/currencyContext";
 import LightProvider from "@/context/lightContext";
@@ -50,7 +49,6 @@ export default function RootLayout({ children }) {
   };
 
   const [isHovered, setIsHovered] = useState(false);
-  const pathname = usePathname();
 
   return (
     <html lang="en" className={font.className}>
@@ -88,12 +86,10 @@ export default function RootLayout({ children }) {
                     </div>
                     {children}
                   </CurrencyProvider>
-                  {pathname !== "/event" && (
-                    <iframe
-                      src={`https://3dcanvas.vercel.app/${changeLight}`}
-                      className="h-screen w-full homecanvas"
-                    ></iframe>
-                  )}
+                  <iframe
+                    src={`https://3dcanvas.vercel.app/${changeLight}`}
+                    className="h-screen w-full homecanvas"
+                  ></iframe>
                 </LightProvider>
               </ProductProvider>
             </UserProvider>
