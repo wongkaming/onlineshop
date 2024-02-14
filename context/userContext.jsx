@@ -10,6 +10,8 @@ const UserProvider = ({ children }) => {
   const [refresh, setRefresh] = useState(false);
   const [wishlistData, setWishlistData] = useState(null);
   const [homepage, setHomepage] = useState(false);
+  const [zIndex, setZIndex] = useState("");
+  const [zIndex2, setZIndex2] = useState("");
 
   useEffect(() => {
     setCurrentUser(AuthService.getCurrentUser());
@@ -48,6 +50,10 @@ const UserProvider = ({ children }) => {
     setRefresh,
     homepage,
     setHomepage,
+    zIndex, 
+    setZIndex,
+    zIndex2, 
+    setZIndex2
   };
 
   return <UserContext.Provider value={value3}>{children}</UserContext.Provider>;
