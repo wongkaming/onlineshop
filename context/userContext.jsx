@@ -10,7 +10,7 @@ const UserProvider = ({ children }) => {
   const [refresh, setRefresh] = useState(false);
   const [wishlistData, setWishlistData] = useState(null);
   const [homepage, setHomepage] = useState(false);
-  const [zIndex, setZIndex] = useState("");
+  const [zIndex, setZIndex] = useState("z-20");
   const [zIndex2, setZIndex2] = useState("");
 
   useEffect(() => {
@@ -50,10 +50,10 @@ const UserProvider = ({ children }) => {
     setRefresh,
     homepage,
     setHomepage,
-    zIndex, 
+    zIndex,
     setZIndex,
-    zIndex2, 
-    setZIndex2
+    zIndex2,
+    setZIndex2,
   };
 
   return <UserContext.Provider value={value3}>{children}</UserContext.Provider>;

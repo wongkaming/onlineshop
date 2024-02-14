@@ -1,5 +1,11 @@
 "use client";
-import React, { Suspense, useContext, useState, useEffect, useCallback } from "react";
+import React, {
+  Suspense,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import Image from "next/image";
 import { CurrencyContext } from "@/context/currencyContext";
 import { GoHeart } from "react-icons/go";
@@ -33,7 +39,8 @@ const ItemPage = ({ data, like }) => {
       });
   };
 
-  const { currentUser, setZIndex, zIndex2, setZIndex2 } = useContext(UserContext);
+  const { currentUser, setZIndex, zIndex2, setZIndex2 } =
+    useContext(UserContext);
   useEffect(() => {
     setLiked(false);
     if (currentUser && currentUser.user && currentUser.user.role === "user") {
@@ -108,19 +115,22 @@ const ItemPage = ({ data, like }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
-  const onMouseDown = useCallback((e) => {
-    setIsDragging(true);
-    setZIndex2("z-20")
-    setZIndex("")
-    const px = e.clientX || e.touches[0].clientX;
-    const py = e.clientY || e.touches[0].clientY;
+  const onMouseDown = useCallback(
+    (e) => {
+      setIsDragging(true);
+      setZIndex2("z-20");
+      setZIndex("");
+      const px = e.clientX || e.touches[0].clientX;
+      const py = e.clientY || e.touches[0].clientY;
 
-    setOffset({
-      x: px - position.x,
-      y: py - position.y,
-    });
-  }, [position]);
-  
+      setOffset({
+        x: px - position.x,
+        y: py - position.y,
+      });
+    },
+    [position]
+  );
+
   const onMouseUp = useCallback(() => {
     setIsDragging(false);
   }, []);
@@ -131,7 +141,6 @@ const ItemPage = ({ data, like }) => {
         const x = e.clientX - offset.x;
         const y = e.clientY - offset.y;
         setPosition({ x, y });
-
       }
     },
     [isDragging, offset.x, offset.y]
@@ -140,7 +149,7 @@ const ItemPage = ({ data, like }) => {
     if (isDragging) {
       document.addEventListener("mousemove", onMouseMove);
       document.addEventListener("mouseup", onMouseUp);
-    } 
+    }
 
     return () => {
       document.removeEventListener("mousemove", onMouseMove);
@@ -149,10 +158,12 @@ const ItemPage = ({ data, like }) => {
   }, [isDragging, onMouseMove, onMouseUp]);
 
   return (
-    <div className={`flex flex-col h-full w-full md:w-4/5 infobox mr-10 ${zIndex2}`}
-    style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+    <div
+      className={`flex flex-col h-full w-full lg:w-4/5 infobox lg:mr-10 ${zIndex2}`}
+      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
     >
-      <nav className="flex flex-row justify-between py-1 rounded-t-lg sliver draggable"
+      <nav
+        className="flex flex-row justify-between py-1 rounded-t-lg sliver draggable"
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
       >
@@ -230,7 +241,7 @@ const ItemPage = ({ data, like }) => {
                 <button
                   className={`border ${
                     selectedSize === d
-                      ? "text-white font-bold pinkblue border-white"
+                      ? "font-bold pinkblue border-black"
                       : "border-gray-400"
                   } py-1 px-4 rounded-full mr-2 hover:border-white hover:text-white `}
                   onClick={() => handleSizeClick(d)}

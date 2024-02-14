@@ -25,6 +25,7 @@ const CategoryMenu = () => {
   };
 
   const [data, setData] = useState(null);
+  const [next, setNext] = useState(false);
   const encodedSearchQuery = encodeURI(category);
   let [page, setPage] = useState(1);
   const { refresh } = useContext(UserContext);
@@ -37,6 +38,11 @@ const CategoryMenu = () => {
       .then(async function (req) {
         let data2 = await req.json();
         setData(data2);
+        if (data2.length >= 15) {
+          setNext(true);
+        } else {
+          setNext(false);
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -54,7 +60,13 @@ const CategoryMenu = () => {
     let result = await axios.get(newURL);
     if (result.data.length !== 0) {
       setData(data.concat(result.data));
+      if (data.length % 15 !== 0) {
+        setNext(true);
+      } else if (data.length % 15 == 0) {
+        setNext(false);
+      }
     } else {
+      setNext(false);
       console.log("no data!");
     }
   };
@@ -113,7 +125,16 @@ const CategoryMenu = () => {
         style={{ maxHeight: `calc(100vh - 32px)` }}
       >
         <ItemList data={data} />
-        <button onClick={morePicture}>Waiting on scroll events...</button>
+        <div className="flex w-full justify-center mt-8">
+          {next && (
+            <button
+              onClick={morePicture}
+              className="text-white blackpurple rounded-full hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700"
+            >
+              Next Page
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

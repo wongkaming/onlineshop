@@ -10,7 +10,7 @@ export default function SearchLayout({ children }) {
         {children}
         <iframe
           src={`https://3dcanvas.vercel.app/stars`}
-          className="h-screen w-full homecanvas"
+          className="h-full w-full homecanvas"
         ></iframe>
       </div>
     </section>

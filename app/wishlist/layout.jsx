@@ -19,11 +19,11 @@ export default function WishlistLayout({ children }) {
         <div className="flex justify-center w-full h-full">
           <div className={`mx-0 md:mx-8 mb-8 overflow-y-auto`}>{children}</div>
         </div>
-        <iframe
-          src={`https://3dcanvas.vercel.app/stars`}
-          className="h-screen w-full homecanvas"
-        ></iframe>
       </div>
+      <iframe
+        src={`https://3dcanvas.vercel.app/stars`}
+        className="h-full w-full homecanvas"
+      ></iframe>
     </section>
   );
 }
