@@ -44,8 +44,10 @@ const Model3dPreview = ({ data }) => {
       document.addEventListener("mouseup", onMouseUp);
     } 
 
+    return () => {
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseup", onMouseUp);
+    };
   }, [isDragging, onMouseMove, onMouseUp]);
 
   return (

@@ -141,8 +141,11 @@ const ItemPage = ({ data, like }) => {
       document.addEventListener("mousemove", onMouseMove);
       document.addEventListener("mouseup", onMouseUp);
     } 
+
+    return () => {
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseup", onMouseUp);
+    };
   }, [isDragging, onMouseMove, onMouseUp]);
 
   return (
