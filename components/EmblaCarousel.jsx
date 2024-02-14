@@ -47,7 +47,7 @@ const EmblaCarousel = ({ slides, options }) => {
   }, [emblaApi, onInit, onSelect]);
 
   let lists = [];
-  for (let i = 1; i <= slides.length - 1; i++) {
+  for (let i = 2; i <= slides.length - 1; i++) {
     lists.push(
       <div className="embla__slide" key={i}>
         <img

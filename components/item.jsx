@@ -58,8 +58,8 @@ const OneItem = ({ data, price, like, currentUser }) => {
         onClick={() => {
           router.push(`goods/${data.category}/${data._id}`, { scroll: false });
         }}
-        // onMouseEnter={() => setIsHovered(true)}
-        // onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className="border border-white rounded-t-md cursor-pointer"
       />
 
