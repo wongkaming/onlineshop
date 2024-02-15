@@ -174,7 +174,7 @@ const ItemPage = ({ data, like }) => {
             alt="menu"
             className="w-[18px] h-[18px] cursor-pointer mr-2"
             onClick={() => {
-              router.back();
+              router.push("/shop");
             }}
           />
         </div>
