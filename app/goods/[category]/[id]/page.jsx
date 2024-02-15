@@ -18,7 +18,7 @@ async function fetchData(id, signal) {
       }
     );
     if (!response.ok) {
-      throw new Error(`API call failed with status: ${response.status}`);
+      console.log("nothing happen");
     }
     return await response.json();
   } catch (error) {
