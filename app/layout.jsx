@@ -7,6 +7,7 @@ import CurrencyProvider from "@/context/currencyContext";
 import LightProvider from "@/context/lightContext";
 import UserProvider from "@/context/userContext";
 import ProductProvider from "@/context/productContext";
+import CartProvider from "@/context/cartContext";
 import { AnimatePresence } from "framer-motion";
 import { Inconsolata } from "next/font/google";
 
@@ -62,36 +63,38 @@ export default function RootLayout({ children }) {
         <main>
           <AnimatePresence mode="wait">
             <UserProvider>
-              <ProductProvider>
-                <LightProvider value2={changeLight}>
-                  <CurrencyProvider
-                    rates={rates}
-                    rates2={rates2}
-                    change={change}
-                    currency={currency}
-                    unit={unit}
-                  >
-                    {children && <Nav />}
-                    <div
-                      className={`flex bg-[#24282e] p-2 fixed top-14  z-30 rounded-r-full transition-transform ease-in-out duration-500 ${
-                        isHovered
-                          ? "opacity-100 translate-x-0"
-                          : "opacity-40 -translate-x-32"
-                      }`}
-                      onMouseEnter={() => setIsHovered(true)}
-                      onMouseLeave={() => setIsHovered(false)}
+              <CartProvider>
+                <ProductProvider>
+                  <LightProvider value2={changeLight}>
+                    <CurrencyProvider
+                      rates={rates}
+                      rates2={rates2}
+                      change={change}
+                      currency={currency}
+                      unit={unit}
                     >
-                      <Currency onDataSelected={handleDataSelected2} />
-                      <Light lightSelected={handleDataSelected} />
-                    </div>
-                    {children}
-                  </CurrencyProvider>
-                  <iframe
-                    src={`https://3dcanvas.vercel.app/${changeLight}`}
-                    className="h-screen w-full homecanvas"
-                  ></iframe>
-                </LightProvider>
-              </ProductProvider>
+                      {children && <Nav />}
+                      <div
+                        className={`flex bg-[#24282e] p-2 fixed top-14  z-30 rounded-r-full transition-transform ease-in-out duration-500 ${
+                          isHovered
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-40 -translate-x-32"
+                        }`}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                      >
+                        <Currency onDataSelected={handleDataSelected2} />
+                        <Light lightSelected={handleDataSelected} />
+                      </div>
+                      {children}
+                    </CurrencyProvider>
+                    <iframe
+                      src={`https://3dcanvas.vercel.app/${changeLight}`}
+                      className="h-screen w-full homecanvas"
+                    ></iframe>
+                  </LightProvider>
+                </ProductProvider>
+              </CartProvider>
             </UserProvider>
           </AnimatePresence>
         </main>

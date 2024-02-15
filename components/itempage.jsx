@@ -13,11 +13,124 @@ import { GoHeartFill } from "react-icons/go";
 import AuthService from "../hook/item";
 import EmblaCarousel from "./EmblaCarousel";
 import { UserContext } from "@/context/userContext";
+import { CartContext } from "@/context/cartContext";
 import { CiShoppingCart } from "react-icons/ci";
 import { close } from "@/public";
 import { useRouter } from "next/navigation";
 
 const OPTIONS = {};
+
+const Description = ({ description }) => {
+  let [rotate, setRotate] = useState("rotate-0");
+  let [hidden, setHidden] = useState(true);
+  let [rotate2, setRotate2] = useState("rotate-180");
+  let [hidden2, setHidden2] = useState(false);
+
+  const showMenu = () => {
+    setHidden(!hidden);
+    if (rotate == "rotate-0") {
+      setRotate("rotate-180");
+    } else if (rotate == "rotate-180") {
+      setRotate("rotate-0");
+    }
+  };
+  const showMenu2 = () => {
+    setHidden2(!hidden2);
+    if (rotate2 == "rotate-0") {
+      setRotate2("rotate-180");
+    } else if (rotate2 == "rotate-180") {
+      setRotate2("rotate-0");
+    }
+  };
+  return (
+    <>
+      <div className="flex flex-col justify-start items-center px-10 border-t border-b border-gray-600  w-full">
+        <button
+          onClick={showMenu}
+          className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
+        >
+          <p className="text-sm leading-5 font-bold uppercase">
+            Description & fit
+          </p>
+          <svg
+            className={rotate}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M18 15L12 9L6 15"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <div
+          className={`${
+            !hidden ? "hidden pb-6" : "pb-6"
+          }flex justify-start  flex-col w-full md:w-auto items-start`}
+        >
+          <p>{description}</p>
+          <ul className="max-w-md space-y-1 text-black ">
+            <li>Model size: The model is 179cm/5'10" and wears a size S</li>
+            <li>Length: Long</li>
+            <li>Fit: Fitted</li>
+          </ul>
+        </div>
+      </div>
+      <div className="flex flex-col justify-start items-center px-10 border-b border-gray-600  w-full">
+        <button
+          onClick={showMenu2}
+          className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
+        >
+          <p className="text-sm leading-5 font-bold uppercase">Care guide</p>
+          <svg
+            className={rotate2}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M18 15L12 9L6 15"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <div
+          className={`${
+            hidden2 ? "pb-6" : "hidden pb-6"
+          }flex justify-start  flex-col w-full md:w-auto items-start`}
+        >
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo dolore,
+            vitae animi exercitationem ex sed eius, tempora cum aperiam magni
+            suscipit placeat magnam tenetur nam culpa debitis! Nisi, quisquam
+            reiciendis!
+          </p>
+          <p>Read about how you can make your clothes last longer</p>
+          <h2>Care instructions</h2>
+          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            <li>Only non-chlorine bleach when needed</li>
+            <li>Medium iron</li>
+            <li>Machine wash cold</li>
+            <li>Dry flat</li>
+            <li>Can be dry cleaned</li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+};
+
 const ItemPage = ({ data, like }) => {
   let [liked, setLiked] = useState(false);
   const toggleFavorite = () => {
@@ -75,28 +188,7 @@ const ItemPage = ({ data, like }) => {
     }
   }, [data, change, rates, rates2, unit, currency]);
 
-  let [rotate, setRotate] = useState("rotate-0");
-  let [hidden, setHidden] = useState(true);
-  let [rotate2, setRotate2] = useState("rotate-180");
-  let [hidden2, setHidden2] = useState(false);
-
-  const showMenu = () => {
-    setHidden(!hidden);
-    if (rotate == "rotate-0") {
-      setRotate("rotate-180");
-    } else if (rotate == "rotate-180") {
-      setRotate("rotate-0");
-    }
-  };
-  const showMenu2 = () => {
-    setHidden2(!hidden2);
-    if (rotate2 == "rotate-0") {
-      setRotate2("rotate-180");
-    } else if (rotate2 == "rotate-180") {
-      setRotate2("rotate-0");
-    }
-  };
-
+  const { cartItems, setCartItems } = useContext(CartContext);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
 
@@ -106,6 +198,23 @@ const ItemPage = ({ data, like }) => {
   const handleColorClick = (color) => {
     setSelectedColor(color);
   };
+
+  const handleAddToCart = () => {
+    if (selectedSize !== null || selectedColor !== null) {
+      setCartItems([
+        {
+          id: data._id,
+          name: data.title,
+          size: selectedSize,
+          color: selectedColor,
+        },
+        ...cartItems,
+      ]);
+    } else {
+      console.log("no");
+    }
+  };
+
   const remindLogin = () => {
     alert("Please login first.");
   };
@@ -252,95 +361,15 @@ const ItemPage = ({ data, like }) => {
               );
             })}
           </div>
-          <button className="blackpurple px-4 py-2 text-white mb-8 rounded">
+          <button
+            className="blackpurple px-4 py-2 text-white mb-8 rounded"
+            onClick={handleAddToCart}
+          >
             Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
           </button>
         </div>
         <div className="relative h-[520px]">
           <EmblaCarousel slides={data.galleryWrap} options={OPTIONS} />
-        </div>
-        <div className="flex flex-col justify-start items-center px-10 border-t border-b border-gray-600  w-full">
-          <button
-            onClick={showMenu}
-            className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
-          >
-            <p className="text-sm leading-5 font-bold uppercase">
-              Description & fit
-            </p>
-            <svg
-              className={rotate}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M18 15L12 9L6 15"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          <div
-            className={`${
-              !hidden ? "hidden pb-6" : "pb-6"
-            }flex justify-start  flex-col w-full md:w-auto items-start`}
-          >
-            <p>{data.description}</p>
-            <ul className="max-w-md space-y-1 text-black ">
-              <li>Model size: The model is 179cm/5'10" and wears a size S</li>
-              <li>Length: Long</li>
-              <li>Fit: Fitted</li>
-            </ul>
-          </div>
-        </div>
-        <div className="flex flex-col justify-start items-center px-10 border-b border-gray-600  w-full">
-          <button
-            onClick={showMenu2}
-            className="focus:outline-none focus:text-white text-left  text-black flex justify-between items-center w-full py-5 space-x-14"
-          >
-            <p className="text-sm leading-5 font-bold uppercase">Care guide</p>
-            <svg
-              className={rotate2}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M18 15L12 9L6 15"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          <div
-            className={`${
-              hidden2 ? "pb-6" : "hidden pb-6"
-            }flex justify-start  flex-col w-full md:w-auto items-start`}
-          >
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-              dolore, vitae animi exercitationem ex sed eius, tempora cum
-              aperiam magni suscipit placeat magnam tenetur nam culpa debitis!
-              Nisi, quisquam reiciendis!
-            </p>
-            <p>Read about how you can make your clothes last longer</p>
-            <h2>Care instructions</h2>
-            <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-              <li>Only non-chlorine bleach when needed</li>
-              <li>Medium iron</li>
-              <li>Machine wash cold</li>
-              <li>Dry flat</li>
-              <li>Can be dry cleaned</li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>
