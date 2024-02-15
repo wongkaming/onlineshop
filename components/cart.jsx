@@ -4,14 +4,10 @@ import { CartContext } from "@/context/cartContext";
 
 const cart = () => {
   const { cartItems, setCartItems } = useContext(CartContext);
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
-  const cart = JSON.parse(localStorage.getItem("cart"));
 
   return (
     <div className="flex flex-col w-full h-[100vh] justify-center">
-      {cart.length == 0 && (
+      {cartItems.length == 0 && (
         <div className="flex flex-col grow mt-12">
           <div className="flex w-full justify-center mb-4">
             <img
@@ -25,7 +21,7 @@ const cart = () => {
         </div>
       )}
       <ul className="list-none flex items-end flex-1 flex-col gap-4 m-4">
-        {cart.map((item) => (
+        {cartItems.map((item) => (
           <div key={item.id}>
             <h1>{item.name}</h1>
             <p>{item.size}</p>
