@@ -14,7 +14,7 @@ async function myFunction(id) {
     }
   );
   if (!response.ok) {
-    return notFound();
+    throw new Error(`API call failed with status: ${response.status}`);
   }
   return response.json();
 }
