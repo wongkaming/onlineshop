@@ -25,6 +25,7 @@ import {
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { RiFolderZipLine } from "react-icons/ri";
 import { UserContext } from "@/context/userContext";
+import { CartContext } from "@/context/cartContext";
 
 const Shop = () => {
   const [showDropdown, setShowDropdown] = useState(true);
@@ -81,7 +82,9 @@ const Nav = () => {
   }, [goBack, currentUser]);
 
   const { homepage, setHomepage } = useContext(UserContext);
+  const { cartItems } = useContext(CartContext);
   const pathname = usePathname();
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -153,7 +156,16 @@ const Nav = () => {
             <li>
               <CiShoppingCart
                 className="w-[24px] h-[24px]"
-                onClick={() => setToggle(!toggle)}
+                onClick={() => {
+                  setToggle(!toggle);
+                  if (cartItems.length !== 0) {
+                    setTotal(
+                      cartItems.reduce((a, b) => {
+                        return a.quantity + b.quantity;
+                      })
+                    );
+                  }
+                }}
               />
             </li>
           </ul>
@@ -230,7 +242,20 @@ const Nav = () => {
               onClick={() => setToggle(!toggle)}
             />
           </div>
-          <Cart />
+          <div className="flex flex-col w-full h-full">
+            <Cart />
+            <div className="flex flex-row w-full justify-center blackpurple px-10 py-5 text-white">
+              <Link
+                href="/cart"
+                onClick={() => setToggle(!toggle)}
+                className="underline underline-offset-1"
+              >
+                Checkout
+              </Link>
+              <p className="mx-5">|</p>
+              <p>Total: {total} item&#x0028;s&#x0029;</p>
+            </div>
+          </div>
         </div>
       </div>
 

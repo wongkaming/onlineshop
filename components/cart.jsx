@@ -2,42 +2,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/cartContext";
 import { CurrencyContext } from "@/context/currencyContext";
-class Quantity extends React.Component {
-  //用 class fields 语法来定义类方法，这样就不需要在构造函数中绑定 this
-  state = { number: null, value: 0 + this.state.number };
-
-  //在 setState 中直接修改状态是不推荐的
-  increment = () => {
-    this.setState((prevState) => ({
-      value: prevState.value + 1
-    }));
-  };
-
-  decrement = () => {
-    this.setState((prevState) => ({
-      value: prevState.value > 1 ? prevState.value - 1 : 1
-    }));
-  };
-
-  render() {
-    const { number } = this.props;
-    
-    return (
-      <div className="px-4 py-1 rounded-md border flex flex-row items-center">
-        <button onClick={this.decrement()} aria-label="Decrease quantity" className="focus:outline-none">
-          &mdash;
-        </button>
-        <p className="mx-2 w-4">{number}</p>
-        <button onClick={this.increment} aria-label="Increase quantity" className="focus:outline-none">
-          &#xff0b;
-        </button>
-      </div>
-    );
-  }
-}
 
 const cart = () => {
-  const { cartItems} = useContext(CartContext);
+  const { cartItems, setCartItems } = useContext(CartContext);
   const [curr, setCurr] = useState(null);
   const { rates, rates2, change, currency, unit } = useContext(CurrencyContext);
 
@@ -59,7 +26,6 @@ const cart = () => {
     }
   }, [cartItems, change, rates, rates2, unit, currency]);
 
-
   return (
     <div className="flex flex-col w-full overflow-y-auto h-full">
       {cartItems.length == 0 && (
@@ -79,21 +45,66 @@ const cart = () => {
         {cartItems.map((item, index) => (
           <li key={index} className="bubble flex w-full">
             <div className="flex flex-row w-full mr-2">
-              <img src={item.cover} className="w-20 rounded-md m-2"/>
+              <div className="m-2">
+                <a
+                  target="_blank"
+                  href={`${process.env.NEXT_PUBLIC_ORIGIN}/goods/${item.category}/${item.id}`}
+                >
+                  <img src={item.cover} className="w-20 rounded-md" />
+                </a>
+              </div>
               <div className="flex flex-col w-full m-2">
                 <h1 className="text-md">{item.name}</h1>
                 <h1 className="text-lg font-semibold">{curr}</h1>
                 <div className="flex flex-row w-full justify-between">
                   <div className="flex flex-row gap-5">
-                    <p className="px-4 py-1 bg-gray-300 rounded-md">{item.size}</p>
+                    <p className="px-4 py-1 bg-gray-300 rounded-md">
+                      {item.size}
+                    </p>
                     {item.color && (
                       <button
-                          className="border-gray-800 w-8 h-8 rounded-full border-2"
-                          style={{ backgroundColor: item.color }}
+                        className="border-gray-800 w-8 h-8 rounded-full border-2"
+                        style={{ backgroundColor: item.color }}
                       ></button>
                     )}
                   </div>
-                    <Quantity number={item.quantity}/>
+                  <div className="px-4 py-1 rounded-md border flex flex-row items-center">
+                    <button
+                      onClick={() => {
+                        const newCartItems = [...cartItems];
+                        if (item.quantity > 1) {
+                          newCartItems[index] = {
+                            ...newCartItems[index],
+                            quantity: newCartItems[index].quantity - 1,
+                          };
+                          setCartItems(newCartItems);
+                        }
+                      }}
+                      aria-label="Decrease quantity"
+                      className="focus:outline-none"
+                    >
+                      &mdash;
+                    </button>
+                    <p className="mx-2 w-4">{item.quantity}</p>
+                    <button
+                      onClick={() => {
+                        const newCartItems = [...cartItems];
+                        if (item.quantity < 3) {
+                          newCartItems[index] = {
+                            ...newCartItems[index],
+                            quantity: newCartItems[index].quantity + 1,
+                          };
+                          setCartItems(newCartItems);
+                        } else {
+                          alert("Maximum order quantity for this item is 3");
+                        }
+                      }}
+                      aria-label="Increase quantity"
+                      className="focus:outline-none"
+                    >
+                      &#xff0b;
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

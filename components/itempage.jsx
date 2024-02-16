@@ -1,11 +1,5 @@
 "use client";
-import React, {
-  Suspense,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { CurrencyContext } from "@/context/currencyContext";
 import { GoHeart } from "react-icons/go";
@@ -202,6 +196,7 @@ const ItemPage = ({ data, like }) => {
   const handleAddToCart = () => {
     const newCartItem = {
       id: data._id,
+      category: data.category,
       name: data.title,
       cover: data.galleryWrap[0],
       price: data.price,
@@ -216,14 +211,23 @@ const ItemPage = ({ data, like }) => {
     if (selectedSize !== null) {
       if (selectedColor !== null || data.typeSelector.length === 0) {
         //用find的比较方式可能是不正确; 比较的是引用，而不是对象的值, 不如直接找有沒有
-        const itemIndex = cartItems.findIndex((item)=> item.id === newCartItem.id && item.size === newCartItem.size && (!newCartItem.color || item.color === newCartItem.color))
+        const itemIndex = cartItems.findIndex(
+          (item) =>
+            item.id === newCartItem.id &&
+            item.size === newCartItem.size &&
+            (!newCartItem.color || item.color === newCartItem.color)
+        );
         if (itemIndex !== -1) {
           const newCartItems = [...cartItems];
-          newCartItems[itemIndex] = {
-            ...newCartItems[itemIndex],
-            quantity: (newCartItems[itemIndex].quantity || 1) + 1
-          };
-          setCartItems(newCartItems);
+          if (newCartItems[itemIndex].quantity < 3) {
+            newCartItems[itemIndex] = {
+              ...newCartItems[itemIndex],
+              quantity: (newCartItems[itemIndex].quantity || 1) + 1,
+            };
+            setCartItems(newCartItems);
+          } else {
+            alert("Maximum order quantity for this item is 3");
+          }
         } else {
           setCartItems([newCartItem, ...cartItems]);
         }
@@ -391,7 +395,7 @@ const ItemPage = ({ data, like }) => {
         <div className="relative h-[520px]">
           <EmblaCarousel slides={data.galleryWrap} options={OPTIONS} />
         </div>
-        <Description description={data.description}/>
+        <Description description={data.description} />
       </div>
     </div>
   );
