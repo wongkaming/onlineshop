@@ -25,6 +25,7 @@ import SearchResultList from './searchresultlist';
 import WishlistPage from './wishlist';
 import MobileWishlistPage from './mobileWishlist';
 import ConfigButton from './ConfigButton';
+import Coming from './coming';
 
 export {
     Cart,
@@ -53,5 +54,6 @@ export {
     SearchResultList, 
     WishlistPage,
     MobileWishlistPage,
-    ConfigButton
+    ConfigButton,
+    Coming
 };

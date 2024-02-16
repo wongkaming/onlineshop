@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import transition from "../transition";
+import { Coming } from "@/components";
 
-const page = () => {
-  return <div>page</div>;
+const Newin = () => {
+  return <Coming/>;
 };
 
-export default transition(page);
+export default transition(Newin);

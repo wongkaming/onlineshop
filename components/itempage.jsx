@@ -200,18 +200,38 @@ const ItemPage = ({ data, like }) => {
   };
 
   const handleAddToCart = () => {
-    if (selectedSize !== null || selectedColor !== null) {
-      setCartItems([
-        {
-          id: data._id,
-          name: data.title,
-          size: selectedSize,
-          color: selectedColor,
-        },
-        ...cartItems,
-      ]);
-    } else {
-      console.log("no");
+    const newCartItem = {
+      id: data._id,
+      name: data.title,
+      cover: data.galleryWrap[0],
+      price: data.price,
+      size: selectedSize,
+      quantity: 1,
+    };
+
+    if (selectedColor !== null) {
+      newCartItem.color = selectedColor;
+    }
+
+    if (selectedSize !== null) {
+      if (selectedColor !== null || data.typeSelector.length === 0) {
+        //用find的比较方式可能是不正确; 比较的是引用，而不是对象的值, 不如直接找有沒有
+        const itemIndex = cartItems.findIndex((item)=> item.id === newCartItem.id && item.size === newCartItem.size && (!newCartItem.color || item.color === newCartItem.color))
+        if (itemIndex !== -1) {
+          const newCartItems = [...cartItems];
+          newCartItems[itemIndex] = {
+            ...newCartItems[itemIndex],
+            quantity: (newCartItems[itemIndex].quantity || 1) + 1
+          };
+          setCartItems(newCartItems);
+        } else {
+          setCartItems([newCartItem, ...cartItems]);
+        }
+      } else {
+        alert("Please choose a color.");
+      }
+    } else if (data.sizeSelector.length > 0) {
+      alert("Please choose a size.");
     }
   };
 
@@ -371,6 +391,7 @@ const ItemPage = ({ data, like }) => {
         <div className="relative h-[520px]">
           <EmblaCarousel slides={data.galleryWrap} options={OPTIONS} />
         </div>
+        <Description description={data.description}/>
       </div>
     </div>
   );
