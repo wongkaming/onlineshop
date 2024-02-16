@@ -92,6 +92,17 @@ const Nav = () => {
     }
   }, []);
 
+  const toggleHandle = () => {
+    setToggle(!toggle);
+    if (cartItems.length !== 0) {
+      setTotal(
+        cartItems.reduce((a, b) => {
+          return a + b.quantity;
+        }, 0)
+      );
+    }
+  };
+
   return (
     <div>
       <nav
@@ -156,16 +167,7 @@ const Nav = () => {
             <li>
               <CiShoppingCart
                 className="w-[24px] h-[24px]"
-                onClick={() => {
-                  setToggle(!toggle);
-                  if (cartItems.length !== 0) {
-                    setTotal(
-                      cartItems.reduce((a, b) => {
-                        return a.quantity + b.quantity;
-                      })
-                    );
-                  }
-                }}
+                onClick={toggleHandle}
               />
             </li>
           </ul>
