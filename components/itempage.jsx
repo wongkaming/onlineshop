@@ -241,7 +241,7 @@ const ItemPage = ({ data, like }) => {
     }
   };
 
-  const handleAddToCart2 = () => {
+  const APIAddToCart = () => {
     const newCartItem = {
       item: data,
       size: selectedSize,
@@ -265,8 +265,9 @@ const ItemPage = ({ data, like }) => {
               quantity: (newCartItems[itemIndex].quantity || 1) + 1,
             };
             ItemService.addToCart(data, selectedSize, selectedColor, 1)
-              .then(() => {
-                setCartItems(newCartItems);
+              .then((i) => {
+                setCartItems(i.data.items);
+                setBackupCartItems(i.data.items);
               })
               .catch((e) => {
                 console.log(e.response.data);
@@ -276,8 +277,9 @@ const ItemPage = ({ data, like }) => {
           }
         } else {
           ItemService.addToCart(data, selectedSize, selectedColor, 1)
-            .then(() => {
-              setCartItems([newCartItem, ...cartItems]);
+            .then((i) => {
+              setCartItems(i.data.items);
+              setBackupCartItems(i.data.items);
             })
             .catch((e) => {
               console.log(e.response.data);
@@ -448,7 +450,7 @@ const ItemPage = ({ data, like }) => {
           {currentUser && (
             <button
               className="blackpurple px-4 py-2 text-white mb-8 rounded"
-              onClick={handleAddToCart2}
+              onClick={APIAddToCart}
             >
               Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
             </button>

@@ -18,6 +18,7 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
     if (currentUser) {
       ItemService.getCartItems(currentUser.user._id)
         .then((i) => {
+          // console.log(i.data.items);
           setCartItems(i.data.items);
           setBackupCartItems(i.data.items);
         })
@@ -25,7 +26,7 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
           console.error(e.response ? e.response.data : e);
         });
     }
-  }, [currentUser, edit]);
+  }, [currentUser]);
 
   const newCartItems = [...cartItems];
 
@@ -53,6 +54,16 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
         .catch((e) => {
           console.error(e.response ? e.response.data : e);
         });
+    } else {
+      setEdit(false);
+    }
+  };
+
+  const localConfirm = () => {
+    if (cartItems !== backupCartItems) {
+      localStorage.setItem("cart", JSON.stringify(newCartItems));
+      setBackupCartItems(newCartItems);
+      setEdit(false);
     } else {
       setEdit(false);
     }
@@ -209,6 +220,11 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
         )}
         {edit && currentUser && (
           <button className="font-bold" onClick={toggleConfirm}>
+            Confirm
+          </button>
+        )}
+        {edit && !currentUser && (
+          <button className="font-bold" onClick={localConfirm}>
             Confirm
           </button>
         )}

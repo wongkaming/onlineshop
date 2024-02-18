@@ -84,6 +84,12 @@ class Item {
     });
   }
 
+  getItemByCategory(category) {
+    return axios.get(API_URL + "/result/findByCategory/" + category, {
+      cache: "force-cache",
+    });
+  }
+
   // archive
   enroll(_id) {
     let token;

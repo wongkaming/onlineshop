@@ -1,16 +1,16 @@
 "use client";
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import Image from "next/image";
-import { ItemList, MenuTable } from "@/components/";
+import { ItemList, MenuTable, Loading, Nothing } from "@/components/";
 import { CategoryList } from "@/constants";
 import transition from "../transition";
 import { CiViewList } from "react-icons/ci";
-import { UserContext } from "@/context/userContext";
+import ItemService from "@/hook/item";
 
 const CategoryMenu = () => {
   const [category, setCategory] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleTopsChange = (event) => {
     const targetName = event.target.name;
@@ -28,26 +28,31 @@ const CategoryMenu = () => {
   const [next, setNext] = useState(false);
   const encodedSearchQuery = encodeURI(category);
   let [page, setPage] = useState(1);
-  const { refresh } = useContext(UserContext);
 
   useEffect(() => {
-    fetch(
-      `${process.env.NEXT_PUBLIC_API}/latest/result/findByCategory/${encodedSearchQuery}`,
-      { method: "get" }
-    )
-      .then(async function (req) {
-        let data2 = await req.json();
-        setData(data2);
-        if (data2.length >= 15) {
-          setNext(true);
-        } else {
-          setNext(false);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [category, refresh]);
+    setLoading(true);
+    const timerId = setTimeout(() => {
+      ItemService.getItemByCategory(encodedSearchQuery)
+        .then((i) => {
+          // console.log(i.data.items);
+
+          setData(i.data);
+          setNext(i.data.length >= 15);
+        })
+        .catch((e) => {
+          console.error(e.response ? e.response.data : e);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }, 3000); // 等待3秒
+
+    // 如果category变更或组件卸载，清除定时器
+    return () => {
+      clearTimeout(timerId);
+      setLoading(false);
+    };
+  }, [category]);
 
   const morePicture = async () => {
     setPage(page + 1);
@@ -120,22 +125,30 @@ const CategoryMenu = () => {
         </div>
       </div>
 
-      <div
-        className="px-[5%] overflow-auto pt-14 grow lg:pb-10 pb-14"
-        style={{ maxHeight: `calc(100vh - 32px)` }}
-      >
-        <ItemList data={data} />
-        <div className="flex w-full justify-center mt-8">
-          {next && (
-            <button
-              onClick={morePicture}
-              className="text-white blackpurple rounded-full hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700"
-            >
-              Next Page
-            </button>
-          )}
+      {loading && (
+        <div className="z-10">
+          <Loading />
         </div>
-      </div>
+      )}
+
+      {!loading && (
+        <div
+          className="px-[5%] overflow-auto pt-14 grow lg:pb-10 pb-14"
+          style={{ maxHeight: `calc(100vh - 32px)` }}
+        >
+          <ItemList data={data} />
+          <div className="flex w-full justify-center mt-8">
+            {next && (
+              <button
+                onClick={morePicture}
+                className="text-white blackpurple rounded-full hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700"
+              >
+                Next Page
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

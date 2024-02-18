@@ -52,7 +52,7 @@ const Shop = () => {
 };
 
 const Nav = () => {
-  const { currentUser, refresh, setRefresh } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
   const [toggle, setToggle] = useState(false);
   const [goBack, setgoBack] = useState(false);
@@ -146,10 +146,7 @@ const Nav = () => {
             )}
             <li>
               <Link href="/wishlist">
-                <CiHeart
-                  className="w-[24px] h-[24px]"
-                  onClick={() => setRefresh(!refresh)}
-                />
+                <CiHeart className="w-[24px] h-[24px]" />
               </Link>
             </li>
             {currentUser && currentUser.user.role == "admin" && (

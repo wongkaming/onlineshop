@@ -7,7 +7,6 @@ export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [refresh, setRefresh] = useState(false);
   const [wishlistData, setWishlistData] = useState(null);
   const [homepage, setHomepage] = useState(false);
   const [zIndex, setZIndex] = useState("z-20");
@@ -39,15 +38,13 @@ const UserProvider = ({ children }) => {
           });
       }
     }
-  }, [currentUser, refresh]);
+  }, [currentUser]);
 
   const value3 = {
     currentUser,
     setCurrentUser,
     wishlistData,
     setWishlistData,
-    refresh,
-    setRefresh,
     homepage,
     setHomepage,
     zIndex,
