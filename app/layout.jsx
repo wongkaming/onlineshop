@@ -33,7 +33,6 @@ export default function RootLayout({ children }) {
           "https://api.exchangerate-api.com/v4/latest/USD"
         );
         const currencydata = await response.json();
-
         setRates(currencydata.rates.HKD);
         setRates2(currencydata.rates.HKD);
       } catch (error) {

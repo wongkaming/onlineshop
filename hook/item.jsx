@@ -33,7 +33,7 @@ class Item {
       headers: {
         Authorization: token,
       },
-      cache: "no-store",
+      cache: "force-cache",
     });
   }
 
@@ -50,7 +50,7 @@ class Item {
       headers: {
         Authorization: token,
       },
-      cache: "no-store",
+      cache: "force-cache",
     });
   }
 
@@ -67,7 +67,7 @@ class Item {
       headers: {
         Authorization: token,
       },
-      cache: "no-store",
+      cache: "force-cache",
     });
   }
 
@@ -80,7 +80,7 @@ class Item {
     // }
 
     return axios.get(API_URL + "/result/findByName/" + name, {
-      cache: "no-store",
+      cache: "force-cache",
     });
   }
 
@@ -117,6 +117,60 @@ class Item {
         Authorization: token,
       },
     });
+  }
+
+  getCartItems(_user_id) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.get(API_URL + "/user/cart/" + _user_id, {
+      headers: {
+        Authorization: token,
+      },
+      cache: "force-cache",
+    });
+  }
+
+  addToCart(data, selectedSize, selectedColor, num) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.post(
+      API_URL + "/user/cart/",
+      { item: data, size: selectedSize, color: selectedColor, quantity: num },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+  }
+
+  updateCartItems(updatedItems) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.post(
+      API_URL + "/user/cart/update",
+      { updatedItems: updatedItems },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
   }
 }
 

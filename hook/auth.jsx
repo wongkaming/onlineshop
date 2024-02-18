@@ -39,6 +39,13 @@ class AuthService {
   getCurrentUser() {
     return JSON.parse(localStorage.getItem("user"));
   }
+  setLocalCart(item) {
+    return localStorage.setItem("cart", JSON.stringify(item));
+  }
+
+  getLocalCart() {
+    return JSON.parse(localStorage.getItem("cart"));
+  }
 }
 
 export default new AuthService();

@@ -21,6 +21,7 @@ import {
   CiBoxList,
   CiUser,
   CiEdit,
+  CiSaveDown2,
 } from "react-icons/ci";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { RiFolderZipLine } from "react-icons/ri";
@@ -82,9 +83,9 @@ const Nav = () => {
   }, [goBack, currentUser]);
 
   const { homepage, setHomepage } = useContext(UserContext);
-  const { cartItems } = useContext(CartContext);
+  const { setCartItems, backupCartItems } = useContext(CartContext);
   const pathname = usePathname();
-  const [total, setTotal] = useState(0);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -94,13 +95,6 @@ const Nav = () => {
 
   const toggleHandle = () => {
     setToggle(!toggle);
-    if (cartItems.length !== 0) {
-      setTotal(
-        cartItems.reduce((a, b) => {
-          return a + b.quantity;
-        }, 0)
-      );
-    }
   };
 
   return (
@@ -224,7 +218,7 @@ const Nav = () => {
         </div>
       )}
       <div
-        className={`flex ${
+        className={`hidden lg:flex ${
           toggle
             ? "bg-black/30 fixed bottom-0 left-0 right-0 top-0 z-40"
             : "bg-transparent"
@@ -235,28 +229,47 @@ const Nav = () => {
             toggle ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="py-2 px-5 flex flex-row justify-between items-center bg-white shadow-sm">
+          <div className="py-2 px-5 flex flex-row justify-between items-center bg-white shadow-md">
             <h1 className="font-bold text-[18px]">Shopping Bag</h1>
-            <Image
-              src={close}
-              alt="menu"
-              className="w-[16px] h-[16px] object-contain"
-              onClick={() => setToggle(!toggle)}
-            />
+            <div className="flex flex-row items-center gap-4">
+              {!edit && (
+                <CiEdit
+                  className="w-5 h-5"
+                  onClick={() => {
+                    setEdit(true);
+                  }}
+                />
+              )}
+              {edit && (
+                <button
+                  className="text-md font-semibold text-[#c50100] underline"
+                  onClick={() => {
+                    setEdit(false);
+                    setCartItems(backupCartItems);
+                  }}
+                >
+                  CANCEL
+                </button>
+              )}
+              <Image
+                src={close}
+                alt="menu"
+                className="w-[16px] h-[16px] object-contain"
+                onClick={() => {
+                  setToggle(!toggle);
+                  setCartItems(backupCartItems);
+                  setEdit(false);
+                }}
+              />
+            </div>
           </div>
           <div className="flex flex-col w-full h-full">
-            <Cart />
-            <div className="flex flex-row w-full justify-center blackpurple px-10 py-5 text-white">
-              <Link
-                href="/cart"
-                onClick={() => setToggle(!toggle)}
-                className="underline underline-offset-1"
-              >
-                Checkout
-              </Link>
-              <p className="mx-5">|</p>
-              <p>Total: {total} item&#x0028;s&#x0029;</p>
-            </div>
+            <Cart
+              edit={edit}
+              setEdit={setEdit}
+              toggle={toggle}
+              setToggle={setToggle}
+            />
           </div>
         </div>
       </div>

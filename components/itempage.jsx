@@ -4,7 +4,7 @@ import Image from "next/image";
 import { CurrencyContext } from "@/context/currencyContext";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
-import AuthService from "../hook/item";
+import ItemService from "../hook/item";
 import EmblaCarousel from "./EmblaCarousel";
 import { UserContext } from "@/context/userContext";
 import { CartContext } from "@/context/cartContext";
@@ -128,7 +128,7 @@ const Description = ({ description }) => {
 const ItemPage = ({ data, like }) => {
   let [liked, setLiked] = useState(false);
   const toggleFavorite = () => {
-    AuthService.enroll(data._id)
+    ItemService.enroll(data._id)
       .then(() => {
         setLiked(!liked);
       })
@@ -137,7 +137,7 @@ const ItemPage = ({ data, like }) => {
       });
   };
   const toggleUnlike = () => {
-    AuthService.unlike(data._id)
+    ItemService.unlike(data._id)
       .then(() => {
         setLiked(!liked);
       })
@@ -148,10 +148,11 @@ const ItemPage = ({ data, like }) => {
 
   const { currentUser, setZIndex, zIndex2, setZIndex2 } =
     useContext(UserContext);
+
   useEffect(() => {
     setLiked(false);
     if (currentUser && currentUser.user && currentUser.user.role === "user") {
-      AuthService.getLikedItem(like)
+      ItemService.getLikedItem(like)
         .then((i) => {
           setLiked(i.data);
         })
@@ -182,7 +183,8 @@ const ItemPage = ({ data, like }) => {
     }
   }, [data, change, rates, rates2, unit, currency]);
 
-  const { cartItems, setCartItems } = useContext(CartContext);
+  const { cartItems, setCartItems, setBackupCartItems } =
+    useContext(CartContext);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
 
@@ -195,27 +197,20 @@ const ItemPage = ({ data, like }) => {
 
   const handleAddToCart = () => {
     const newCartItem = {
-      id: data._id,
-      category: data.category,
-      name: data.title,
-      cover: data.galleryWrap[0],
-      price: data.price,
+      item: data,
       size: selectedSize,
+      color: selectedColor,
       quantity: 1,
     };
-
-    if (selectedColor !== null) {
-      newCartItem.color = selectedColor;
-    }
 
     if (selectedSize !== null) {
       if (selectedColor !== null || data.typeSelector.length === 0) {
         //用find的比较方式可能是不正确; 比较的是引用，而不是对象的值, 不如直接找有沒有
         const itemIndex = cartItems.findIndex(
-          (item) =>
-            item.id === newCartItem.id &&
-            item.size === newCartItem.size &&
-            (!newCartItem.color || item.color === newCartItem.color)
+          (e) =>
+            e.item._id === newCartItem.item._id &&
+            e.size === newCartItem.size &&
+            (!newCartItem.color || e.color === newCartItem.color)
         );
         if (itemIndex !== -1) {
           const newCartItems = [...cartItems];
@@ -224,12 +219,69 @@ const ItemPage = ({ data, like }) => {
               ...newCartItems[itemIndex],
               quantity: (newCartItems[itemIndex].quantity || 1) + 1,
             };
+            localStorage.setItem("cart", JSON.stringify(newCartItems));
             setCartItems(newCartItems);
+            setBackupCartItems(newCartItem);
           } else {
             alert("Maximum order quantity for this item is 3");
           }
         } else {
+          localStorage.setItem(
+            "cart",
+            JSON.stringify([newCartItem, ...cartItems])
+          );
           setCartItems([newCartItem, ...cartItems]);
+          setBackupCartItems([newCartItem, ...cartItems]);
+        }
+      } else {
+        alert("Please choose a color.");
+      }
+    } else if (data.sizeSelector.length > 0) {
+      alert("Please choose a size.");
+    }
+  };
+
+  const handleAddToCart2 = () => {
+    const newCartItem = {
+      item: data,
+      size: selectedSize,
+      color: selectedColor,
+      quantity: 1,
+    };
+
+    if (selectedSize !== null) {
+      if (selectedColor !== null || data.typeSelector.length === 0) {
+        const itemIndex = cartItems.findIndex(
+          (e) =>
+            e.item._id === newCartItem.item._id &&
+            e.size === newCartItem.size &&
+            (!newCartItem.color || e.color === newCartItem.color)
+        );
+        if (itemIndex !== -1) {
+          const newCartItems = [...cartItems];
+          if (newCartItems[itemIndex].quantity < 3) {
+            newCartItems[itemIndex] = {
+              ...newCartItems[itemIndex],
+              quantity: (newCartItems[itemIndex].quantity || 1) + 1,
+            };
+            ItemService.addToCart(data, selectedSize, selectedColor, 1)
+              .then(() => {
+                setCartItems(newCartItems);
+              })
+              .catch((e) => {
+                console.log(e.response.data);
+              });
+          } else {
+            alert("Maximum order quantity for this item is 3");
+          }
+        } else {
+          ItemService.addToCart(data, selectedSize, selectedColor, 1)
+            .then(() => {
+              setCartItems([newCartItem, ...cartItems]);
+            })
+            .catch((e) => {
+              console.log(e.response.data);
+            });
         }
       } else {
         alert("Please choose a color.");
@@ -385,12 +437,22 @@ const ItemPage = ({ data, like }) => {
               );
             })}
           </div>
-          <button
-            className="blackpurple px-4 py-2 text-white mb-8 rounded"
-            onClick={handleAddToCart}
-          >
-            Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
-          </button>
+          {!currentUser && (
+            <button
+              className="blackpurple px-4 py-2 text-white mb-8 rounded"
+              onClick={handleAddToCart}
+            >
+              Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
+            </button>
+          )}
+          {currentUser && (
+            <button
+              className="blackpurple px-4 py-2 text-white mb-8 rounded"
+              onClick={handleAddToCart2}
+            >
+              Add to <CiShoppingCart className="w-[24px] h-[24px] inline" />
+            </button>
+          )}
         </div>
         <div className="relative h-[520px]">
           <EmblaCarousel slides={data.galleryWrap} options={OPTIONS} />
