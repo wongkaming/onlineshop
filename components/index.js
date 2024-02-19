@@ -1,4 +1,5 @@
 import Cart from './cart';
+import Checkout from './checkout';
 import Currency from './currency';
 import Data from './data';
 import DataList from './datalist';
@@ -30,6 +31,7 @@ import Coming from './coming';
 
 export {
     Cart,
+    Checkout,
     Currency, 
     Data, 
     DataList, 

@@ -19,11 +19,11 @@ const page = () => {
   );
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading width={"h-[80dvh]"}/>;
   }
 
   if (data?.posts.length == 0) {
-    return <Nothing />;
+    return <Nothing width={"h-[80dvh]"}/>;
   }
 
   return (

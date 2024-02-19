@@ -222,7 +222,7 @@ const Nav = () => {
         } `}
       >
         <div
-          className={`flex flex-col justify-center w-96 fixed top-0 right-0 bottom-0 z-40 bg-white transition-transform duration-300 ${
+          className={`flex flex-col justify-start w-96 h-screen fixed top-0 right-0 bottom-0 z-40 bg-white transition-transform duration-300 ${
             toggle ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -260,7 +260,7 @@ const Nav = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col w-full h-full">
+          <div className="flex flex-col w-full h-screen">
             <Cart
               edit={edit}
               setEdit={setEdit}

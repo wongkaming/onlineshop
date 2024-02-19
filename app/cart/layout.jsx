@@ -2,13 +2,13 @@ import React from "react";
 
 export default function CartLayout({ children }) {
   return (
-    <section className="flex items-center p-5 pb-16 md:pb-20 md:p-10 lg:p-24 max-h-screen absolute top-8 left-0 right-0 bottom-0 bg-white/60 backdrop-blur-lg">
-      <div className="flex justify-center w-full h-full">
-        <div className={`mx-0 md:mx-8 mb-8 overflow-y-auto`}>{children}</div>
+    <section className="flex items-start px-5 pb-16 md:pb-20 md:px-10 lg:px-14 min-h-[540px] h-screen bg-[#f5f5f5]/60 backdrop-blur-lg">
+      <div className="flex flex-col justify-start w-screen h-screen overflow-y-auto py-14">
+        {children}
       </div>
       <iframe
         src={`https://3dcanvas.vercel.app/stars`}
-        className="min-h-[960px] h-screen w-full homecanvas"
+        className="min-h-[540px] h-screen w-full homecanvas"
       ></iframe>
     </section>
   );

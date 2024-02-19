@@ -38,8 +38,8 @@ const SearchResultList = ({ input }) => {
             </div>
           </>
         )}
-        {data?.posts.length == 0 && <Nothing />}
-        {isLoading && <Loading />}
+        {data?.posts.length == 0 && <Nothing width={"h-[80dvh]"}/>}
+        {isLoading && <Loading width={"h-[80dvh]"} />}
         <iframe
           src={`https://3dcanvas.vercel.app/stars`}
           className="min-h-[960px] h-screen w-full homecanvas"

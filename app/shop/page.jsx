@@ -11,6 +11,7 @@ const CategoryMenu = () => {
   const [category, setCategory] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   const handleTopsChange = (event) => {
     const targetName = event.target.name;
@@ -54,30 +55,33 @@ const CategoryMenu = () => {
     };
   }, [category]);
 
-  const morePicture = async () => {
+  const morePicture = () => {
     setPage(page + 1);
     let newURL = `${
       process.env.NEXT_PUBLIC_API
     }/latest/result/findByCategory/${encodedSearchQuery}?page=${
       page + 1
     }&perPage=15`;
-
-    let result = await axios.get(newURL);
-    if (result.data.length !== 0) {
-      setData(data.concat(result.data));
-      if (data.length % 15 !== 0) {
-        setNext(true);
-      } else if (data.length % 15 == 0) {
+    setLoadingMore(true);
+    const timerId = setTimeout(async() => {
+      let result = await axios.get(newURL);
+      if (result.data.length !== 0) {
+        setData(data.concat(result.data));
+        setNext(data.length % 15 !== 0);
+        setLoadingMore(false);
+        clearTimeout(timerId);
+      } else {
         setNext(false);
+        console.log("no data!");
+        setLoadingMore(false);
+        clearTimeout(timerId);
       }
-    } else {
-      setNext(false);
-      console.log("no data!");
-    }
+    }, 1000)
+    
   };
 
   return (
-    <div className="flex justify-evenly insert-0">
+    <div className="flex justify-evenly min-h-[540px] h-screen insert-0">
       <div className="pt-20 ">
         <div className="hidden lg:flex flex-col justify-start items-start bubble">
           <MenuTable
@@ -124,30 +128,34 @@ const CategoryMenu = () => {
           </div>
         </div>
       </div>
+      <div className="flex flex-col w-full justify-center">
+        {loading && (
+            <Loading width={"w-[65vw]"}/>
+        )}
 
-      {loading && (
-        <div className="z-10">
-          <Loading />
-        </div>
-      )}
-
-      {!loading && (
-        <div
-          className="px-[5%] overflow-auto pt-20 grow lg:pb-10 pb-14 min-h-[400px] h-screen"
-        >
-          <ItemList data={data} />
-          <div className="flex w-full justify-center mt-8">
-            {next && (
-              <button
-                onClick={morePicture}
-                className="text-white blackpurple rounded-full hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700"
-              >
-                Next Page
-              </button>
+        {!loading && (
+          <div
+            className="px-[5%] overflow-auto pt-20 grow lg:pb-10 pb-14 min-h-[400px] h-screen"
+          >
+            <ItemList data={data} />
+            <div className="flex w-full justify-center mt-8">
+              {next && !loadingMore && (
+                <button
+                  onClick={morePicture}
+                  className="text-white blackpurple rounded-full hover:bg-gray-900 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#24282e] dark:hover:bg-gray-700"
+                >
+                  Next Page
+                </button>
+              )}
+            </div>
+            {loadingMore && (
+                <Loading />
             )}
           </div>
-        </div>
-      )}
+        )}
+
+
+      </div>
     </div>
   );
 };
