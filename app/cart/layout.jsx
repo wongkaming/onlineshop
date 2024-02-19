@@ -8,7 +8,7 @@ export default function CartLayout({ children }) {
       </div>
       <iframe
         src={`https://3dcanvas.vercel.app/stars`}
-        className="h-full w-full homecanvas"
+        className="min-h-[960px] h-screen w-full homecanvas"
       ></iframe>
     </section>
   );

@@ -18,7 +18,7 @@ const SearchResultList = ({ input }) => {
   );
 
   return (
-    <section className="flex flex-col items-center md:px-24 min-h-screen absolute top-8 left-0 right-0 z-20 bg-black">
+    <section className="flex flex-col items-center md:px-24 absolute top-8 left-0 right-0 z-20 bg-black">
       <div
         className="px-[5%] overflow-auto pt-12 grow lg:pb-10 pb-14"
         style={{ maxHeight: `calc(100vh - 32px)` }}
@@ -42,7 +42,7 @@ const SearchResultList = ({ input }) => {
         {isLoading && <Loading />}
         <iframe
           src={`https://3dcanvas.vercel.app/stars`}
-          className="h-screen w-full homecanvas"
+          className="min-h-[960px] h-screen w-full homecanvas"
         ></iframe>
       </div>
     </section>

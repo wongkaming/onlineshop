@@ -2,15 +2,15 @@ import React from "react";
 
 export default function SearchLayout({ children }) {
   return (
-    <section className="flex flex-col items-center md:px-24 max-h-screen absolute top-8 left-0 right-0 bottom-0 bg-black/30 backdrop-blur-lg">
+    <section className="flex flex-col items-center md:px-24 min-h-[540px] h-screen  bg-black/30 backdrop-blur-lg">
       <div
         className="px-[5%] overflow-auto pt-12 grow lg:pb-10 pb-14"
-        style={{ maxHeight: `calc(100vh - 32px)` }}
+
       >
         {children}
         <iframe
           src={`https://3dcanvas.vercel.app/stars`}
-          className="h-full w-full homecanvas"
+          className="min-h-[540px] h-screen w-full homecanvas"
         ></iframe>
       </div>
     </section>

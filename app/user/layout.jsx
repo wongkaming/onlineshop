@@ -8,7 +8,7 @@ export default function ProfileLayout({ children }) {
   const { currentUser } = useContext(UserContext);
 
   return (
-    <section className="flex items-center p-5 pb-16 md:pb-20 md:p-10 lg:p-16 max-h-screen absolute top-8 left-0 right-0 bottom-0 bg-white/60 backdrop-blur-lg">
+    <section className="flex items-center p-5 pb-16 md:pb-20 md:p-10 lg:p-16 min-h-[540px] h-screen bg-white/60 backdrop-blur-lg">
       <div className="grow h-full justify-center  bg-gray-50 rounded-lg border border-gray-300 shadow-md">
         <nav className="flex flex-row justify-between py-1 rounded-t-lg sliver">
           <p className="font-bold px-3">My Profile</p>

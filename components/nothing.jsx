@@ -2,7 +2,7 @@ import React from "react";
 
 const Nothing = () => {
   return (
-    <div className="flex flex-col justify-center px-[5%] pt-12 lg:pb-10 pb-14 absolute top-0 left-0 right-0 bottom-0 ">
+    <div className="flex flex-col justify-center px-[5%] pt-12 lg:pb-10 pb-14 w-[60dvw] items-center insert-0 h-[80dvh]">
       <div className="flex w-full justify-center">
         <img
           src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDVxbzZtOGJiZjZpd3dsZHBmenowb2JmcDM2bnk0ZmN4a2poeHF2aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VwspZcjH412OMixzar/giphy.gif"          alt=""

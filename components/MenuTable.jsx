@@ -68,7 +68,7 @@ const MenuTable = class extends React.Component {
 
     return (
       <div
-        className="overflow-auto"
+        className="overflow-auto min-h-[400px]"
         style={{ maxHeight: `calc(100vh - 200px)` }}
       >
         <h1 className="px-10 pt-3 font-bold">Filter By</h1>

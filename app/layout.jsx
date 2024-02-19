@@ -89,7 +89,7 @@ export default function RootLayout({ children }) {
                     </CurrencyProvider>
                     <iframe
                       src={`https://3dcanvas.vercel.app/${changeLight}`}
-                      className="h-screen w-full homecanvas"
+                      className=" min-h-[540px] h-screen w-full homecanvas"
                     ></iframe>
                   </LightProvider>
                 </ProductProvider>

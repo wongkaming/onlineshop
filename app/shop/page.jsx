@@ -77,8 +77,8 @@ const CategoryMenu = () => {
   };
 
   return (
-    <div className="flex justify-evenly w-full ">
-      <div className="py-14 ">
+    <div className="flex justify-evenly insert-0">
+      <div className="pt-20 ">
         <div className="hidden lg:flex flex-col justify-start items-start bubble">
           <MenuTable
             CategoryList={CategoryList}
@@ -133,8 +133,7 @@ const CategoryMenu = () => {
 
       {!loading && (
         <div
-          className="px-[5%] overflow-auto pt-14 grow lg:pb-10 pb-14"
-          style={{ maxHeight: `calc(100vh - 32px)` }}
+          className="px-[5%] overflow-auto pt-20 grow lg:pb-10 pb-14 min-h-[400px] h-screen"
         >
           <ItemList data={data} />
           <div className="flex w-full justify-center mt-8">
