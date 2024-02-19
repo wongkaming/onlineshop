@@ -69,6 +69,21 @@ export const windowIcon = [
   },
 ];
 
+export const checkoutSummary = [
+  {
+    title: "Coupons",
+    icon: <CiFaceSmile className="w-[20px] h-[20px]  mr-2" />,
+  },
+  {
+    title: "Store Credit",
+    icon: <CiReceipt className="w-[20px] h-[20px]  mr-2" />,
+  },
+  {
+    title: "Gift Card",
+    icon: <CiMoneyCheck1 className="w-[20px] h-[20px]  mr-2" />,
+  },
+];
+
 export const CategoryList = [
   {
     subtitle: "Categories",

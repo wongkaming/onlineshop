@@ -1,13 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import AuthService from "@/hook/item";
+import { UserContext } from "@/context/userContext";
 
 const OneItem = ({ data, price, like, currentUser }) => {
+  const { wishlistData, setWishlistData } = useContext(UserContext);
   let [liked, setLiked] = useState(false);
   useEffect(() => {
     setLiked(false);
@@ -23,18 +25,22 @@ const OneItem = ({ data, price, like, currentUser }) => {
   }, [like, currentUser]);
 
   const toggleFavorite = () => {
+    // const itemIndex = wishlistData.findIndex((item) => item._id === data._id);
+    console.log(wishlistData.concat(data));
     AuthService.enroll(data._id)
       .then(() => {
-        setLiked(!liked);
+        setLiked(true);
+        // setWishlistData(wishlistData.concat(data));
       })
       .catch((e) => {
         console.log(e.response.data);
       });
   };
+
   const toggleUnlike = () => {
     AuthService.unlike(data._id)
       .then(() => {
-        setLiked(!liked);
+        setLiked(false);
       })
       .catch((e) => {
         console.log(e.response.data);

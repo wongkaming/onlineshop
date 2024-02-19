@@ -5,7 +5,7 @@ import { CartContext } from "@/context/cartContext";
 import { CurrencyContext } from "@/context/currencyContext";
 import { UserContext } from "@/context/userContext";
 import ItemService from "@/hook/item";
-import {CiEdit, CiSaveDown2} from "react-icons/ci";
+import { CiEdit, CiSaveDown2 } from "react-icons/ci";
 
 const Checkout = ({ toggle, setToggle }) => {
   const { cartItems, setCartItems, backupCartItems, setBackupCartItems } =
@@ -34,16 +34,56 @@ const Checkout = ({ toggle, setToggle }) => {
 
   useEffect(() => {
     if (cartItems.length !== 0) {
-      setTotal(
-        cartItems.reduce((a, b) => {
-          return a + b.quantity;
-        }, 0)
-      );
+      let curr = cartItems.reduce((a, b) => {
+        return a + b.item.price;
+      }, 0);
+
+      if (change == true) {
+        setTotal(
+          new Intl.NumberFormat(unit, {
+            style: "currency",
+            currency: currency,
+          }).format(((rates2 / rates) * curr).toFixed(2))
+        );
+      } else {
+        setTotal(
+          new Intl.NumberFormat(unit, {
+            style: "currency",
+            currency: currency,
+          }).format(curr)
+        );
+      }
     } else {
       setTotal(0);
     }
-  }, [cartItems]);
+  }, [cartItems, rates, rates2, change, currency, unit]);
 
+  const toggleConfirm = () => {
+    if (cartItems !== backupCartItems) {
+      ItemService.updateCartItems(newCartItems)
+        .then((i) => {
+          console.log(i.data.items);
+          setCartItems(i.data.items);
+          setBackupCartItems(i.data.items);
+          setEdit(false);
+        })
+        .catch((e) => {
+          console.error(e.response ? e.response.data : e);
+        });
+    } else {
+      setEdit(false);
+    }
+  };
+
+  const localConfirm = () => {
+    if (cartItems !== backupCartItems) {
+      localStorage.setItem("cart", JSON.stringify(newCartItems));
+      setBackupCartItems(newCartItems);
+      setEdit(false);
+    } else {
+      setEdit(false);
+    }
+  };
 
   return (
     <div className="flex lg:flex-row flex-col gap-8 w-full">
@@ -62,36 +102,44 @@ const Checkout = ({ toggle, setToggle }) => {
           </div>
         )}
         <ul className="list-none flex items-start flex-1 flex-col gap-4 lg:m-4 bubble p-2 mt-2">
-            <li className="flex flex-row w-full justify-between px-2">
-                <h1 className="text-lg text-[#5a6674] lg:text-xl font-semibold px-3">My Cart</h1>
-                {!edit && (
-                    <CiEdit
-                    className="w-5 h-5"
-                    onClick={() => {
-                        setEdit(true);
-                    }}
-                    />
+          <li className="flex flex-row w-full justify-between px-2">
+            <h1 className="text-lg text-[#5a6674] lg:text-xl font-semibold px-3">
+              My Cart
+            </h1>
+            {!edit && (
+              <CiEdit
+                className="w-5 h-5"
+                onClick={() => {
+                  setEdit(true);
+                }}
+              />
+            )}
+            {edit && (
+              <div className="flex flex-row gap-4 items-center">
+                {!currentUser && (
+                  <CiSaveDown2
+                    className="w-5 h-5 cursor-pointer"
+                    onClick={localConfirm}
+                  />
                 )}
-                {edit &&                
-                <div className="flex flex-row gap-2 items-center">
-                    <CiSaveDown2
-                    className="w-5 h-5"
-                    onClick={() => {
-                        setEdit(true);
-                    }}
-                    />
-                    <button
-                    className="text-md font-semibold text-[#c50100] underline"
-                    onClick={() => {
-                        setEdit(false);
-                        setCartItems(backupCartItems);
-                    }}
-                    >
-                    CANCEL
-                    </button>
-
-                </div>}
-            </li>
+                {currentUser && (
+                  <CiSaveDown2
+                    className="w-5 h-5 cursor-pointer"
+                    onClick={toggleConfirm}
+                  />
+                )}
+                <button
+                  className="text-md font-semibold text-[#c50100] underline"
+                  onClick={() => {
+                    setEdit(false);
+                    setCartItems(backupCartItems);
+                  }}
+                >
+                  CANCEL
+                </button>
+              </div>
+            )}
+          </li>
           {cartItems.map((item, index) => {
             let curr;
             if (change == true) {
@@ -208,14 +256,16 @@ const Checkout = ({ toggle, setToggle }) => {
           })}
         </ul>
       </div>
-      
-      <div className={`flex flex-col lg:w-1/3 justify-center lg:m-4 mb-4 p-5 sliver max-h-[400px] border border-white rounded-lg shadow-lg`}>
+
+      <div
+        className={`flex flex-col lg:w-1/3 justify-center lg:m-4 mb-4 p-5 sliver max-h-[400px] border border-white rounded-lg shadow-lg`}
+      >
         <h1 className="font-semibold text-xl pb-5">Order Summary</h1>
         <div className="flex flex-row justify-between w-full border-t border-slate-600 pt-5 pb-10">
-            <h1>Total</h1>
-            <p>Price</p>
+          <h1>Total</h1>
+          <p>Price</p>
         </div>
-        
+
         <div className="flex flex-row px-10 py-5 text-white text-sm blackpurple">
           <Link
             href="/cart"
@@ -226,8 +276,8 @@ const Checkout = ({ toggle, setToggle }) => {
           >
             Checkout
           </Link>
-        <p className="mx-5">|</p>
-        <p>Total: {total} item&#x0028;s&#x0029;</p>
+          <p className="mx-5">|</p>
+          <p>Total: {total} </p>
         </div>
       </div>
     </div>
