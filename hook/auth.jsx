@@ -8,12 +8,13 @@ class AuthService {
   logout() {
     return axios.post(API_URL + "/user/logout");
   }
-  register(username, email, password, role) {
+  register(username, email, password, role, confirmPassword) {
     return axios.post(API_URL + "/user/register", {
       username,
       email,
       password,
       role,
+      confirmPassword,
     });
   }
 

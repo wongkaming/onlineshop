@@ -8,7 +8,7 @@ import { UserContext } from "@/context/userContext";
 import ItemService from "@/hook/item";
 import { CiEdit, CiSaveDown2, CiCircleChevRight } from "react-icons/ci";
 
-const Checkout = ({ toggle, setToggle }) => {
+const Checkout = () => {
   const { cartItems, setCartItems, backupCartItems, setBackupCartItems } =
     useContext(CartContext);
   const { currentUser } = useContext(UserContext);
@@ -89,12 +89,11 @@ const Checkout = ({ toggle, setToggle }) => {
   return (
     <div className="flex lg:flex-row flex-col gap-8 w-full">
       <div className="flex flex-col lg:w-2/3 overflow-y-auto h-full">
-
         <ul className="list-none flex items-start flex-1 flex-col gap-4 lg:m-4 bubble p-2 mt-2">
           <li className="flex flex-row w-full justify-between px-2">
-            <h1 className="text-lg text-[#5a6674] lg:text-xl font-semibold px-3">
+            <h1 className="text-lg text-[#5a6674] lg:text-xl font-semibold">
               My Cart
-            </h1>      
+            </h1>
             {!edit && cartItems.length !== 0 && (
               <CiEdit
                 className="w-5 h-5 cursor-pointer"
@@ -130,18 +129,18 @@ const Checkout = ({ toggle, setToggle }) => {
             )}
           </li>
           {!edit && cartItems.length == 0 && (
-              <li className="flex flex-col w-full my-12">
-                <div className="flex w-full justify-center mb-4">
-                  <img
-                    src="https://media.discordapp.net/attachments/1169686419778838622/1202659319452016742/208ca7149511131.5e46400fbbfde.jpg?ex=65ce42c6&is=65bbcdc6&hm=ac9af0f34b57fb9f6a018b5aeabb6bd7e0fc0814421d69341c868ccd492ba3dc&=&format=webp"
-                    alt=""
-                    width="100"
-                    height="100"
-                  />
-                </div>
-                <p className="flex w-full justify-center">It's empty here!</p>
-              </li>
-          )}      
+            <li className="flex flex-col w-full my-12">
+              <div className="flex w-full justify-center mb-4">
+                <img
+                  src="https://media.discordapp.net/attachments/1169686419778838622/1202659319452016742/208ca7149511131.5e46400fbbfde.jpg?ex=65ce42c6&is=65bbcdc6&hm=ac9af0f34b57fb9f6a018b5aeabb6bd7e0fc0814421d69341c868ccd492ba3dc&=&format=webp"
+                  alt=""
+                  width="100"
+                  height="100"
+                />
+              </div>
+              <p className="flex w-full justify-center">It's empty here!</p>
+            </li>
+          )}
           {cartItems.map((item, index) => {
             let curr;
             if (change == true) {
@@ -248,9 +247,7 @@ const Checkout = ({ toggle, setToggle }) => {
                       setCartItems(newCartItems);
                     }}
                   >
-                    <p className=" px-1 rounded-full shadow-md bg-[#c50100] text-white">
-                      -
-                    </p>
+                    <p className=" px-1 rounded-full shadow-md sliver">X</p>
                   </button>
                 )}
               </li>
@@ -265,7 +262,10 @@ const Checkout = ({ toggle, setToggle }) => {
         <h1 className="font-semibold text-xl">Order Summary</h1>
         <ul className="flex flex-col gap-4 my-6">
           {checkoutSummary.map((nav, index) => (
-            <li key={index} className="mx-2 flex items-center cursor-pointer justify-between">
+            <li
+              key={index}
+              className="mx-2 flex items-center cursor-pointer justify-between"
+            >
               <div className="flex flex-row items-center">
                 {nav.icon}
                 <p>{nav.title}</p>
@@ -280,15 +280,7 @@ const Checkout = ({ toggle, setToggle }) => {
         </div>
 
         <div className="flex justify-center px-10 py-4 text-white text-sm blackpurple">
-          <Link
-            href="/cart"
-            className="uppercase text-lg"
-            onClick={() => {
-              setToggle(!toggle);
-            }}
-          >
-            Checkout
-          </Link>
+          <button className="uppercase text-lg">Checkout</button>
         </div>
       </div>
     </div>

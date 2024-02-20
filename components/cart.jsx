@@ -192,9 +192,7 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
                       setCartItems(newCartItems);
                     }}
                   >
-                    <p className=" px-1 rounded-full shadow-md bg-[#c50100] text-white">
-                      -
-                    </p>
+                    <p className=" px-1 rounded-full shadow-md sliver">X</p>
                   </button>
                 )}
               </li>
@@ -219,21 +217,27 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
           </Link>
         )}
         {edit && currentUser && (
-          <button className="font-bold sliver py-2 px-4 rounded-full hover:rounded-lg shadow-lg hover:shadow-sm" onClick={toggleConfirm}>
+          <button
+            className="font-bold blackpurple py-2 px-4 rounded-full hover:px-8 shadow-lg hover:shadow-sm transition-all ease-in-out duration-300"
+            onClick={toggleConfirm}
+          >
             Confirm
           </button>
         )}
         {edit && !currentUser && (
-          <button className="font-bold" onClick={localConfirm}>
+          <button
+            className="font-bold blackpurple py-2 px-4 rounded-full hover:px-8 shadow-lg hover:shadow-sm transition-all ease-in-out duration-300"
+            onClick={localConfirm}
+          >
             Confirm
           </button>
         )}
-        {!edit && 
+        {!edit && (
           <>
             <p className="mx-5">|</p>
             <p>Total: {total} item&#x0028;s&#x0029;</p>
           </>
-        }
+        )}
       </div>
     </>
   );

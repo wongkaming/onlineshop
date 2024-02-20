@@ -46,7 +46,7 @@ const CategoryMenu = () => {
         .finally(() => {
           setLoading(false);
         });
-    }, 3000); // 等待3秒
+    }, 1000); // 等待3秒
 
     // 如果category变更或组件卸载，清除定时器
     return () => {
@@ -63,7 +63,7 @@ const CategoryMenu = () => {
       page + 1
     }&perPage=15`;
     setLoadingMore(true);
-    const timerId = setTimeout(async() => {
+    const timerId = setTimeout(async () => {
       let result = await axios.get(newURL);
       if (result.data.length !== 0) {
         setData(data.concat(result.data));
@@ -76,12 +76,11 @@ const CategoryMenu = () => {
         setLoadingMore(false);
         clearTimeout(timerId);
       }
-    }, 1000)
-    
+    }, 500);
   };
 
   return (
-    <div className="flex justify-evenly min-h-[540px] h-screen insert-0">
+    <div className="flex flex-row w-screen md:px-24">
       <div className="pt-20 ">
         <div className="hidden lg:flex flex-col justify-start items-start bubble">
           <MenuTable
@@ -129,15 +128,12 @@ const CategoryMenu = () => {
         </div>
       </div>
       <div className="flex flex-col w-full justify-center">
-        {loading && (
-            <Loading width={"w-[65vw]"}/>
-        )}
+        {loading && <Loading width={"w-full"} />}
 
         {!loading && (
-          <div
-            className="px-[5%] overflow-auto pt-20 grow lg:pb-10 pb-14 min-h-[400px] h-screen"
-          >
+          <div className="px-[5%] overflow-auto pt-20 grow lg:pb-10 pb-14 min-h-[400px] h-screen">
             <ItemList data={data} />
+
             <div className="flex w-full justify-center mt-8">
               {next && !loadingMore && (
                 <button
@@ -147,14 +143,15 @@ const CategoryMenu = () => {
                   Next Page
                 </button>
               )}
+              {!next && (
+                <p className="flex w-full h-36 justify-center items-center">
+                  No more items to shows.
+                </p>
+              )}
             </div>
-            {loadingMore && (
-                <Loading />
-            )}
+            {loadingMore && <Loading />}
           </div>
         )}
-
-
       </div>
     </div>
   );

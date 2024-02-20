@@ -10,6 +10,7 @@ const Register = () => {
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  let [confirmPassword, setConfirmPassword] = useState("");
   let role = "user";
   let [message, setMessage] = useState("");
 
@@ -22,10 +23,18 @@ const Register = () => {
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
+  const handlePassword2 = (e) => {
+    setConfirmPassword(e.target.value);
+  };
 
   const router = useRouter();
   const handleRegister = () => {
-    AuthService.register(username, email, password, role)
+    if (username && email && password && password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    AuthService.register(username, email, password, role, confirmPassword)
       .then(() => {
         window.alert(
           "Congratulations, your account has been successfully created."
@@ -106,6 +115,26 @@ const Register = () => {
                 type="password"
                 name="password"
                 placeholder="Must be at least 6 characters"
+                className="text-sm bg-transparent sm:text-base placeholder-gray-300 pl-10 pr-4 border-b border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600"
+            >
+              Password repeat：
+            </label>
+            <div className="relative">
+              <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                <CiLock className="h-6 w-6" />
+              </div>
+              <input
+                onChange={handlePassword2}
+                type="password"
+                name="password"
+                placeholder="Comfirm password"
                 className="text-sm bg-transparent sm:text-base placeholder-gray-300 pl-10 pr-4 border-b border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
               />
             </div>
