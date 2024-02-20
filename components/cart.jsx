@@ -203,8 +203,8 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
         </ul>
       </div>
       <div
-        className={`flex flex-row w-full justify-center px-10 py-5 text-white absolute bottom-0 right-0 ${
-          edit ? "pinkblue" : "blackpurple"
+        className={`flex flex-row w-full justify-center px-10 text-white absolute bottom-0 right-0 items-center ${
+          edit ? "pinkblue py-3" : "blackpurple py-5"
         }`}
       >
         {!edit && (
@@ -219,7 +219,7 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
           </Link>
         )}
         {edit && currentUser && (
-          <button className="font-bold" onClick={toggleConfirm}>
+          <button className="font-bold sliver py-2 px-4 rounded-full hover:rounded-lg shadow-lg hover:shadow-sm" onClick={toggleConfirm}>
             Confirm
           </button>
         )}
@@ -228,8 +228,12 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
             Confirm
           </button>
         )}
-        <p className="mx-5">|</p>
-        <p>Total: {total} item&#x0028;s&#x0029;</p>
+        {!edit && 
+          <>
+            <p className="mx-5">|</p>
+            <p>Total: {total} item&#x0028;s&#x0029;</p>
+          </>
+        }
       </div>
     </>
   );

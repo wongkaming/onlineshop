@@ -16,7 +16,7 @@ export default function WishlistLayout({ children }) {
             ))}
           </ul>
         </nav>
-        <div className="flex justify-center w-full h-full">
+        <div className="flex justify-center w-full h-full items-center">
           <div className={`mx-0 md:mx-8 mb-8 overflow-y-auto`}>{children}</div>
         </div>
       </div>

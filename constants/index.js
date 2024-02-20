@@ -25,6 +25,8 @@ import {
   CiMaximize1,
   CiLogin,
   CiPalette,
+  CiGift,
+  CiShoppingTag,
 } from "react-icons/ci";
 
 export const profileNavLinks = [
@@ -72,15 +74,15 @@ export const windowIcon = [
 export const checkoutSummary = [
   {
     title: "Coupons",
-    icon: <CiFaceSmile className="w-[20px] h-[20px]  mr-2" />,
+    icon: <CiShoppingTag className="w-[20px] h-[20px]  mr-2" />,
   },
   {
     title: "Store Credit",
-    icon: <CiReceipt className="w-[20px] h-[20px]  mr-2" />,
+    icon: <CiMoneyCheck1 className="w-[20px] h-[20px]  mr-2" />,
   },
   {
     title: "Gift Card",
-    icon: <CiMoneyCheck1 className="w-[20px] h-[20px]  mr-2" />,
+    icon: <CiGift className="w-[20px] h-[20px]  mr-2" />,
   },
 ];
 

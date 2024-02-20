@@ -1,11 +1,12 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
+import { checkoutSummary } from "@/constants/index";
 import { CartContext } from "@/context/cartContext";
 import { CurrencyContext } from "@/context/currencyContext";
 import { UserContext } from "@/context/userContext";
 import ItemService from "@/hook/item";
-import { CiEdit, CiSaveDown2 } from "react-icons/ci";
+import { CiEdit, CiSaveDown2, CiCircleChevRight } from "react-icons/ci";
 
 const Checkout = ({ toggle, setToggle }) => {
   const { cartItems, setCartItems, backupCartItems, setBackupCartItems } =
@@ -96,7 +97,7 @@ const Checkout = ({ toggle, setToggle }) => {
             </h1>      
             {!edit && cartItems.length !== 0 && (
               <CiEdit
-                className="w-5 h-5"
+                className="w-5 h-5 cursor-pointer"
                 onClick={() => {
                   setEdit(true);
                 }}
@@ -261,24 +262,33 @@ const Checkout = ({ toggle, setToggle }) => {
       <div
         className={`flex flex-col lg:w-1/3 justify-center lg:m-4 mb-4 p-5 sliver max-h-[400px] border border-white rounded-lg shadow-lg`}
       >
-        <h1 className="font-semibold text-xl pb-5">Order Summary</h1>
-        <div className="flex flex-row justify-between w-full border-t border-slate-600 pt-5 pb-10">
-          <h1>Total</h1>
-          <p>Price</p>
+        <h1 className="font-semibold text-xl">Order Summary</h1>
+        <ul className="flex flex-col gap-4 my-6">
+          {checkoutSummary.map((nav, index) => (
+            <li key={index} className="mx-2 flex items-center cursor-pointer justify-between">
+              <div className="flex flex-row items-center">
+                {nav.icon}
+                <p>{nav.title}</p>
+              </div>
+              <CiCircleChevRight />
+            </li>
+          ))}
+        </ul>
+        <div className="flex flex-row justify-between w-full border-t border-slate-600 pt-5 pb-10 px-2">
+          <h1>Total:</h1>
+          <p className="font-bold text-lg">{total}</p>
         </div>
 
-        <div className="flex flex-row px-10 py-5 text-white text-sm blackpurple">
+        <div className="flex justify-center px-10 py-4 text-white text-sm blackpurple">
           <Link
             href="/cart"
-            className="underline underline-offset-1"
+            className="uppercase text-lg"
             onClick={() => {
               setToggle(!toggle);
             }}
           >
             Checkout
           </Link>
-          <p className="mx-5">|</p>
-          <p>Total: {total} </p>
         </div>
       </div>
     </div>

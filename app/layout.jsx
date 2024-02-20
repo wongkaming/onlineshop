@@ -74,10 +74,10 @@ export default function RootLayout({ children }) {
                     >
                       {children && <Nav />}
                       <div
-                        className={`flex bg-[#24282e] p-2 fixed top-14  z-30 rounded-r-full transition-transform ease-in-out duration-500 ${
+                        className={`flex bg-[#24282e] p-2 pl-4 fixed top-14  z-30 rounded-r-full transition-transform ease-in-out duration-500 ${
                           isHovered
                             ? "opacity-100 translate-x-0"
-                            : "opacity-40 -translate-x-32"
+                            : "opacity-40 -translate-x-36"
                         }`}
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
