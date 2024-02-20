@@ -5,7 +5,6 @@ import { CurrencyContext } from "@/context/currencyContext";
 
 const DataList = ({ data, currentUser }) => {
   const { rates, rates2, change, currency, unit } = useContext(CurrencyContext);
-
   let curr;
 
   return (
@@ -16,12 +15,12 @@ const DataList = ({ data, currentUser }) => {
             curr = new Intl.NumberFormat(unit, {
               style: "currency",
               currency: currency,
-            }).format(((rates2 / rates) * d.item.price).toFixed(2));
+            }).format(((rates2 / rates) * d.price).toFixed(2));
           } else {
             curr = new Intl.NumberFormat(unit, {
               style: "currency",
               currency: currency,
-            }).format(d.item.price);
+            }).format(d.price);
           }
           return (
             <Data

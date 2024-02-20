@@ -3,7 +3,7 @@ import React from "react";
 const Profile = ({ currentUser }) => {
   return (
     <div style={{ paddingTop: "3rem", paddingBottom: "3rem" }}>
-      {!currentUser && <div>在獲取您的個人資料之前，您必須先登錄。</div>}
+      {!currentUser && <div>You must be logged in to access this page.</div>}
       {currentUser && (
         <div>
           <h1 className="text-[36px] font-bold">My Account</h1>

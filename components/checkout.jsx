@@ -88,25 +88,13 @@ const Checkout = ({ toggle, setToggle }) => {
   return (
     <div className="flex lg:flex-row flex-col gap-8 w-full">
       <div className="flex flex-col lg:w-2/3 overflow-y-auto h-full">
-        {cartItems.length == 0 && (
-          <div className="flex flex-col grow mt-12">
-            <div className="flex w-full justify-center mb-4">
-              <img
-                src="https://media.discordapp.net/attachments/1169686419778838622/1202659319452016742/208ca7149511131.5e46400fbbfde.jpg?ex=65ce42c6&is=65bbcdc6&hm=ac9af0f34b57fb9f6a018b5aeabb6bd7e0fc0814421d69341c868ccd492ba3dc&=&format=webp"
-                alt=""
-                width="100"
-                height="100"
-              />
-            </div>
-            <p className="flex w-full justify-center">It's empty here!</p>
-          </div>
-        )}
+
         <ul className="list-none flex items-start flex-1 flex-col gap-4 lg:m-4 bubble p-2 mt-2">
           <li className="flex flex-row w-full justify-between px-2">
             <h1 className="text-lg text-[#5a6674] lg:text-xl font-semibold px-3">
               My Cart
-            </h1>
-            {!edit && (
+            </h1>      
+            {!edit && cartItems.length !== 0 && (
               <CiEdit
                 className="w-5 h-5"
                 onClick={() => {
@@ -140,6 +128,19 @@ const Checkout = ({ toggle, setToggle }) => {
               </div>
             )}
           </li>
+          {!edit && cartItems.length == 0 && (
+              <li className="flex flex-col w-full my-12">
+                <div className="flex w-full justify-center mb-4">
+                  <img
+                    src="https://media.discordapp.net/attachments/1169686419778838622/1202659319452016742/208ca7149511131.5e46400fbbfde.jpg?ex=65ce42c6&is=65bbcdc6&hm=ac9af0f34b57fb9f6a018b5aeabb6bd7e0fc0814421d69341c868ccd492ba3dc&=&format=webp"
+                    alt=""
+                    width="100"
+                    height="100"
+                  />
+                </div>
+                <p className="flex w-full justify-center">It's empty here!</p>
+              </li>
+          )}      
           {cartItems.map((item, index) => {
             let curr;
             if (change == true) {

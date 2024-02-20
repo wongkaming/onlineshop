@@ -25,12 +25,10 @@ const OneItem = ({ data, price, like, currentUser }) => {
   }, [like, currentUser]);
 
   const toggleFavorite = () => {
-    // const itemIndex = wishlistData.findIndex((item) => item._id === data._id);
-    console.log(wishlistData.concat(data));
     AuthService.enroll(data._id)
       .then(() => {
         setLiked(true);
-        // setWishlistData(wishlistData.concat(data));
+        setWishlistData(wishlistData.concat(data));
       })
       .catch((e) => {
         console.log(e.response.data);
@@ -38,14 +36,18 @@ const OneItem = ({ data, price, like, currentUser }) => {
   };
 
   const toggleUnlike = () => {
+    const newArray = wishlistData.filter((i) => i._id !== data._id);
     AuthService.unlike(data._id)
       .then(() => {
         setLiked(false);
+        setWishlistData(newArray)
+
       })
       .catch((e) => {
         console.log(e.response.data);
       });
   };
+
   const remindLogin = () => {
     alert("Please login first.");
   };

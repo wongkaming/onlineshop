@@ -3,7 +3,6 @@ import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import WishlistItem from "@/hook/item";
 import {
   Cart,
   MobileSearch,
@@ -21,7 +20,6 @@ import {
   CiBoxList,
   CiUser,
   CiEdit,
-  CiSaveDown2,
 } from "react-icons/ci";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { RiFolderZipLine } from "react-icons/ri";
@@ -56,33 +54,8 @@ const Nav = () => {
 
   const [toggle, setToggle] = useState(false);
   const [goBack, setgoBack] = useState(false);
-  const [mobileWishlistData, setMobileWishlistData] = useState(null);
 
-  useEffect(() => {
-    let _id;
-    if (currentUser) {
-      _id = currentUser.user._id;
-      if (currentUser.user.role === "admin") {
-        WishlistItem.get(_id)
-          .then((data) => {
-            setMobileWishlistData(data.data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      } else if (currentUser.user.role === "user") {
-        WishlistItem.getWishlist(_id)
-          .then((data) => {
-            setMobileWishlistData(data.data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      }
-    }
-  }, [goBack, currentUser]);
-
-  const { homepage, setHomepage } = useContext(UserContext);
+  const { homepage, setHomepage, wishlistData } = useContext(UserContext);
   const { setCartItems, backupCartItems } = useContext(CartContext);
   const pathname = usePathname();
   const [edit, setEdit] = useState(false);
@@ -296,7 +269,7 @@ const Nav = () => {
           <div>
             <MobileWishlistPage
               currentUser={currentUser}
-              wishlistData={mobileWishlistData}
+              wishlistData={wishlistData}
             />
           </div>
         </div>

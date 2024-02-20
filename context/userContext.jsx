@@ -23,7 +23,7 @@ const UserProvider = ({ children }) => {
       if (currentUser.user.role === "admin") {
         WishlistItem.get(_id)
           .then((data) => {
-            setWishlistData(data.data);
+            setWishlistData(data.data.items);
           })
           .catch((e) => {
             console.log(e);
@@ -31,7 +31,7 @@ const UserProvider = ({ children }) => {
       } else if (currentUser.user.role === "user") {
         WishlistItem.getWishlist(_id)
           .then((data) => {
-            setWishlistData(data.data);
+            setWishlistData(data.data.items);
           })
           .catch((e) => {
             console.log(e);
