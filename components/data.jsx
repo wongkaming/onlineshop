@@ -8,29 +8,36 @@ import AuthService from "../hook/item";
 import { UserContext } from "@/context/userContext";
 
 const Data = ({ data, price, currentUser }) => {
-  const { wishlistData, setWishlistData } = useContext(UserContext);
+  const { setWishlistData } = useContext(UserContext);
   let [liked, setLiked] = useState(true);
 
   const toggleFavorite = () => {
-    AuthService.enroll(data._id)
-      .then(() => {
-        setLiked(true);
-        setWishlistData(wishlistData.concat(data));
-      })
-      .catch((e) => {
-        console.log(e.response.data);
-      });
+    setLiked(true);
+    const timerId = setTimeout(async () => {
+      AuthService.enroll(data._id)
+        .then(() => {
+          clearTimeout(timerId);
+          setWishlistData((prevWishlistData) => prevWishlistData.concat(data));
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    }, 1000);
   };
   const toggleUnlike = () => {
-    const newArray = wishlistData.filter((i) => i._id !== data._id);
-    AuthService.unlike(data._id)
-      .then(() => {
-        // setLiked(false);
-        setWishlistData(newArray);
-      })
-      .catch((e) => {
-        console.log(e.response.data);
-      });
+    setLiked(false);
+    const timerId = setTimeout(async () => {
+      AuthService.unlike(data._id)
+        .then(() => {
+          clearTimeout(timerId);
+          setWishlistData((prevWishlistData) =>
+            prevWishlistData.filter((item) => item._id !== data._id)
+          );
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    }, 1000);
   };
 
   const [isHovered, setIsHovered] = useState(false);

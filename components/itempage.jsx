@@ -145,25 +145,32 @@ const ItemPage = ({ data, like }) => {
   }, [currentUser, wishlistData]);
 
   const toggleFavorite = () => {
-    ItemService.enroll(data._id)
-      .then(() => {
-        setLiked(true);
-        setWishlistData(wishlistData.concat(data));
-      })
-      .catch((e) => {
-        console.log(e.response.data);
-      });
+    setLiked(true);
+    const timerId = setTimeout(async () => {
+      ItemService.enroll(data._id)
+        .then(() => {
+          clearTimeout(timerId);
+          setWishlistData((prevWishlistData) => prevWishlistData.concat(data));
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    }, 1000);
   };
   const toggleUnlike = () => {
-    const newArray = wishlistData.filter((i) => i._id !== data._id);
-    ItemService.unlike(data._id)
-      .then(() => {
-        setLiked(false);
-        setWishlistData(newArray);
-      })
-      .catch((e) => {
-        console.log(e.response.data);
-      });
+    setLiked(false);
+    const timerId = setTimeout(async () => {
+      ItemService.unlike(data._id)
+        .then(() => {
+          clearTimeout(timerId);
+          setWishlistData((prevWishlistData) =>
+            prevWishlistData.filter((item) => item._id !== data._id)
+          );
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    }, 1000);
   };
 
   const [curr, setCurr] = useState(null);
@@ -384,6 +391,7 @@ const ItemPage = ({ data, like }) => {
                     width: "1.5em",
                     height: "1.5em",
                     color: "black",
+                    cursor: "pointer",
                   }}
                 />
               )}
@@ -394,6 +402,7 @@ const ItemPage = ({ data, like }) => {
                       width: "2em",
                       height: "2em",
                       color: "black",
+                      cursor: "pointer",
                     }}
                   />
                 </a>
@@ -405,6 +414,7 @@ const ItemPage = ({ data, like }) => {
                       width: "2em",
                       height: "2em",
                       color: "black",
+                      cursor: "pointer",
                     }}
                   />
                 </a>
