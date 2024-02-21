@@ -8,7 +8,7 @@ const MobileWishlistPage = ({ currentUser, wishlistData }) => {
   const handleTakeToLogin = (e) => {
     e.preventDefault();
     router.push("/user/login");
-  };
+  }; 
 
   return (
     <div className="flex w-full justify-center">
@@ -47,6 +47,19 @@ const MobileWishlistPage = ({ currentUser, wishlistData }) => {
           {currentUser && currentUser.user.role == "admin" && (
             <div>
               <h1>歡迎來到Admin頁面。</h1>
+            </div>
+          )}
+          {currentUser && wishlistData == "" && (
+            <div className="overflow-auto grow mt-14">
+              <div className="flex w-full justify-center mb-2">
+                <img
+                  src="https://media.discordapp.net/attachments/1169686419778838622/1202659319452016742/208ca7149511131.5e46400fbbfde.jpg?ex=65ce42c6&is=65bbcdc6&hm=ac9af0f34b57fb9f6a018b5aeabb6bd7e0fc0814421d69341c868ccd492ba3dc&=&format=webp"
+                  alt=""
+                  width="100"
+                  height="100"
+                />
+              </div>
+              <p className="mb-6 flex w-full justify-center">It's empty here!</p>
             </div>
           )}
 

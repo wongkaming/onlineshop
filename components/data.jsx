@@ -25,7 +25,7 @@ const Data = ({ data, price, currentUser, like }) => {
     const newArray = wishlistData.filter((i) => i._id !== data._id);
     AuthService.unlike(data._id)
       .then(() => {
-        setLiked(false);
+        // setLiked(false);
         setWishlistData(newArray)
       })
       .catch((e) => {

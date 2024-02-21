@@ -22,7 +22,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
           console.error(e.response ? e.response.data : e);
         });
     }
-  }, [like, currentUser]);
+  }, [like, currentUser, wishlistData]);
 
   const toggleFavorite = () => {
     AuthService.enroll(data._id)

@@ -54,7 +54,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-row justify-between absolute w-full h-full top-0 bottom-0 right-0 left-0 overflow-hidden">
+    <div className="flex flex-row justify-between absolute w-full h-full min-h-[540px] top-0 bottom-0 right-0 left-0 overflow-hidden">
       {!preview && (
         <div
           className={`hidden lg:flex lg:flex-row justify-around w-full h-full items-center`}
