@@ -8,21 +8,16 @@ import { GoHeartFill } from "react-icons/go";
 import AuthService from "@/hook/item";
 import { UserContext } from "@/context/userContext";
 
-const OneItem = ({ data, price, like, currentUser }) => {
+const OneItem = ({ data, price, currentUser }) => {
   const { wishlistData, setWishlistData } = useContext(UserContext);
   let [liked, setLiked] = useState(false);
   useEffect(() => {
-    setLiked(false);
-    if (currentUser && currentUser.user && currentUser.user.role === "user") {
-      AuthService.getLikedItem(like)
-        .then((i) => {
-          setLiked(i.data);
-        })
-        .catch((e) => {
-          console.error(e.response ? e.response.data : e);
-        });
+    if (currentUser) {
+      const index = wishlistData.findIndex((i) => i._id === data._id);
+      setLiked(index !== -1); //确保不要在父组件的渲染方法中创建新的对象或数组
+      // console.log("set");
     }
-  }, [like, currentUser, wishlistData]);
+  }, [currentUser, wishlistData]);
 
   const toggleFavorite = () => {
     AuthService.enroll(data._id)
@@ -40,8 +35,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
     AuthService.unlike(data._id)
       .then(() => {
         setLiked(false);
-        setWishlistData(newArray)
-
+        setWishlistData(newArray);
       })
       .catch((e) => {
         console.log(e.response.data);
@@ -85,7 +79,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
                 width: "1.5em",
                 height: "1.5em",
                 color: "black",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             />
           )}
@@ -97,7 +91,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
                 width: "1.5em",
                 height: "1.5em",
                 color: "black",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             />
           )}
@@ -109,7 +103,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
                 width: "1.5em",
                 height: "1.5em",
                 color: "black",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             />
           )}

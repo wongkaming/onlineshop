@@ -146,7 +146,11 @@ const Nav = () => {
                 className="w-[24px] h-[24px]"
                 onClick={toggleHandle}
               />
-              {total !== 0 && <div className="rounded-full bg-red-700 flex justify-center text-sm w-[20px] h-[20px] text-white absolute bottom-0 right-0">{total}</div>}
+              {total !== 0 && (
+                <div className="rounded-full bg-red-700 flex justify-center text-sm w-[20px] h-[20px] text-white absolute bottom-0 right-0">
+                  {total}
+                </div>
+              )}
             </li>
           </ul>
 

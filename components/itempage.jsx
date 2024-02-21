@@ -126,41 +126,45 @@ const Description = ({ description }) => {
 };
 
 const ItemPage = ({ data, like }) => {
+  const {
+    currentUser,
+    setZIndex,
+    zIndex2,
+    setZIndex2,
+    wishlistData,
+    setWishlistData,
+  } = useContext(UserContext);
+
   let [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    if (currentUser) {
+      const index = wishlistData.findIndex((i) => i._id === like);
+      setLiked(index !== -1);
+    }
+  }, [currentUser, wishlistData]);
+
   const toggleFavorite = () => {
     ItemService.enroll(data._id)
       .then(() => {
-        setLiked(!liked);
+        setLiked(true);
+        setWishlistData(wishlistData.concat(data));
       })
       .catch((e) => {
         console.log(e.response.data);
       });
   };
   const toggleUnlike = () => {
+    const newArray = wishlistData.filter((i) => i._id !== data._id);
     ItemService.unlike(data._id)
       .then(() => {
-        setLiked(!liked);
+        setLiked(false);
+        setWishlistData(newArray);
       })
       .catch((e) => {
         console.log(e.response.data);
       });
   };
-
-  const { currentUser, setZIndex, zIndex2, setZIndex2 } =
-    useContext(UserContext);
-
-  useEffect(() => {
-    setLiked(false);
-    if (currentUser && currentUser.user && currentUser.user.role === "user") {
-      ItemService.getLikedItem(like)
-        .then((i) => {
-          setLiked(i.data);
-        })
-        .catch((e) => {
-          console.log(e.response.data);
-        });
-    }
-  }, [like, currentUser]);
 
   const [curr, setCurr] = useState(null);
   const { rates, rates2, change, currency, unit } = useContext(CurrencyContext);

@@ -30,7 +30,6 @@ const ItemList = ({ data }) => {
             <OneItem
               data={d}
               price={curr}
-              like={d._id}
               key={index}
               currentUser={currentUser}
             />

@@ -23,13 +23,7 @@ const DataList = ({ data, currentUser }) => {
             }).format(d.price);
           }
           return (
-            <Data
-              data={d}
-              price={curr}
-              currentUser={currentUser}
-              like={d._id}
-              key={index}
-            />
+            <Data data={d} price={curr} currentUser={currentUser} key={index} />
           );
         })}
     </div>
