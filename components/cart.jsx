@@ -6,12 +6,11 @@ import { CurrencyContext } from "@/context/currencyContext";
 import { UserContext } from "@/context/userContext";
 import ItemService from "@/hook/item";
 
-const cart = ({ edit, setEdit, toggle, setToggle }) => {
+const cart = ({ edit, setEdit, toggle, setToggle, total }) => {
   const { cartItems, setCartItems, backupCartItems, setBackupCartItems } =
     useContext(CartContext);
   const { currentUser } = useContext(UserContext);
   const { rates, rates2, change, currency, unit } = useContext(CurrencyContext);
-  const [total, setTotal] = useState(0);
 
   //call api method
   useEffect(() => {
@@ -29,18 +28,6 @@ const cart = ({ edit, setEdit, toggle, setToggle }) => {
   }, [currentUser]);
 
   const newCartItems = [...cartItems];
-
-  useEffect(() => {
-    if (cartItems.length !== 0) {
-      setTotal(
-        cartItems.reduce((a, b) => {
-          return a + b.quantity;
-        }, 0)
-      );
-    } else {
-      setTotal(0);
-    }
-  }, [cartItems]);
 
   const toggleConfirm = () => {
     if (cartItems !== backupCartItems) {

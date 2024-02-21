@@ -56,9 +56,22 @@ const Nav = () => {
   const [goBack, setgoBack] = useState(false);
 
   const { homepage, setHomepage, wishlistData } = useContext(UserContext);
-  const { setCartItems, backupCartItems } = useContext(CartContext);
+  const { cartItems, setCartItems, backupCartItems } = useContext(CartContext);
   const pathname = usePathname();
   const [edit, setEdit] = useState(false);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    if (cartItems.length !== 0) {
+      setTotal(
+        cartItems.reduce((a, b) => {
+          return a + b.quantity;
+        }, 0)
+      );
+    } else {
+      setTotal(0);
+    }
+  }, [cartItems]);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -82,7 +95,7 @@ const Nav = () => {
           setHomepage(true);
         }}
       >
-        <div className="w-full flex justify-between items-center max-w-8xl mx-auto px-5 lg:px-9 py-2 backdrop-blur-lg bg-white/90 hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50">
+        <div className="w-full flex justify-between items-center max-w-8xl mx-auto px-5 lg:pl-9 lg:pr-7 py-2 backdrop-blur-lg bg-white/90 hover:bg-white transition duration-300 ease-in-out shadow-md shadow-[#d5e8ff]/50">
           <Link href="/" className="flex items-center gap-2">
             <p className="text-[18px] font-bold cursor-pointer flex">
               DazeStory☾
@@ -128,11 +141,12 @@ const Nav = () => {
               </li>
             )}
 
-            <li>
+            <li className="relative w-9">
               <CiShoppingCart
                 className="w-[24px] h-[24px]"
                 onClick={toggleHandle}
               />
+              {total !== 0 && <div className="rounded-full bg-red-700 flex justify-center text-sm w-[20px] h-[20px] text-white absolute bottom-0 right-0">{total}</div>}
             </li>
           </ul>
 
@@ -212,7 +226,7 @@ const Nav = () => {
               )}
               {edit && (
                 <button
-                  className="text-md font-semibold text-[#c50100] underline"
+                  className="text-md font-semibold text-red-700 underline"
                   onClick={() => {
                     setEdit(false);
                     setCartItems(backupCartItems);
@@ -239,6 +253,7 @@ const Nav = () => {
               setEdit={setEdit}
               toggle={toggle}
               setToggle={setToggle}
+              total={total}
             />
           </div>
         </div>

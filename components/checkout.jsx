@@ -36,7 +36,7 @@ const Checkout = () => {
   useEffect(() => {
     if (cartItems.length !== 0) {
       let curr = cartItems.reduce((a, b) => {
-        return a + b.item.price;
+        return a + b.item.price * b.quantity;
       }, 0);
 
       if (change == true) {
@@ -88,7 +88,7 @@ const Checkout = () => {
 
   return (
     <div className="flex lg:flex-row flex-col gap-8 w-full">
-      <div className="flex flex-col lg:w-2/3 overflow-y-auto h-full">
+      <div className="flex flex-col lg:w-2/3 overflow-y-auto h-full min-h-[400px]">
         <ul className="list-none flex items-start flex-1 flex-col gap-4 lg:m-4 bubble p-2 mt-2">
           <li className="flex flex-row w-full justify-between px-2">
             <h1 className="text-lg text-[#5a6674] lg:text-xl font-semibold">
@@ -117,7 +117,7 @@ const Checkout = () => {
                   />
                 )}
                 <button
-                  className="text-md font-semibold text-[#c50100] underline"
+                  className="text-md font-semibold text-red-700 underline"
                   onClick={() => {
                     setEdit(false);
                     setCartItems(backupCartItems);
