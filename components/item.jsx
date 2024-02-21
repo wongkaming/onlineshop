@@ -85,6 +85,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
                 width: "1.5em",
                 height: "1.5em",
                 color: "black",
+                cursor: "pointer"
               }}
             />
           )}
@@ -96,6 +97,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
                 width: "1.5em",
                 height: "1.5em",
                 color: "black",
+                cursor: "pointer"
               }}
             />
           )}
@@ -107,6 +109,7 @@ const OneItem = ({ data, price, like, currentUser }) => {
                 width: "1.5em",
                 height: "1.5em",
                 color: "black",
+                cursor: "pointer"
               }}
             />
           )}

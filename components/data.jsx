@@ -49,7 +49,7 @@ const Data = ({ data, price, currentUser, like }) => {
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="border border-white rounded-t-md"
+          className="border border-white rounded-t-md cursor-pointer"
         />
       <div className="backdrop-blur-md bg-white/80 hover:bg-white transition duration-300 ease-in-out pb-5 border border-white rounded-b-md">
         <h3 className="mt-1 p-2 text-[14px] max-w-[400px] truncate">
@@ -66,6 +66,7 @@ const Data = ({ data, price, currentUser, like }) => {
                       width: "1.5em",
                       height: "1.5em",
                       color: "black",
+                      cursor: "pointer"
                     }}
                   />
                 </a>
@@ -77,6 +78,7 @@ const Data = ({ data, price, currentUser, like }) => {
                       width: "1.5em",
                       height: "1.5em",
                       color: "black",
+                      cursor: "pointer"
                     }}
                   />
                 </a>

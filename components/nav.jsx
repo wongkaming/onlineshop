@@ -141,7 +141,7 @@ const Nav = () => {
               </li>
             )}
 
-            <li className="relative w-9">
+            <li className="relative w-9 cursor-pointer">
               <CiShoppingCart
                 className="w-[24px] h-[24px]"
                 onClick={toggleHandle}
@@ -218,7 +218,7 @@ const Nav = () => {
             <div className="flex flex-row items-center gap-4">
               {!edit && (
                 <CiEdit
-                  className="w-5 h-5"
+                  className="w-5 h-5 cursor-pointer"
                   onClick={() => {
                     setEdit(true);
                   }}
@@ -238,7 +238,7 @@ const Nav = () => {
               <Image
                 src={close}
                 alt="menu"
-                className="w-[16px] h-[16px] object-contain"
+                className="w-[16px] h-[16px] object-contain cursor-pointer"
                 onClick={() => {
                   setToggle(!toggle);
                   setCartItems(backupCartItems);
