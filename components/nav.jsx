@@ -250,6 +250,8 @@ const Nav = () => {
           </div>
           <div className="flex flex-col w-full h-screen">
             <Cart
+              cartItems={[...cartItems]}
+              backupCartItems={backupCartItems}
               edit={edit}
               setEdit={setEdit}
               toggle={toggle}

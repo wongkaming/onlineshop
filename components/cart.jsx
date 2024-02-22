@@ -6,8 +6,8 @@ import { CurrencyContext } from "@/context/currencyContext";
 import { UserContext } from "@/context/userContext";
 import ItemService from "@/hook/item";
 
-const cart = ({ edit, setEdit, toggle, setToggle, total }) => {
-  const { cartItems, setCartItems, backupCartItems, setBackupCartItems } =
+const cart = ({ cartItems, backupCartItems, edit, setEdit, toggle, setToggle, total }) => {
+  const { setCartItems, setBackupCartItems } =
     useContext(CartContext);
   const { currentUser } = useContext(UserContext);
   const { rates, rates2, change, currency, unit } = useContext(CurrencyContext);
@@ -27,7 +27,7 @@ const cart = ({ edit, setEdit, toggle, setToggle, total }) => {
     }
   }, [currentUser]);
 
-  const newCartItems = [...cartItems];
+  const newCartItems = cartItems;
 
   const toggleConfirm = () => {
     if (cartItems !== backupCartItems) {
