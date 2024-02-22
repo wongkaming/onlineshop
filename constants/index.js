@@ -135,8 +135,8 @@ export const IntroList = [
     category: "NEW ARRIVALS",
     coverimage: "",
     hostimage:[
-      "https://cdn.discordapp.com/attachments/1169686419778838622/1170061696010817648/18.png?ex=6557abdf&is=654536df&hm=53d244b17be28ef27e91d3f5065fb6afd3d136dde09bb7591df244efeebf321a&",
-      "https://cdn.discordapp.com/attachments/1169686419778838622/1204041716009668648/ezgif-5-eaf4e6d872.jpg?ex=65d34a3b&is=65c0d53b&hm=0fb85409c5836b52af6353dec636f361a9efb88032e2655ebacb454fec928c3a&"
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/18+(1).png",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/ezgif-5-eaf4e6d872.jpg"
     ]
   },
   {
@@ -146,7 +146,7 @@ export const IntroList = [
       "The beach with power lines and a blue sky, in the style of light purple and dark cyan, a female wearing beautiful long dress playing the water, depictions of inclement weather, dusty piles, maori art, urban exploration, calming effect, transportcore",
     category: "NEW ARRIVALS",
     coverimage:
-      "https://cdn.discordapp.com/attachments/1169686419778838622/1204039834604277801/10.png?ex=65d3487a&is=65c0d37a&hm=53f831e49dbce0b2325ad771d92e22f71418f6baf93646722667b3ce1301af8e&",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/10.png",
     hostimage: [],
   },
   {
@@ -157,8 +157,8 @@ export const IntroList = [
     category: "FEATURED STYLES",
     coverimage: "",
     hostimage:[
-      "https://cdn.discordapp.com/attachments/1169686419778838622/1204061594922000395/ezgif-1-2ddede1e77.jpg?ex=65d35cbe&is=65c0e7be&hm=051c79e73d3119d2a32f59f4dbbe3180fe673d2be7389e3e6110d6d1a81f4e37&",
-      "https://cdn.discordapp.com/attachments/1169686419778838622/1204061594649104384/ezgif-1-839c51d15a.jpg?ex=65d35cbe&is=65c0e7be&hm=5f81a80caa8a81910845e7e5ee04a2cc2a69483cf2e77ea67b53369be8aa001e&"
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/ezgif-1-2ddede1e77.jpg",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/ezgif-1-839c51d15a.jpg"
     ]
   },
   {
@@ -170,8 +170,8 @@ export const IntroList = [
     coverimage: "",
 
     hostimage: [
-      "https://cdn.discordapp.com/attachments/1169686419778838622/1170048814657327204/16.png?ex=65579fdf&is=65452adf&hm=08d91ec1407fd16555cf2d18ba46e4f44bdcc73f540d2a2dad1ce9aa308df00e&",
-      "https://cdn.discordapp.com/attachments/1169686419778838622/1204037019437760542/15.png?ex=65d345db&is=65c0d0db&hm=9e0fe17b4942cbcef814068c8b1c90e69162402b757456841dd87ed7470c6e8e&",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/16.png",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/15.png",
 
     ]
 
