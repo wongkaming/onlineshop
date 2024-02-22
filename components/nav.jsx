@@ -141,11 +141,8 @@ const Nav = () => {
               </li>
             )}
 
-            <li className="relative w-9 cursor-pointer">
-              <CiShoppingCart
-                className="w-[24px] h-[24px]"
-                onClick={toggleHandle}
-              />
+            <li className="relative w-9 cursor-pointer" onClick={toggleHandle}>
+              <CiShoppingCart className="w-[24px] h-[24px]"/>
               {total !== 0 && (
                 <div className="rounded-full bg-red-700 flex justify-center text-sm w-[20px] h-[20px] text-white absolute bottom-0 right-0">
                   {total}
