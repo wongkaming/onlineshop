@@ -10,6 +10,7 @@ import ProductProvider from "@/context/productContext";
 import CartProvider from "@/context/cartContext";
 import { AnimatePresence } from "framer-motion";
 import { Inconsolata } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react"
 
 const font = Inconsolata({ weight: "400", preload: false });
 
@@ -96,6 +97,7 @@ export default function RootLayout({ children }) {
               </CartProvider>
             </UserProvider>
           </AnimatePresence>
+          <Analytics />
         </main>
       </body>
     </html>
