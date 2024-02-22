@@ -18,8 +18,7 @@ const WellcomePage = ({ handleClick }) => {
     <>
       <div className="text-xl text-white">
         HKT
-        <br />
-        FEB 04 24
+
       </div>
       <div className="text-xl text-[#00FF00] font-semibold w-80 flex">
         <p className="pr-2">C: {">"}</p>
