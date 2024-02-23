@@ -14,6 +14,7 @@ const CartProvider = ({ children }) => {
   useEffect(() => {
     // 这个函数用于初始化购物车
     const initializeCart = () => {
+      localStorage.removeItem("cart")
       const localCart = AuthService.getLocalCart();
       // 检查 localCart 是否存在，并且不是 "null" 字符串
       if (localCart && localCart !== "null") {

@@ -41,11 +41,11 @@ class AuthService {
     return JSON.parse(localStorage.getItem("user"));
   }
   setLocalCart(item) {
-    return localStorage.setItem("cart", JSON.stringify(item));
+    return localStorage.setItem("cart2", JSON.stringify(item));
   }
 
   getLocalCart() {
-    return JSON.parse(localStorage.getItem("cart"));
+    return JSON.parse(localStorage.getItem("cart2"));
   }
 }
 

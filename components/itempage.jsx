@@ -230,7 +230,7 @@ const ItemPage = ({ data, like }) => {
               ...newCartItems[itemIndex],
               quantity: (newCartItems[itemIndex].quantity || 1) + 1,
             };
-            localStorage.setItem("cart", JSON.stringify(newCartItems));
+            localStorage.setItem("cart2", JSON.stringify(newCartItems));
             setCartItems(newCartItems);
             setBackupCartItems(newCartItem);
           } else {
@@ -238,7 +238,7 @@ const ItemPage = ({ data, like }) => {
           }
         } else {
           localStorage.setItem(
-            "cart",
+            "cart2",
             JSON.stringify([newCartItem, ...cartItems])
           );
           setCartItems([newCartItem, ...cartItems]);
