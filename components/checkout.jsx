@@ -78,7 +78,7 @@ const Checkout = () => {
 
   const localConfirm = () => {
     if (cartItems !== backupCartItems) {
-      localStorage.setItem("cart2", JSON.stringify(newCartItems));
+      localStorage.setItem("cart3", JSON.stringify(newCartItems));
       setBackupCartItems(newCartItems);
       setEdit(false);
     } else {

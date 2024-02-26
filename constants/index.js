@@ -135,8 +135,8 @@ export const IntroList = [
     category: "NEW ARRIVALS",
     coverimage: "",
     hostimage:[
-      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/18+(1).png",
-      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/ezgif-5-eaf4e6d872.jpg"
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/18.webp",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/12.webp"
     ]
   },
   {
@@ -146,7 +146,7 @@ export const IntroList = [
       "The beach with power lines and a blue sky, in the style of light purple and dark cyan, a female wearing beautiful long dress playing the water, depictions of inclement weather, dusty piles, maori art, urban exploration, calming effect, transportcore",
     category: "NEW ARRIVALS",
     coverimage:
-      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/10.png",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/10.webp",
     hostimage: [],
   },
   {
@@ -157,8 +157,8 @@ export const IntroList = [
     category: "FEATURED STYLES",
     coverimage: "",
     hostimage:[
-      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/ezgif-1-2ddede1e77.jpg",
-      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/ezgif-1-839c51d15a.jpg"
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/14.webp",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/13.webp"
     ]
   },
   {
@@ -170,8 +170,8 @@ export const IntroList = [
     coverimage: "",
 
     hostimage: [
-      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/16.png",
-      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/15.png",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/16.webp",
+      "https://onlineshop-3d-models.s3.ap-southeast-2.amazonaws.com/introPic/15.webp",
 
     ]
 

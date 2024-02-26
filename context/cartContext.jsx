@@ -13,7 +13,7 @@ const CartProvider = ({ children }) => {
 
   useEffect(() => {
     const initializeCart = () => {
-      localStorage.removeItem("cart")
+      localStorage.removeItem("cart2");
       const localCart = AuthService.getLocalCart();
       if (localCart && localCart !== "null") {
         try {
@@ -35,8 +35,7 @@ const CartProvider = ({ children }) => {
       initializeCart();
     }
 
-    return () => {
-    };
+    return () => {};
   }, [currentUser]);
 
   const value = {
