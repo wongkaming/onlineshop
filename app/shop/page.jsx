@@ -46,9 +46,8 @@ const CategoryMenu = () => {
         .finally(() => {
           setLoading(false);
         });
-    }, 1000); // 等待3秒
+    }, 1000); 
 
-    // 如果category变更或组件卸载，清除定时器
     return () => {
       clearTimeout(timerId);
       setLoading(false);

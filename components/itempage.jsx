@@ -216,7 +216,6 @@ const ItemPage = ({ data, like }) => {
 
     if (selectedSize !== null) {
       if (selectedColor !== null || data.typeSelector.length === 0) {
-        //用find的比较方式可能是不正确; 比较的是引用，而不是对象的值, 不如直接找有沒有
         const itemIndex = cartItems.findIndex(
           (e) =>
             e.item._id === newCartItem.item._id &&

@@ -15,7 +15,6 @@ import Loading from './loading';
 import Nothing from './nothing';
 import MenuTable from './MenuTable';
 import Nav from './nav';
-import NoticeBar from './noticebar';
 import Preview from './preview';
 import Profile from './profile';
 import Register from './register';
@@ -26,7 +25,6 @@ import SearchResultList from './searchresultlist';
 import WishlistPage from './wishlist';
 import MobileWishlistPage from './mobileWishlist';
 import ConfigButton from './ConfigButton';
-import Quantity from './quantityButton';
 import Coming from './coming';
 
 export {
@@ -47,7 +45,6 @@ export {
     Nothing,
     MenuTable,
     Nav, 
-    NoticeBar,
     Preview, 
     Profile,
     Register, 
@@ -58,6 +55,5 @@ export {
     WishlistPage,
     MobileWishlistPage,
     ConfigButton,
-    Quantity,
     Coming
 };

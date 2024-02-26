@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useContext } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { GoHeart } from "react-icons/go";
@@ -14,7 +13,7 @@ const OneItem = ({ data, price, currentUser }) => {
   useEffect(() => {
     if (currentUser) {
       const index = wishlistData.findIndex((i) => i._id === data._id);
-      setLiked(index !== -1); //确保不要在父组件的渲染方法中创建新的对象或数组
+      setLiked(index !== -1); 
       // console.log("set");
     }
   }, [currentUser, wishlistData]);
